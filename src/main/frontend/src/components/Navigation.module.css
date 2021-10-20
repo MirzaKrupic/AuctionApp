@@ -1,0 +1,28 @@
+.nav{
+    background-color: white;
+    text-transform: uppercase;
+}
+
+.navchild{
+    color: #252525!important;
+}
+
+.navchild:hover{
+    color: #8367D8!important;
+}
+
+.branding{
+    color: #8367D8!important;
+    margin-left: 0;
+}
+
+.bars{
+    width: 100%;
+}
+
+.rowfit{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
