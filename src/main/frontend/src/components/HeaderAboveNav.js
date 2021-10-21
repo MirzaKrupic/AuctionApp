@@ -6,7 +6,7 @@ import {
   faGooglePlus,
   faFacebook,
   faTwitter,
-  faInstagram,
+  faInstagram
 } from "@fortawesome/free-brands-svg-icons";
 
 function HeaderAboveNav(){
