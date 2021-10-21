@@ -4,10 +4,12 @@ import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import HeaderAboveNav from './components/HeaderAboveNav';
 
 function App() {
   return (
     <div className="App">
+      <HeaderAboveNav />
       <Navigation />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />

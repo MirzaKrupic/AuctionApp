@@ -1,0 +1,43 @@
+header{
+    background-color: #252525;
+    height: 40px;
+}
+
+.socialmedia li{
+    display: inline;
+    padding-right: 20px;
+    font-size: 0.75em;
+}
+
+.socialmediafit{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 45%;
+}
+
+.rightsection{
+    color: #9B9B9B;
+    margin-top: 2%;
+    margin-right: 30%;
+}
+
+.rightsection a{
+    text-decoration: none;
+    color: white;
+}
+    
+
+@media screen and (max-width: 768px) {
+    .socialmediafit{
+        margin: auto;
+    }
+
+    .rightsection{
+        margin: auto;
+    }
+  }
+
+ 
+
+
+  

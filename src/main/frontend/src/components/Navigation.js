@@ -5,7 +5,7 @@ import SearchBar from "material-ui-search-bar";
 
 function Navigation(){
     return(
-    <Navbar className={classes.nav} collapseOnSelect fixed='top' expand='sm' variant='light'>
+    <Navbar className={classes.nav} collapseOnSelect expand='sm' variant='light'>
         <Container className={"no-gutters mx-0 px-0"}>
         <Row noGutters={true} className={classes.rowfit}>
             <Col>

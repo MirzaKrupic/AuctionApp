@@ -17,7 +17,7 @@ import {
 function Footer() {
   return (
     <footer>
-      <Container>
+      <Container className={"no-gutters"}>
         <Row className={classes.rowfit}>
           <Col xs={12} md={4} className={classes.colfit}>
             <h3>Auction</h3>
