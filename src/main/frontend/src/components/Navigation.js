@@ -20,7 +20,7 @@ function Navigation(){
             <Navbar.Toggle aria-controls='responsive-navbar-nav' />
             <Navbar.Collapse id='responsive-navbar-nav' className="justify-content-end">
                 <Nav>
-                    <Nav.Link className={classes.navchild} href='/'>Home</Nav.Link>
+                    <Nav.Link className={`${classes.navchild} ${classes.activechild}`} href='/'>Home</Nav.Link>
                     <Nav.Link className={classes.navchild} href='/'>Shop</Nav.Link>
                     <Nav.Link className={classes.navchild} href='/'>My Account</Nav.Link>
                 </Nav>

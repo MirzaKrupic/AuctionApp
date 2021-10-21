@@ -1,6 +1,7 @@
 header{
     background-color: #252525;
     height: 40px;
+    font-family: Lato, Arial, serif;
 }
 
 .socialmedia li{
@@ -18,7 +19,7 @@ header{
 .rightsection{
     color: #9B9B9B;
     margin-top: 2%;
-    margin-right: 45%;
+    margin-right: 55%;
 }
 
 .rightsection a{
