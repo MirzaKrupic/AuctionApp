@@ -3,22 +3,22 @@
     src: local('Lato'), url(../fonts/Lato-Regular.ttf) format('truetype');
   }
 
-.nav{
+.navigation_bar{
     background-color: white;
     text-transform: uppercase;
     font-family: Lato, Arial, serif;
 }
 
-.navchild{
+.navigation_option{
     color: #252525!important;
 }
 
-.navchild:hover{
+.navigation_option:hover{
     color: #8367D8!important;
 }
 
 .branding{
-    color: #8367D8!important;
+    color: #8367D8;
     margin-left: 0;
 }
 
@@ -32,7 +32,7 @@
     width: 100%;
 }
 
-.activechild{
+.active_navigation_option{
     color: #8367D8!important;
 }
 
