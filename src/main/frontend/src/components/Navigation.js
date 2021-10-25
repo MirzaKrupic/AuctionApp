@@ -3,6 +3,7 @@ import React from "react";
 import classes from "./Navigation.module.css";
 import SearchBar from "material-ui-search-bar";
 import { ReactComponent as LogoSvg } from "../assets/auction-app-logo 1.svg";
+import { Link, BrowserRouter } from "react-router-dom";
 
 function Navigation() {
   return (
@@ -21,6 +22,7 @@ function Navigation() {
             <SearchBar
               className={classes.bars}
               placeholder="Try enter: Shoes"
+              style={{ boxShadow: `0px 0px 0px` }}
             />
           </Col>
           <Col>
@@ -30,18 +32,20 @@ function Navigation() {
               className="justify-content-end"
             >
               <Nav>
-                <Nav.Link
-                  className={`${classes.navigation_option} ${classes.active_navigation_option}`}
-                  href="/"
-                >
-                  Home
-                </Nav.Link>
-                <Nav.Link className={classes.navigation_option} href="/">
-                  Shop
-                </Nav.Link>
-                <Nav.Link className={classes.navigation_option} href="/">
-                  My Account
-                </Nav.Link>
+                <BrowserRouter>
+                  <Nav.Link
+                    className={`${classes.navigation_option} ${classes.active_navigation_option}`}
+                    to="/"
+                  >
+                    Home
+                  </Nav.Link>
+                  <Nav.Link className={classes.navigation_option} to="/">
+                    Shop
+                  </Nav.Link>
+                  <Nav.Link className={classes.navigation_option} to="/">
+                    My Account
+                  </Nav.Link>
+                </BrowserRouter>
               </Nav>
             </Navbar.Collapse>
           </Col>

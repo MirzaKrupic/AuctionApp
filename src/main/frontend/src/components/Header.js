@@ -11,8 +11,8 @@ import {
 
 function Header() {
   return (
-    <header>
-      <Row noGutters={true}>
+    <div className={classes.headercontainer}>
+      <Row className={classes.rowfit}>
         <Col className={classes.socialmediafit}>
           <ul className={classes.socialmedia}>
             <li>
@@ -31,11 +31,12 @@ function Header() {
         </Col>
         <Col>
           <p className={classes.rightsection}>
-            <a href="">Login</a> or <a href="">Register</a>
+            <a href="">Login</a> &nbsp;&nbsp;&nbsp; or &nbsp;&nbsp;&nbsp;{" "}
+            <a href="">Register</a>
           </p>
         </Col>
       </Row>
-    </header>
+    </div>
   );
 }
 

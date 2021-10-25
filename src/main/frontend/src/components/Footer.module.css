@@ -1,10 +1,10 @@
-footer {
+.footercontainer {
   background-color: #252525;
   font-family: Lato, Arial, serif;
   height: 356px;
 }
 
-footer h3 {
+.footercontainer h3 {
   color: #929292;
   margin-top: 31px;
   padding: 0;
@@ -13,14 +13,14 @@ footer h3 {
   font-size: 16px;
 }
 
-footer li {
+.footercontainer li {
   color: #d8d8d8;
   list-style-type: none;
   margin-top: 14px;
   font-size: 16px;
 }
 
-footer ul {
+.footercontainer ul {
   display: inline;
   padding: 0 0 2px;
   margin-right: 0;

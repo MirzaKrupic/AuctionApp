@@ -1,38 +1,37 @@
 @font-face {
-    font-family: 'Lato';
-    src: local('Lato'), url(../fonts/Lato-Regular.ttf) format('truetype');
-  }
-
-.navigation_bar{
-    background-color: white;
-    text-transform: uppercase;
-    font-family: Lato, Arial, serif;
+  font-family: "Lato";
+  src: local("Lato"), url(../fonts/Lato-Regular.ttf) format("truetype");
 }
 
-.navigation_option{
-    color: #252525!important;
+.navigation_bar {
+  background-color: white;
+  text-transform: uppercase;
+  font-family: Lato, Arial, serif;
 }
 
-.navigation_option:hover{
-    color: #8367D8!important;
+.navigation_option {
+  color: #252525 !important;
 }
 
-.branding{
-    color: #8367D8;
-    margin-left: 0;
+.navigation_option:hover {
+  color: #8367d8 !important;
 }
 
-.bars{
-    width: 100%;
+.branding {
+  color: #8367d8;
+  margin-left: 10%;
 }
 
-.rowfit{
-    display: flex;
-    align-items: center;
-    width: 100%;
+.bars {
+  width: 100%;
 }
 
-.active_navigation_option{
-    color: #8367D8!important;
+.rowfit {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
+.active_navigation_option {
+  color: #8367d8 !important;
+}

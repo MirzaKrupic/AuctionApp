@@ -10,8 +10,8 @@ import {
 
 function Footer() {
   return (
-    <footer>
-      <Container className="no-gutters">
+    <div className={classes.footercontainer}>
+      <Container>
         <Row className={classes.rowfit}>
           <Col xs={12} md={4} className={classes.colfit}>
             <h3>Auction</h3>
@@ -80,7 +80,7 @@ function Footer() {
           </Col>
         </Row>
       </Container>
-    </footer>
+    </div>
   );
 }
 
