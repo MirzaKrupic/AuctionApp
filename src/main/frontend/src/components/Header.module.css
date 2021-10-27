@@ -34,12 +34,16 @@
 
 .rightsection {
   color: #9b9b9b;
-  margin-top: 2%;
-  margin-right: 45%;
+  margin-top: 6px;
+  margin-right: 132px;
+
+  display: flex;
+  justify-content: space-between;
+  max-width: 209px;
 }
 
-.rowfit {
-  margin-right: 1.5%;
+.row_positioning {
+  margin-right: 20px;
 }
 
 .rightsection a {

@@ -12,7 +12,7 @@ import {
 function Header() {
   return (
     <div className={classes.headercontainer}>
-      <Row className={classes.rowfit}>
+      <Row className={classes.row_positioning}>
         <Col className={classes.socialmediafit}>
           <ul className={classes.socialmedia}>
             <li>
@@ -31,7 +31,7 @@ function Header() {
         </Col>
         <Col>
           <p className={classes.rightsection}>
-            <a href="">Login</a> &nbsp;&nbsp;&nbsp; or &nbsp;&nbsp;&nbsp;{" "}
+            <a href="">Login</a> or
             <a href="">Register</a>
           </p>
         </Col>

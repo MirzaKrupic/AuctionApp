@@ -10,28 +10,56 @@
 }
 
 .navigation_option {
-  color: #252525 !important;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 19px;
+  margin-left: 20px;
+  text-decoration: none;
+  color: #252525;
 }
 
 .navigation_option:hover {
-  color: #8367d8 !important;
+  color: #8367d8;
 }
 
-.branding {
+.application_logo {
   color: #8367d8;
   margin-left: 10%;
 }
 
-.bars {
-  width: 100%;
-}
-
-.rowfit {
+.row_positioning {
   display: flex;
   align-items: center;
   width: 100%;
 }
 
 .active_navigation_option {
-  color: #8367d8 !important;
+  color: #8367d8;
+}
+
+.search_bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+
+  position: static;
+  width: 548px;
+  height: 57.94px;
+  left: 0px;
+  top: 0px;
+
+  background: #ffffff;
+  border: 1px solid #e3e3e3;
+  box-sizing: border-box;
+}
+
+.search_icon {
+  position: absolute;
+  right: 470px;
+  top: 30px;
+  bottom: auto;
 }

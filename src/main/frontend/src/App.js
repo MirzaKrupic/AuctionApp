@@ -14,13 +14,11 @@ function App() {
     <div className="App">
       <PageLayout>
         <BrowserRouter>
-          <div>
             <Switch>
               <Route path="/" exact>
                 <Home />
               </Route>
             </Switch>
-          </div>
         </BrowserRouter>
       </PageLayout>
     </div>

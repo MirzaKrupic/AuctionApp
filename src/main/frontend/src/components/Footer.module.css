@@ -28,36 +28,15 @@
   margin-top: 24px;
 }
 
-.colfit {
+.col_positioning {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
 }
 
-.socialmedia li {
-  display: inline;
-  padding-right: 20px;
-  font-size: 0.75em;
-}
-
-.newsletterinput {
-  width: 256px;
-  border-radius: 0;
-  background-color: #3b3b3b;
-  border-style: none;
-  color: #717171;
-}
-
-.newsletterbtn {
-  color: white;
-  border-radius: 0;
-  border-color: #8367d8;
-  margin-left: 24px;
-  margin-right: 10px;
-  width: stretch;
-}
-
-.newsletterbtn:hover {
-  color: #8367d8;
+.socialmediapositioning {
+  max-width: 150px;
+  display: flex;
+  justify-content: space-between;
 }
