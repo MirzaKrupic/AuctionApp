@@ -1,13 +1,7 @@
 import classes from "./Footer.module.css";
 import { Container, Col, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGooglePlus,
-  faFacebook,
-  faTwitter,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
 import NewsletterForm from "./NewsletterForm";
+import FooterSocialMedia from "./FooterSocialMedia";
 
 function Footer() {
   return (
@@ -29,12 +23,7 @@ function Footer() {
               <li>Call Us at +123 797-567-2535</li>
               <li>support@auction.com</li>
               <li>
-                <div className={classes.socialmediapositioning}>
-                  <FontAwesomeIcon icon={faFacebook} size="2x" />
-                  <FontAwesomeIcon icon={faInstagram} size="2x" />
-                  <FontAwesomeIcon icon={faTwitter} size="2x" />
-                  <FontAwesomeIcon icon={faGooglePlus} size="2x" />
-                </div>
+                <FooterSocialMedia />
               </li>
             </ul>
           </Col>
