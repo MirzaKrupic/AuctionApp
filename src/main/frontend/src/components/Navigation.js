@@ -3,7 +3,7 @@ import React from "react";
 import classes from "./Navigation.module.css";
 import { ReactComponent as LogoSvg } from "../assets/auction-app-logo 1.svg";
 import { ReactComponent as SearchIconSvg } from "../assets/search-icon.svg";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Navigation() {
   return (
@@ -14,7 +14,6 @@ function Navigation() {
             <LogoSvg className={classes.application_logo} />
           </Col>
           <Col xs={6}>
-            <form>
               <input
                 className={classes.search_bar}
                 type="text"
@@ -22,7 +21,6 @@ function Navigation() {
                 aria-label="Search"
               />
               <SearchIconSvg className={classes.search_icon} />
-            </form>
           </Col>
           <Col>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -31,7 +29,6 @@ function Navigation() {
               className="justify-content-end"
             >
               <Nav>
-                <BrowserRouter>
                   <Link
                     className={`${classes.navigation_option} ${classes.active_navigation_option}`}
                     to="/"
@@ -44,7 +41,6 @@ function Navigation() {
                   <Link className={classes.navigation_option} to="/">
                     My Account
                   </Link>
-                </BrowserRouter>
               </Nav>
             </Navbar.Collapse>
           </Col>

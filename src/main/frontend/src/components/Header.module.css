@@ -32,7 +32,7 @@
   margin-right: 50%;
 }
 
-.rightsection {
+.login_register_section {
   color: #9b9b9b;
   margin-top: 6px;
   margin-right: 146px;
@@ -46,7 +46,7 @@
   margin-right: 20px;
 }
 
-.rightsection a {
+.login_register_section a {
   text-decoration: none;
   color: white;
 }
@@ -56,7 +56,7 @@
     margin: auto;
   }
 
-  .rightsection {
+  .login_register_section {
     margin: auto;
   }
 }

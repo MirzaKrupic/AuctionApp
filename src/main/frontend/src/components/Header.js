@@ -1,6 +1,7 @@
 import { Col, Row } from "react-bootstrap";
 import React from "react";
 import classes from "./Header.module.css";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGooglePlus,
@@ -30,9 +31,9 @@ function Header() {
           </ul>
         </Col>
         <Col>
-          <p className={classes.rightsection}>
-            <a href="">Login</a> or
-            <a href="">Register</a>
+          <p className={classes.login_register_section}>
+            <Link to="/">Login</Link> or
+            <Link to="/">Register</Link>
           </p>
         </Col>
       </Row>
