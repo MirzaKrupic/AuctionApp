@@ -29,14 +29,13 @@
 .socialmediafit {
   margin-top: auto;
   margin-bottom: auto;
-  margin-right: 50%;
+  margin-left: 65px;
 }
 
 .login_register_section {
   color: #9b9b9b;
   margin-top: 6px;
-  margin-right: 146px;
-
+  margin-left: 240px;
   display: flex;
   justify-content: space-between;
   max-width: 209px;

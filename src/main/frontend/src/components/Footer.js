@@ -1,7 +1,7 @@
 import classes from "./Footer.module.css";
 import { Container, Col, Row } from "react-bootstrap";
 import NewsletterForm from "./NewsletterForm";
-import FooterSocialMedia from "./FooterSocialMedia";
+import SocialMedia from "./SocialMedia";
 
 function Footer() {
   return (
@@ -23,7 +23,7 @@ function Footer() {
               <li>Call Us at +123 797-567-2535</li>
               <li>support@auction.com</li>
               <li>
-                <FooterSocialMedia />
+                <SocialMedia />
               </li>
             </ul>
           </Col>
