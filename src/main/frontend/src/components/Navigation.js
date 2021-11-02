@@ -2,7 +2,6 @@ import { Navbar, Nav, Container, Col, Row } from "react-bootstrap";
 import React from "react";
 import classes from "./Navigation.module.css";
 import { ReactComponent as LogoSvg } from "../assets/auction-app-logo 1.svg";
-import { ReactComponent as SearchIconSvg } from "../assets/search-icon.svg";
 import { Link } from "react-router-dom";
 
 function Navigation() {
@@ -20,7 +19,6 @@ function Navigation() {
                 placeholder="Search"
                 aria-label="Search"
               />
-              <SearchIconSvg className={classes.search_icon} />
           </Col>
           <Col>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
