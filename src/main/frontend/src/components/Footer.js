@@ -2,10 +2,13 @@ import classes from "./Footer.module.css";
 import { Container, Col, Row } from "react-bootstrap";
 import NewsletterForm from "./NewsletterForm";
 import SocialMedia from "./SocialMedia";
+import LayoutContainer from "./LayoutContainer";
 
 function Footer() {
   return (
+    
     <div className={classes.footercontainer}>
+      <LayoutContainer>
       <Container>
         <Row className={classes.row_positioning}>
           <Col xs={12} md={4} className={classes.col_positioning}>
@@ -41,7 +44,9 @@ function Footer() {
           </Col>
         </Row>
       </Container>
+      </LayoutContainer>
     </div>
+    
   );
 }
 

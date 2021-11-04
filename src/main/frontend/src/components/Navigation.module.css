@@ -26,7 +26,6 @@
 
 .application_logo {
   color: #8367d8;
-  margin-left: 10%;
 }
 
 .row_positioning {
@@ -49,8 +48,7 @@
   position: static;
   width: 548px;
   height: 57.94px;
-  left: 0px;
-  top: 0px;
+  margin-left: 73px;
 
   background: #ffffff;
   border: 1px solid #e3e3e3;

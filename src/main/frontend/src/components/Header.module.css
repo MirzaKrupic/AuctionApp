@@ -29,20 +29,16 @@
 .socialmediafit {
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 65px;
 }
 
 .login_register_section {
   color: #9b9b9b;
   margin-top: 6px;
-  margin-left: 240px;
   display: flex;
   justify-content: space-between;
   max-width: 209px;
-}
-
-.row_positioning {
-  margin-right: 20px;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .login_register_section a {
