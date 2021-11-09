@@ -11,7 +11,7 @@ function InfiniteScrollComponent(props) {
 
   const [hasMoreItems, setHasMoreItems] = useState(true);
 
-  const [page, setpage] = useState(0);
+  const [page, setPage] = useState(0);
 
   useEffect(async () => {
     let data = "";
@@ -26,7 +26,7 @@ function InfiniteScrollComponent(props) {
   }, [page]);
 
   const fetchData = async () => {
-    setpage(page + 1);
+    setPage(page + 1);
   };
 
   return (

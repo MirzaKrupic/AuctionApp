@@ -2,8 +2,6 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
-  position: static;
   width: 739px;
   height: 420px;
   margin-left: 120px;
@@ -14,16 +12,9 @@
   display: block;
   width: 346px;
   height: 168px;
-  font-family: Lato;
-  font-style: normal;
-  font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-  margin-right: 36px;
   margin-top: 20px;
-
-  margin-top: 26px;
-
   color: #9b9b9b;
 }
 
@@ -32,8 +23,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
-
   display: block;
   width: 346px;
   height: 420px;
@@ -43,9 +32,6 @@
   display: block;
   width: 370px;
   height: 51px;
-  font-family: Lato;
-  font-style: normal;
-  font-weight: normal;
   font-size: 32px;
   line-height: 51px;
   letter-spacing: 0.84px;
@@ -57,19 +43,16 @@
   position: static;
   width: 218px;
   height: 51px;
-  font-family: Lato;
-  font-style: normal;
-  font-weight: normal;
   font-size: 32px;
   line-height: 51px;
   letter-spacing: 0.84px;
-
   color: #000000;
 }
 
 .main_pic {
   margin-left: 36px;
 }
+
 .main_item_btn {
   color: #8367d8;
   border-color: #8367d8;

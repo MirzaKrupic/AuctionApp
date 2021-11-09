@@ -24,16 +24,9 @@
   margin-bottom: 1%;
 }
 
-body,
-html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
 .secondaryfeaturesect {
   display: block;
-  width: 1120;
+  width: 1120px;
   height: 495px;
 }
 
@@ -43,7 +36,6 @@ html {
   align-items: flex-start;
   padding: 0px;
   position: static;
-  width: 1120px;
   height: 616px;
 }
 
