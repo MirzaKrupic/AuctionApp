@@ -21,23 +21,11 @@ function InfiniteScrollComponent(props) {
       data = await itemsFetchByDate(page, 20, "desc");
     }
 
-    setItems(data.content);
-    console.log(items);
-  }, []);
+    setItems([...items, ...data.content]);
+    setHasMoreItems(!data.last);
+  }, [page]);
 
   const fetchData = async () => {
-    let commentsFromServer = "";
-
-    if(props.criteria === LANDING_PAGE_TAB_VALUES['NORMAL']){
-      commentsFromServer = await itemsFetch(page, 20);
-    }else if(props.criteria === LANDING_PAGE_TAB_VALUES['LAST_CHANCE']){
-      commentsFromServer = await itemsFetchByDate(page, 20, "desc");
-    }
-
-    setItems([...items, ...commentsFromServer.content]);
-
-    setHasMoreItems(!commentsFromServer.last);
-
     setpage(page + 1);
   };
 
