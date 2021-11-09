@@ -40,8 +40,6 @@
 .section_container {
   width: 1116px;
   height: fit-content;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 64px;
   margin-bottom: 120px;
 }
@@ -53,8 +51,6 @@
   padding: 0px;
   position: static;
   width: 1190px;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 32px;
 }
 

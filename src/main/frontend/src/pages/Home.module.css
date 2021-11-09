@@ -42,12 +42,9 @@ html {
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
-
   position: static;
   width: 1120px;
   height: 616px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 @media screen and (max-width: 768px) {

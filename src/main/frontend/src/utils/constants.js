@@ -1,0 +1,4 @@
+export const LANDING_PAGE_TAB_VALUES= {
+    NORMAL: "NORMAL",
+    LAST_CHANCE: "LAST_CHANCE"
+}

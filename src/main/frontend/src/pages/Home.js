@@ -5,6 +5,7 @@ import MiddleSection from "../components/landingpage/MiddleSection";
 import UpperSection from "../components/landingpage/UpperSection";
 import LowerSection from "../components/landingpage/LowerSection";
 import classes from "./Home.module.css";
+import LayoutContainer from "../components/LayoutContainer";
 
 function Home() {
   const dummyCategories = [
@@ -47,7 +48,7 @@ function Home() {
   ];
 
   return (
-    <Container className={"no-gutters mx-0 px-0"}>
+    <LayoutContainer >
       <div className={classes.mainsection}>
         <Categories categories={dummyCategories} />
         <MainItemCard
@@ -66,7 +67,7 @@ function Home() {
       <MiddleSection />
 
       <LowerSection />
-    </Container>
+      </LayoutContainer>
   );
 }
 

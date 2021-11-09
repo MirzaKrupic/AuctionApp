@@ -23,8 +23,6 @@
 .section_container {
   width: 1116px;
   height: 495px;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 64px;
 }
 
@@ -36,8 +34,6 @@
   position: static;
   width: 1120px;
   height: 495px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 @media screen and (max-width: 768px) {

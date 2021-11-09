@@ -1,17 +1,13 @@
 import { useState } from "react";
 import InfiniteScrollComponent from "./InfiniteScrollComponent";
 import "./LowerSection.css";
+import {LANDING_PAGE_TAB_VALUES} from '../../utils/constants';
 
 function MiddleSection() {
   const [items, setItems] = useState(
-    <InfiniteScrollComponent criteria="normal" />
+    <InfiniteScrollComponent criteria={LANDING_PAGE_TAB_VALUES['NORMAL']} />
   );
   const [selectedTab, setSelectedTab] = useState("new arrivals");
-
-  const updateContent = () => {
-    <InfiniteScrollComponent criteria="last_chance" />;
-    setSelectedTab("last chance");
-  };
 
   return (
     <div className="section_container">
@@ -23,7 +19,7 @@ function MiddleSection() {
               : "option_button"
           }
           onClick={() => {
-            <InfiniteScrollComponent criteria="normal" />;
+            setItems(<InfiniteScrollComponent criteria={LANDING_PAGE_TAB_VALUES['NORMAL']} />);
             setSelectedTab("new arrivals");
           }}
         >
@@ -45,7 +41,7 @@ function MiddleSection() {
               : "option_button"
           }
           onClick={() => {
-            <InfiniteScrollComponent criteria="last_chance" />;
+            setItems(<InfiniteScrollComponent criteria={LANDING_PAGE_TAB_VALUES['LAST_CHANCE']} />);
             setSelectedTab("last chance");
           }}
         >
