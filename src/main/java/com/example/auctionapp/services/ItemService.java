@@ -18,18 +18,31 @@ public class ItemService {
 
     ItemRepository itemRepository;
 
-    public Page<Item>getAllItems(int page, int size){
-        PageRequest pageable = PageRequest.of(page, size);
+    public Page<Item>getAllItems(int page, int size, String order, String orderColumn){
+        PageRequest pageable;
+        if(order != null &&  orderColumn != null) {
+            if (order.equals("asc")) {
+                pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
+            } else {
+                pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
+            }
+        }else{
+            pageable = PageRequest.of(page, size);
+        }
         Page<Item> statePage = itemRepository.findAll(pageable);
         return statePage;
     }
 
-    public Page<Item>getAllItemsOrderedByDate(int page, int size, String order){
+    public Page<Item>getAllItemsOrderedByDate(int page, int size, String order, String orderColumn){
         PageRequest pageable;
-        if(order.equals("asc")){
-            pageable = PageRequest.of(page, size, Sort.by("auctionEndDate").ascending());
+        if(order != null &&  orderColumn != null) {
+            if (order.equals("asc")) {
+                pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
+            } else {
+                pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
+            }
         }else{
-            pageable = PageRequest.of(page, size, Sort.by("auctionEndDate").descending());
+            pageable = PageRequest.of(page, size);
         }
         Page<Item> statePage = itemRepository.findAll(pageable);
         return statePage;

@@ -20,10 +20,11 @@ public class ItemController {
     private ItemService itemService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody Page<Item> fetchItems(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam(name = "order", required = false) String order){
-        if(order != null){
-            return itemService.getAllItemsOrderedByDate(page, size, order);
-        }
-        return itemService.getAllItems(page, size);
+    public @ResponseBody Page<Item> fetchItems(@RequestParam("page") int page,
+                                               @RequestParam("size") int size,
+                                               @RequestParam(name = "order", required = false) String order,
+                                               @RequestParam(name = "orderColumn", required = false) String orderColumn){
+
+        return itemService.getAllItems(page, size, order, orderColumn);
     }
 }

@@ -7,9 +7,9 @@ export const itemsFetch = async (page, size) => {
   return items;
 };
 
-export const itemsFetchByDate = async (page, size, order) => {
+export const itemsFetchByDate = async (page, size, order, orderColumn) => {
   const items = await (
-    await fetch(`http://${host}/api/v1/items?page=${page}&size=${size}&order=${order}`)
+    await fetch(`http://${host}/api/v1/items?page=${page}&size=${size}&order=${order}&orderColumn=${orderColumn}`)
   ).json();
   return items;
 };

@@ -18,7 +18,7 @@ function InfiniteScrollComponent(props) {
     if(props.criteria === LANDING_PAGE_TAB_VALUES['NORMAL']){
       data = await itemsFetch(page, 20);
     }else if(props.criteria === LANDING_PAGE_TAB_VALUES['LAST_CHANCE']){
-      data = await itemsFetchByDate(page, 20, "desc");
+      data = await itemsFetchByDate(page, 20, "desc", "auctionEndDate");
     }
 
     setItems([...items, ...data.content]);
