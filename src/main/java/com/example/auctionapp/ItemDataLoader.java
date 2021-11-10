@@ -30,7 +30,7 @@ public class ItemDataLoader implements CommandLineRunner {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             for(int i = 0; i<101; i++ ) {
-                itemRepository.save(Item.builder().name("Shoes").startingPrice(22).photo("../../assets/lowersectpic.png").auctionEndDate(parseTimestamp("2020-05-01 12:30:00")).build());
+                itemRepository.save(Item.builder().name("Shoes").startingPrice(22).photo("../../assets/lowersectpic.png").auctionEndDate(parseTimestamp("2022-05-01 12:30:00")).build());
             }
             }
     }

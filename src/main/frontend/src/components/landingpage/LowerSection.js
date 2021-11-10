@@ -7,46 +7,38 @@ function MiddleSection() {
   const [items, setItems] = useState(
     <InfiniteScrollComponent criteria={LANDING_PAGE_TAB_VALUES['NORMAL']} />
   );
-  const [selectedTab, setSelectedTab] = useState("new arrivals");
+  const [selectedTab, setSelectedTab] = useState(LANDING_PAGE_TAB_VALUES['NORMAL']);
+
+  const renderButton = (title, value) => {
+    if(value === LANDING_PAGE_TAB_VALUES['TOP_RATED']){
+      return(
+        <button disabled className="option_button">
+          {title}
+        </button>
+      );
+    }
+    return(<button
+          className={
+            selectedTab === value
+              ? "option_button_selected"
+              : "option_button"
+          }
+          onClick={() => {
+            setItems(<InfiniteScrollComponent key={value} criteria={value} />);
+            setSelectedTab(value);
+          }}
+        >
+         {title}
+        </button>
+    )
+    }
 
   return (
     <div className="section_container">
       <div className="section_title_div">
-        <button
-          className={
-            selectedTab === "new arrivals"
-              ? "option_button_selected"
-              : "option_button"
-          }
-          onClick={() => {
-            setItems(<InfiniteScrollComponent criteria={LANDING_PAGE_TAB_VALUES['NORMAL']} />);
-            setSelectedTab("new arrivals");
-          }}
-        >
-          New Arrivals
-        </button>
-        <button
-          className={
-            selectedTab === "top rated"
-              ? "option_button_selected"
-              : "option_button"
-          }
-        >
-          Top Rated
-        </button>
-        <button
-          className={
-            selectedTab === "last chance"
-              ? "option_button_selected"
-              : "option_button"
-          }
-          onClick={() => {
-            setItems(<InfiniteScrollComponent criteria={LANDING_PAGE_TAB_VALUES['LAST_CHANCE']} />);
-            setSelectedTab("last chance");
-          }}
-        >
-          Last Chance
-        </button>
+        {renderButton("New Arrivals", LANDING_PAGE_TAB_VALUES['NORMAL'])}
+        {renderButton("Top Rated", LANDING_PAGE_TAB_VALUES['TOP_RATED'])}
+        {renderButton("Last Chance", LANDING_PAGE_TAB_VALUES['LAST_CHANCE'])}
       </div>
       <div className="feature_items_container">{items}</div>
     </div>

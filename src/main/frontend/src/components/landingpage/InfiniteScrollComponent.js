@@ -18,7 +18,7 @@ function InfiniteScrollComponent(props) {
     if(props.criteria === LANDING_PAGE_TAB_VALUES['NORMAL']){
       data = await itemsFetch(page, 20);
     }else if(props.criteria === LANDING_PAGE_TAB_VALUES['LAST_CHANCE']){
-      data = await itemsFetchByDate(page, 20, "desc", "auctionEndDate");
+      data = await itemsFetchByDate(page, 20, "asc", "auctionEndDate");
     }
 
     setItems([...items, ...data.content]);
@@ -47,7 +47,7 @@ function InfiniteScrollComponent(props) {
             return (
               <LandingPageItem
                 item_type="SMALL"
-                key={item.id}
+                key={item.itemId}
                 photo={item.photo}
                 card_title={item.name}
                 price={item.startingPrice}
