@@ -1,9 +1,9 @@
 package com.example.auctionapp.authentication;
 
 import com.example.auctionapp.registration.RegistrationRequest;
-import com.example.auctionapp.registration.RegistrationService;
 import com.example.auctionapp.security.config.JWTTokenHelper;
 import com.example.auctionapp.user.User;
+import com.example.auctionapp.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,7 +33,7 @@ public class AuthenticationController {
     private JWTTokenHelper jwtTokenHelper;
 
     @Autowired
-    private RegistrationService registrationService;
+    private UserService userService;
 
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidKeySpecException, NoSuchAlgorithmException {
@@ -63,7 +63,7 @@ public class AuthenticationController {
     @PostMapping("registration")
     public ResponseEntity<?> register(@RequestBody RegistrationRequest request){
         HashMap<String, String> response = new HashMap<>();
-        response.put("response", registrationService.register(request));
+        response.put("response", userService.register(request));
         return ResponseEntity.ok(response);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.auctionapp.user;
 
+import com.example.auctionapp.registration.EmailValidator;
+import com.example.auctionapp.registration.RegistrationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +15,7 @@ public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private EmailValidator emailValidator;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -28,5 +31,13 @@ public class UserService implements UserDetailsService {
         user.setPassword(encodedPassword);
         userRepository.save(user);
         return "Account successfully created";
+    }
+
+    public String register(RegistrationRequest request) {
+        boolean isValidEmail = emailValidator.test(request.getEmail());
+        if(!isValidEmail){
+            return("Email not valid");
+        }
+        return this.signUpUser(new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), UserRole.USER));
     }
 }
