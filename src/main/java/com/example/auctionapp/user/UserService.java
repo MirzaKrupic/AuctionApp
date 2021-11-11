@@ -1,14 +1,24 @@
 package com.example.auctionapp.user;
 
+import com.example.auctionapp.authentication.AuthenticationRequest;
+import com.example.auctionapp.authentication.AuthenticationResponse;
 import com.example.auctionapp.registration.EmailValidator;
 import com.example.auctionapp.registration.RegistrationRequest;
+import com.example.auctionapp.security.config.JWTTokenHelper;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 
 @Service
@@ -51,4 +61,5 @@ public class UserService implements UserDetailsService {
         }
         return this.signUpUser(new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), UserRole.USER));
     }
+
 }

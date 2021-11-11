@@ -24,28 +24,17 @@ import java.util.HashMap;
 public class AuthenticationController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private UserDetailsService userDetailsService;
-
-    @Autowired
-    private JWTTokenHelper jwtTokenHelper;
 
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        User user = (User) authentication.getPrincipal();
-        String jwtToken = jwtTokenHelper.generateToken(user.getEmail());
-
-        AuthenticationResponse response = new AuthenticationResponse();
-        response.setToken(jwtToken);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(authenticationService.loginAuth(authenticationRequest));
     }
 
     @GetMapping("auth/userinfo")
