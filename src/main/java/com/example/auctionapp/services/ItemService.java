@@ -33,19 +33,4 @@ public class ItemService {
         Page<Item> statePage = itemRepository.findAll(pageable);
         return statePage;
     }
-
-    public Page<Item>getAllItemsOrderedByDate(int page, int size, String order, String orderColumn){
-        PageRequest pageable;
-        if(order != null &&  orderColumn != null) {
-            if (order.equals("asc")) {
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
-            } else {
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
-            }
-        }else{
-            pageable = PageRequest.of(page, size);
-        }
-        Page<Item> statePage = itemRepository.findAll(pageable);
-        return statePage;
-    }
 }
