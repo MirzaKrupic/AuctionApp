@@ -7,14 +7,11 @@ export const register = async (person) => {
 };
 
 export const login = async (person) => {
-    let returnstmt="";
     await axios.post(`http://${host}/api/v1/login`, person)
     .then(response => {
-        returnstmt = response;
+        return response
     })
     .catch(error => {
-        returnstmt = error.response
+        return error.response;
     });
-
-    return returnstmt;
 };
