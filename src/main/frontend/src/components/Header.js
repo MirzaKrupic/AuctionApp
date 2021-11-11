@@ -15,8 +15,8 @@ function Header() {
           </Col>
           <Col className={classes.login_register_position}>
             <p className={classes.login_register_section}>
-              <Link to="/">Login</Link> or
-              <Link to="/">Register</Link>
+              <Link to="/login">Login</Link> or
+              <Link to="/registration">Register</Link>
             </p>
           </Col>
         </Row>

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { login } from "../utils/userUtils";
 import classes from "./Login.module.css";
-import * as yup from 'yup';
-import { Formik, Form, Field } from 'formik';
-import { useAuth } from '../hooks';
+import * as yup from "yup";
+import { Formik, Form, Field } from "formik";
+import { useAuth } from "../hooks";
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({
@@ -16,8 +16,8 @@ function Login() {
     password: yup.string().required("*Password is required"),
   });
 
-  const[responseState, setResponseState] = useState("");
-  const{token, setToken} = useAuth('');
+  const [responseState, setResponseState] = useState("");
+  const { token, setToken } = useAuth("");
 
   const { email, password } = loginInfo;
 
@@ -26,14 +26,16 @@ function Login() {
 
   const handleSubmit = async (user) => {
     try {
-      console.log(user);
       const person = await login(user);
-      if(person.status !== 200){
+      if (person.status !== 200) {
         setResponseState("You entered wrong credidentials");
-      }else{
-      setToken(person.data)
+      } else {
+        setToken(person.data);
+      }
+    } catch (e) {
+      console.error(e);
+      setResponseState("Login request failed, please try again");
     }
-    } catch (e) {}
   };
 
   return (
@@ -41,14 +43,14 @@ function Login() {
       <div className={classes.login_title}>
         <h1>LOGIN</h1>
       </div>
-      
-        <Formik
-          validationSchema={formValidation}
-          initialValues={{ email: "", password: "" }}
-          onSubmit={handleSubmit}
-        >
-          {({ errors, touched }) => (
-            <div className={classes.login_form_container}>
+
+      <Formik
+        validationSchema={formValidation}
+        initialValues={{ email: "", password: "" }}
+        onSubmit={handleSubmit}
+      >
+        {({ errors, touched }) => (
+          <div className={classes.login_form_container}>
             <Form>
               <label className={classes.input_container}>
                 Email
@@ -76,22 +78,22 @@ function Login() {
                 LOGIN
               </button>
               <div className={classes.login_social_network_section}>
-              <button className={classes.login_facebook_button} type="button">
-                LOGIN WITH FACEBOOK
-              </button>
-              <button className={classes.login_gmail_button} type="button">
-                LOGIN WITH GMAIL
-              </button>
+                <button className={classes.login_facebook_button} type="button">
+                  LOGIN WITH FACEBOOK
+                </button>
+                <button className={classes.login_gmail_button} type="button">
+                  LOGIN WITH GMAIL
+                </button>
               </div>
             </Form>
-            </div>
-          )}
-        </Formik>
-        {responseState}
-        <div className={classes.already_registered_section}>
-          <p className={classes.forgot_password}>Forget password?</p>
-        </div>
+          </div>
+        )}
+      </Formik>
+      {responseState}
+      <div className={classes.already_registered_section}>
+        <p className={classes.forgot_password}>Forget password?</p>
       </div>
+    </div>
   );
 }
 

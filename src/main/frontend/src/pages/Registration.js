@@ -40,10 +40,8 @@ function Registration() {
 
   const handleSubmit = async (user) => {
     try {
-        console.log(user);
         const person = await register(user);
         setResponseState(person.response);
-        console.log(person);
     } catch (e) {
     }
 }
