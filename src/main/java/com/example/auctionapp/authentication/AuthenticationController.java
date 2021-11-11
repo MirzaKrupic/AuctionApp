@@ -1,5 +1,7 @@
 package com.example.auctionapp.authentication;
 
+import com.example.auctionapp.registration.RegistrationRequest;
+import com.example.auctionapp.registration.RegistrationService;
 import com.example.auctionapp.security.config.JWTTokenHelper;
 import com.example.auctionapp.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.security.spec.InvalidKeySpecException;
+import java.util.HashMap;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("api/v1")
 @CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
 
@@ -29,7 +32,10 @@ public class AuthenticationController {
     @Autowired
     private JWTTokenHelper jwtTokenHelper;
 
-    @PostMapping("api/v1/login")
+    @Autowired
+    private RegistrationService registrationService;
+
+    @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidKeySpecException, NoSuchAlgorithmException {
         final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
 
@@ -52,5 +58,12 @@ public class AuthenticationController {
         userInfo.setRoles(userObj.getAuthorities().toArray());
 
         return ResponseEntity.ok(userInfo);
+    }
+
+    @PostMapping("registration")
+    public ResponseEntity<?> register(@RequestBody RegistrationRequest request){
+        HashMap<String, String> response = new HashMap<>();
+        response.put("response", registrationService.register(request));
+        return ResponseEntity.ok(response);
     }
 }
