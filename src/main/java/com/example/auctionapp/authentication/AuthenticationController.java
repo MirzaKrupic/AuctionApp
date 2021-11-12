@@ -50,8 +50,7 @@ public class AuthenticationController {
 
     @PostMapping("registration")
     public ResponseEntity<?> register(@RequestBody RegistrationRequest request){
-        HashMap<String, String> response = new HashMap<>();
-        response.put("response", userService.register(request));
-        return ResponseEntity.ok(response);
+        ResponseEntity<?>  response = userService.register(request);
+        return response;
     }
 }

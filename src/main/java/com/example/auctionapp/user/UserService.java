@@ -7,6 +7,8 @@ import com.example.auctionapp.registration.RegistrationRequest;
 import com.example.auctionapp.security.config.JWTTokenHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Service
@@ -46,7 +49,7 @@ public class UserService implements UserDetailsService {
     public String signUpUser(User user){
         boolean userExists = userRepository.findByEmail(user.getEmail()).isPresent();
         if(userExists){
-            return(USER_EXISTS_RESPONSE);
+            return USER_EXISTS_RESPONSE;
         }
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
@@ -54,12 +57,19 @@ public class UserService implements UserDetailsService {
         return ACCOUNT_CREATED_RESPONSE;
     }
 
-    public String register(RegistrationRequest request) {
+    public ResponseEntity<?> register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
+        HashMap<String, String> responseJson = new HashMap<>();
         if(!isValidEmail){
-            return(INVALID_EMAIL_RESPONSE);
+            responseJson.put("response", INVALID_EMAIL_RESPONSE);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseJson);
         }
-        return this.signUpUser(new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), UserRole.USER));
+        String signUpResponseMessage= this.signUpUser(new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), UserRole.USER));
+        responseJson.put("response", signUpResponseMessage);
+        if(signUpResponseMessage.equals(USER_EXISTS_RESPONSE)){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseJson);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(responseJson);
     }
 
 }
