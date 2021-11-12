@@ -3,7 +3,7 @@ import { register } from "../utils/userUtils";
 import classes from "./Registration.module.css";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
-import { useHistory, Route, Switch, BrowserRouter } from "react-router-dom";
+import { useHistory, Link} from "react-router-dom";
 
 function Registration() {
   const [registrationInfo, setRegistrationInfo] = useState({
@@ -60,8 +60,12 @@ function Registration() {
     try {
       const person = await register(user);
       setResponseState(person.response);
+      console.log(person.status);
       history.push(`/login`);
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+      setResponseState("Registration request failed, please try again");
+    }
   };
 
   return (
@@ -135,10 +139,10 @@ function Registration() {
         </Formik>
         <div className={classes.already_registered_section}>
           <p className={classes.already_have_account}>
-            Already have an account?{" "}
-            <span to="/" className={classes.login_span}>
+            { "Already have an account? " }
+            <Link className={classes.login_span} to="/login">
               Login
-            </span>
+            </Link>
           </p>
         </div>
       </div>

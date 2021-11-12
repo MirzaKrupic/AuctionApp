@@ -20,7 +20,6 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("api/v1")
-@CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
 
     @Autowired

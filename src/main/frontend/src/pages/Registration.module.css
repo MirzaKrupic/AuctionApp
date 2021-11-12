@@ -75,4 +75,5 @@
 
 .already_have_account .login_span {
   color: #8367d8;
+  text-decoration: none;
 }
