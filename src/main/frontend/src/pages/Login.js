@@ -4,7 +4,7 @@ import classes from "./Login.module.css";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { useAuth } from "../hooks";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({
@@ -32,7 +32,7 @@ function Login() {
       if (person.status !== 200) {
         setResponseState("You entered wrong credidentials");
       } else {
-        setToken(person.data);
+        setToken(person.response);
         history.push(`/`);
       }
     } catch (e) {

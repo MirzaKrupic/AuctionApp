@@ -13,10 +13,10 @@ export const register = async (person) => {
 };
 
 export const login = async (person) => {
-  await axios
+    return axios
     .post(`http://${host}/api/v1/login`, person)
-    .then((response) => {
-      return response;
+    .then((res) => {
+      return { response: res.data.response, status: res.status };
     })
     .catch((error) => {
       return error.response;
