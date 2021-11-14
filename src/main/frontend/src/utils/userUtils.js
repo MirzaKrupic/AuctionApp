@@ -16,7 +16,7 @@ export const login = async (person) => {
     return axios
     .post(`http://${host}/api/v1/login`, person)
     .then((res) => {
-      return { response: res.data.response, status: res.status };
+      return { token: res.data.token, status: res.status };
     })
     .catch((error) => {
       return error.response;

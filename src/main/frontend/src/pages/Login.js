@@ -32,7 +32,7 @@ function Login() {
       if (person.status !== 200) {
         setResponseState("You entered wrong credidentials");
       } else {
-        setToken(person.response);
+        setToken(person.token);
         history.push(`/`);
       }
     } catch (e) {
