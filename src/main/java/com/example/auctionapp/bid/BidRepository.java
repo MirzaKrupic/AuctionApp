@@ -1,0 +1,16 @@
+package com.example.auctionapp.bid;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface BidRepository extends JpaRepository<Bid, Long> {
+    boolean findByItemItemId(long itemId);
+
+    @Query(value = "SELECT count(*) from bid where item_id = :itemId", nativeQuery = true)
+    int countItemsById(Long itemId);
+
+    @Query(value = "SELECT max(amount) from bid where item_id = :itemId", nativeQuery = true)
+    double getCurrentBid(Long itemId);
+}

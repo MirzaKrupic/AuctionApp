@@ -1,5 +1,6 @@
 import "./LandingPageItem.css";
 import ItemImage from "../../assets/lowersectpic.png";
+import { Link } from "react-router-dom";
 
 function LandingPageItem(props) {
     return (
@@ -7,7 +8,7 @@ function LandingPageItem(props) {
         <div className = {`${props.item_type.toLowerCase()}_image_container`}>
           <img className = {`full_size_picture`} src={ItemImage} />
         </div>
-        <h3 className={`card_title`}>{props.card_title}</h3>
+        <Link className={`item_link`} to={`${props.clicklink}`}><h3 className={`card_title`}>{props.card_title}</h3></Link>
         <p className= {`card_description`} >
           Start from <span className= {`card_price`}>${props.price}</span>
         </p>

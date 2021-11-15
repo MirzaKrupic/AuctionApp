@@ -55,4 +55,27 @@ public class Item {
     )
     private Category category;
 
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getStartingPrice() {
+        return startingPrice;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public Date getAuctionEndDate() {
+        return auctionEndDate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
 }

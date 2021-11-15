@@ -65,3 +65,7 @@
 .card_price {
   color: #8367d8;
 }
+
+.item_link{
+  text-decoration: none;
+}

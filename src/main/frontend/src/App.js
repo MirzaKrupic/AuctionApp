@@ -6,6 +6,7 @@ import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
 import { AuthProvider } from "./hooks";
+import Item from "./pages/Item";
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
             <Switch>
               <Route path="/" exact>
                 <Home />
+              </Route>
+              <Route path="/items/:itemId" exact>
+                <Item />
               </Route>
               <Route path="/registration" exact>
                 <Registration />

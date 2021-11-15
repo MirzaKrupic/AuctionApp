@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
 import LandingPageItem from "./LandingPageItem";
+import { Link } from "react-router-dom";
 import { Row } from "react-bootstrap";
 import {itemsFetch, itemsFetchByDate} from '../../utils/itemService';
 import {LANDING_PAGE_TAB_VALUES} from '../../utils/constants';
@@ -51,6 +52,7 @@ function InfiniteScrollComponent(props) {
                 photo={item.photo}
                 card_title={item.name}
                 price={item.startingPrice}
+                clicklink= {"/items/" + item.itemId}
               />
             );
           })}
