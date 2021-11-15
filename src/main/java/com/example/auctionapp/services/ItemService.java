@@ -49,8 +49,8 @@ public class ItemService {
     }
 
     public ItemBid fetchItemsById(long itemId) {
-        if(bidRepository.countItemsById(itemId)>0) {
-            return itemRepository.testniquery(itemId);
+        if(bidRepository.countBidsForItem(itemId)>0) {
+            return itemRepository.getItemAndCurrentBid(itemId);
         }else{
             Item item = itemRepository.getByItemId(itemId);
             System.out.println(item.getPhoto());
@@ -67,8 +67,8 @@ public class ItemService {
         if(!jwtTokenHelper.validateToken(token, user.get())){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your token is not valid, please login again!");
         }else{
-            if(bidRepository.countItemsById(itemId)>0) {
-                double currentAmount = bidRepository.getCurrentBid(itemId);
+            if(bidRepository.countBidsForItem(itemId)>0) {
+                double currentAmount = bidRepository.getHighestBidAmountByItemId(itemId);
                 if(currentAmount >= amount){
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You entered invalid amount");
                 }

@@ -54,9 +54,6 @@
   text-align: left;
   width: 192px;
   height: 89px;
-}
-
-.bidding_detail {
   font-weight: 300;
   font-size: 16px;
 }
@@ -69,7 +66,6 @@
 .bidding_input {
   width: 263px;
   height: 54px;
-  border-radius: 0;
   border: 1px solid #e3e3e3;
 }
 
@@ -110,12 +106,7 @@
 }
 
 .selected_option_button {
-  width: 180px;
-  height: 24px;
-  font-size: 16px;
   color: #8367d8;
-  background-color: white;
-  border: none;
   border-bottom: 3px solid #8367d8;
 }
 

@@ -4,17 +4,16 @@ import ImageGalery from "../components/itempage/ImageGalery";
 import ItemInfo from "../components/itempage/ItemInfo";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { itemsFetchById, itemBid } from "../utils/itemService";
+import { fetchItemById } from "../utils/itemService";
 
 function Item() {
-  let { itemId } = useParams();
+  const { itemId } = useParams();
   const [item, setItem] = useState({});
 
   useEffect(async () => {
-    const fetchedItem = await itemsFetchById(itemId);
+    const fetchedItem = await fetchItemById(itemId);
 
     setItem(fetchedItem);
-    console.log(item);
   }, []);
 
   return (

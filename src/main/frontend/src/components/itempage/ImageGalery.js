@@ -4,25 +4,9 @@ import ItemImage from "../../assets/itempagepic.png";
 function ImageGalery(props){
     return(
         <div className={classes.image_galery_container}>
-            <div className={classes.main_picture_container}>
-                <img className = {classes.full_size_picture} src={props.image} />
-            </div>
+                <img className = {classes.main_picture_container} src={props.image} />
             <div className={classes.picture_selection_container}>
-                <div className={classes.picture_option_container}>
-                    <img className = {classes.full_size_picture} src={ItemImage} />
-                </div>
-                <div className={classes.picture_option_container}>
-                    <img className = {classes.full_size_picture} src={ItemImage} />
-                </div>
-                <div className={classes.picture_option_container}>
-                    <img className = {classes.full_size_picture} src={ItemImage} />
-                </div>
-                <div className={classes.picture_option_container}>
-                    <img className = {classes.full_size_picture} src={ItemImage} />
-                </div>
-                <div className={classes.picture_option_container}>
-                    <img className = {classes.full_size_picture} src={ItemImage} />
-                </div>
+                    <img className = {classes.picture_option_container} src={props.image} />
             </div>
         </div>
     );

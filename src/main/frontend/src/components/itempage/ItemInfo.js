@@ -33,23 +33,23 @@ function ItemInfo(props) {
       <div className={classes.item_heading}>
         <p className={classes.item_title}>{props.name}</p>
         <p className={classes.item_starting_price}>
-          Starts from{" "}
+          {'Starts from '}
           <span className={classes.starting_price}>${props.startingPrice}</span>
         </p>
       </div>
       <div className={classes.bidding_section}>
         <div className={classes.bidding_info}>
           <div className={classes.box_inside_bidding_info}>
-            <p className={classes.bidding_detail}>
-              Highest Bid:{" "}
+            <p>
+            {'Highest Bid: '}
               <span className={classes.detail_value}>{props.amount}$</span>
             </p>
-            <p className={classes.bidding_detail}>
-              Number of bids:{" "}
+            <p>
+            {'Number of bids: '}
               <span className={classes.detail_value}>{props.count}</span>
             </p>
-            <p className={classes.bidding_detail}>
-              Time left:{" "}
+            <p>
+            {'Time left: '}
               <span className={classes.detail_value}>
                 {props.auctionEndDate}
               </span>
@@ -84,7 +84,7 @@ function ItemInfo(props) {
           </Formik>
         </div>
         <div className={classes.details_buttons_container}>
-          <button className={classes.selected_option_button}>Details</button>
+          <button className={`${classes.selected_option_button} ${classes.option_button}`}>Details</button>
           <button className={classes.option_button}>Seller information</button>
           <button className={classes.option_button}>Customer reviews</button>
         </div>

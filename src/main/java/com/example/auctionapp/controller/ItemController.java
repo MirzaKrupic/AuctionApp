@@ -38,13 +38,13 @@ public class ItemController {
         return itemService.getAllItems(page, size, order, orderColumn);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/itemcic")
+    @RequestMapping(method = RequestMethod.GET, path = "/info")
     public @ResponseBody ItemBid fetchItemsById(@RequestParam("itemId") long itemId){
         return itemService.fetchItemsById(itemId);
     }
 
     @PostMapping("bid")
-    public ResponseEntity<?> itembidtest(HttpServletRequest httpServletRequest, @RequestBody BiddingRequest biddingRequest) {
+    public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, @RequestBody BiddingRequest biddingRequest) {
         System.out.println(jwtTokenHelper.getToken(httpServletRequest));
         System.out.println(biddingRequest);
         ResponseEntity<?> token = itemService.itemBid(httpServletRequest, biddingRequest);

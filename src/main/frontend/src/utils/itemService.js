@@ -15,9 +15,9 @@ export const itemsFetchByDate = async (page, size, order, orderColumn) => {
   return items.json();
 };
 
-export const itemsFetchById = async (id) => {
+export const fetchItemById = async (id) => {
   return axios
-    .get(`http://${host}/api/v1/items/itemcic?itemId=${id}`)
+    .get(`http://${host}/api/v1/items/info?itemId=${id}`)
     .then((res) => {
       return res.data;
     })
