@@ -39,7 +39,6 @@ function ItemInfo(props) {
       </div>
       <div className={classes.bidding_section}>
         <div className={classes.bidding_info}>
-          <div className={classes.box_inside_bidding_info}>
             <p>
             {'Highest Bid: '}
               <span className={classes.detail_value}>{props.amount}$</span>
@@ -54,7 +53,6 @@ function ItemInfo(props) {
                 {props.auctionEndDate}
               </span>
             </p>
-          </div>
         </div>
         <div className={classes.bidding_form_container}>
           <Formik

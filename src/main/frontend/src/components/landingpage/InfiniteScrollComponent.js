@@ -48,10 +48,7 @@ function InfiniteScrollComponent(props) {
               <LandingPageItem
                 item_type="SMALL"
                 key={item.itemId}
-                photo={item.photo}
-                card_title={item.name}
-                price={item.startingPrice}
-                clicklink= {"/items/" + item.itemId}
+                {...item}
               />
             );
           })}

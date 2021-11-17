@@ -8,9 +8,9 @@ function LandingPageItem(props) {
         <div className = {`${props.item_type.toLowerCase()}_image_container`}>
           <img className = {`full_size_picture`} src={ItemImage} />
         </div>
-        <Link className={`item_link`} to={`${props.clicklink}`}><h3 className={`card_title`}>{props.card_title}</h3></Link>
+        <Link className={`item_link`} to={`/items/${props.itemId}`}><h3 className={`card_title`}>{props.name}</h3></Link>
         <p className= {`card_description`} >
-          Start from <span className= {`card_price`}>${props.price}</span>
+          Start from <span className= {`card_price`}>${props.startingPrice}</span>
         </p>
       </div>
     );
