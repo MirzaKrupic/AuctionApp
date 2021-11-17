@@ -50,7 +50,7 @@ public class ItemService {
 
     public ItemBid fetchItemsById(long itemId) {
         if(bidRepository.countBidsForItem(itemId)>0) {
-            return itemRepository.getItemAndCurrentBid(itemId);
+            return itemRepository.getItemAndMaxBid(itemId);
         }else{
             Item item = itemRepository.getByItemId(itemId);
             System.out.println(item.getPhoto());

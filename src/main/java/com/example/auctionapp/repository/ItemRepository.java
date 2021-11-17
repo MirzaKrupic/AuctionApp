@@ -15,7 +15,7 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query(value = "SELECT count(b.*), max(b.amount), i.name, i.starting_price, i.photo, i.auction_end_date from item i join bid b on i.item_id = b.item_id where i.item_id = :itemId group by i.name", nativeQuery = true)
-    public ItemBid getItemAndCurrentBid(long itemId);
+    public ItemBid getItemAndMaxBid(long itemId);
 
     Item getByItemId(long itemId);
 }

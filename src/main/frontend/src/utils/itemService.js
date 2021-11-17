@@ -27,7 +27,6 @@ export const fetchItemById = async (id) => {
 };
 
 export const itemBid = async (token, item) => {
-  console.log(item);
   return axios
     .post(`http://${host}/api/v1/items/bid`, item, {
       headers: {
