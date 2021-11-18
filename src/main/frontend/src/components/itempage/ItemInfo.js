@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function ItemInfo(props) {
-  const { token } = useContext(AuthContext);
+  const { token, isUserLoggedIn } = useContext(AuthContext);
   const [response, setResponse] = useState();
   const history = useHistory();
 
@@ -73,7 +73,7 @@ function ItemInfo(props) {
                   className={classes.bidding_button}
                   type="submit"
                   variant="outline-*"
-                  disabled={!token}
+                  disabled={!isUserLoggedIn()}
                 >
                   PLACE BID
                 </Button>
