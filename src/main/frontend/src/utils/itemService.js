@@ -19,6 +19,7 @@ export const fetchItemById = async (id) => {
   return axios
     .get(`http://${host}/api/v1/items/info?itemId=${id}`)
     .then((res) => {
+      //window.location("/login");
       return res.data;
     })
     .catch((error) => {

@@ -1,11 +1,13 @@
 package com.example.auctionapp.entity;
 
+import com.example.auctionapp.bid.Bid;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -54,6 +56,14 @@ public class Item {
             referencedColumnName = "categoryId"
     )
     private Category category;
+
+    @Column(name="details", length=512)
+    private String details;
+
+    @OneToMany(
+            fetch = FetchType.LAZY
+    )
+    private List<Bid> bids;
 
     public Long getItemId() {
         return itemId;

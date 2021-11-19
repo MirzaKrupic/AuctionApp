@@ -54,7 +54,7 @@ public class ItemService {
         }else{
             Item item = itemRepository.getByItemId(itemId);
             System.out.println(item.getPhoto());
-            ItemBid itemBid = new ItemBid(0, 0, item.getName(), item.getStartingPrice(), item.getPhoto(), item.getAuctionEndDate());
+            ItemBid itemBid = new ItemBid(item.getDetails(), 0, 0, item.getName(), item.getStartingPrice(), item.getPhoto(), item.getAuctionEndDate());
             return itemBid;
         }
     }

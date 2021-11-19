@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/items")
+@RequestMapping(path = "api/v1")
 @AllArgsConstructor
 public class ItemController {
 
@@ -29,7 +29,7 @@ public class ItemController {
     @Autowired
     private JWTTokenHelper jwtTokenHelper;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, path = "/items")
     public @ResponseBody Page<Item> fetchItems(@RequestParam("page") int page,
                                                @RequestParam("size") int size,
                                                @RequestParam(name = "order", required = false) String order,
@@ -38,12 +38,12 @@ public class ItemController {
         return itemService.getAllItems(page, size, order, orderColumn);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/info")
-    public @ResponseBody ItemBid fetchItemsById(@RequestParam("itemId") long itemId){
+    @RequestMapping(method = RequestMethod.GET, path = "/item/{itemId}")
+    public @ResponseBody ItemBid fetchItemsById(@PathVariable("itemId") long itemId){
         return itemService.fetchItemsById(itemId);
     }
 
-    @PostMapping("bid")
+    @PostMapping("/item/bid")
     public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, @RequestBody BiddingRequest biddingRequest) {
         System.out.println(jwtTokenHelper.getToken(httpServletRequest));
         System.out.println(biddingRequest);

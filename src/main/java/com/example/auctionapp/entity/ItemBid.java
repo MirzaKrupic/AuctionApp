@@ -13,14 +13,16 @@ public class ItemBid {
     private String photo;
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date auctionEndDate;
+    private String details;
 
-    public ItemBid(int count, double amount, String name, double startingPrice, String photo, Date auctionEndDate) {
+    public ItemBid(String details, int count, double amount, String name, double startingPrice, String photo, Date auctionEndDate) {
         this.count = count;
         this.amount = amount;
         this.name = name;
         this.startingPrice = startingPrice;
         this.photo = photo;
         this.auctionEndDate = auctionEndDate;
+        this.details = details;
     }
 
     public int getCount() {
