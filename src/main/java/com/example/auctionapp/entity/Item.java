@@ -57,7 +57,7 @@ public class Item {
     )
     private Category category;
 
-    @Column(name="details", length=512)
+    @Column(name="details", length=1024)
     private String details;
 
     @OneToMany(
@@ -87,5 +87,13 @@ public class Item {
 
     public Category getCategory() {
         return category;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public List<Bid> getBids() {
+        return bids;
     }
 }

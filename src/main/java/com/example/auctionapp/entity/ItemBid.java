@@ -48,4 +48,8 @@ public class ItemBid {
     public Date getAuctionEndDate() {
         return auctionEndDate;
     }
+
+    public String getDetails() {
+        return details;
+    }
 }

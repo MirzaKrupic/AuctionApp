@@ -24,12 +24,7 @@ function Item() {
       <div className={classes.items_positioning}>
         <ImageGalery image={item.photo} />
         <ItemInfo
-          itemId={itemId}
-          name={item.name}
-          count={item.count}
-          amount={item.amount}
-          startingPrice={item.startingPrice}
-          auctionEndDate={item.auctionEndDate}
+          {...item}
         />
       </div>
     </LayoutContainer>

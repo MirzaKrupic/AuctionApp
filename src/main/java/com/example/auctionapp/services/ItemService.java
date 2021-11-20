@@ -53,7 +53,6 @@ public class ItemService {
             return itemRepository.getItemAndMaxBid(itemId);
         }else{
             Item item = itemRepository.getByItemId(itemId);
-            System.out.println(item.getPhoto());
             ItemBid itemBid = new ItemBid(item.getDetails(), 0, 0, item.getName(), item.getStartingPrice(), item.getPhoto(), item.getAuctionEndDate());
             return itemBid;
         }
