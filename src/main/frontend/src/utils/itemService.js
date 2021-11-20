@@ -1,4 +1,5 @@
 import axios from "axios";
+import { handleResponse } from "./requestHandler";
 const host = "localhost:8080";
 
 export const itemsFetch = async (page, size) => {
@@ -15,31 +16,34 @@ export const itemsFetchByDate = async (page, size, order, orderColumn) => {
   return items.json();
 };
 
-export const fetchItemById = async (id) => {
+export const fetchItemById = async (id, token) => {
   return axios
-    .get(`http://${host}/api/v1/items/info?itemId=${id}`)
+    .get(`http://${host}/api/v1/item/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
     .then((res) => {
-      //window.location("/login");
       return res.data;
     })
     .catch((error) => {
-      return error.response;
+      handleResponse(error.response);
     });
 };
 
 export const itemBid = async (token, item) => {
   return axios
-    .post(`http://${host}/api/v1/items/bid`, item, {
+    .post(`http://${host}/api/v1/item/bid`, item, {
       headers: {
-        "Authorization":
-          `Bearer ${token}`,
-       "Content-Type": "application/json"
-        },
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     })
     .then((res) => {
       return res.data;
     })
     .catch((error) => {
-      return error.response;
+      handleResponse(error.response);
     });
 };

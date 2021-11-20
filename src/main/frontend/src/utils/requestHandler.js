@@ -1,5 +1,5 @@
-export const handleResponse = (itemRes, history)=>{
-    if (itemRes.statusCodeValue === 401) {
-        history.push(`/login`);
-      }
-}
+export const handleResponse = (itemRes) => {
+  if (itemRes.status === 401) {
+    window.location = "/login";
+  }
+};
