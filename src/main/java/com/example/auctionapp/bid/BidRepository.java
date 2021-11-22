@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BidRepository extends JpaRepository<Bid, Long> {
-    boolean findByItemItemId(long itemId);
 
     @Query(value = "SELECT count(*) from bid where item_id = :itemId", nativeQuery = true)
     int countBidsForItem(Long itemId);

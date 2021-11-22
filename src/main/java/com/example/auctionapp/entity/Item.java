@@ -61,7 +61,10 @@ public class Item {
     private String details;
 
     @OneToMany(
-            fetch = FetchType.LAZY
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "item_id"
     )
     private List<Bid> bids;
 

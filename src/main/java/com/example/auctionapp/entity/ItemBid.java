@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class ItemBid {
 
+    private long itemId;
     private int count;
     private double amount;
     private String name;
@@ -15,8 +16,9 @@ public class ItemBid {
     private Date auctionEndDate;
     private String details;
 
-    public ItemBid(String details, int count, double amount, String name, double startingPrice, String photo, Date auctionEndDate) {
+    public ItemBid(long itemId, String details, int count, double amount, String name, double startingPrice, String photo, Date auctionEndDate) {
         this.count = count;
+        this.itemId = itemId;
         this.amount = amount;
         this.name = name;
         this.startingPrice = startingPrice;
@@ -51,5 +53,9 @@ public class ItemBid {
 
     public String getDetails() {
         return details;
+    }
+
+    public long getItemId() {
+        return itemId;
     }
 }

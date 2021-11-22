@@ -14,9 +14,10 @@ function ItemInfo(props) {
 
   const handleSubmit = async (item) => {
     const { amount } = item;
+    const { itemId } = props;
     try {
       const itemRes = await itemBid(token, {
-        ...item,
+        itemId,
         amount: parseFloat(amount),
       });
       setResponse(itemRes.body);
@@ -33,26 +34,24 @@ function ItemInfo(props) {
       <div className={classes.item_heading}>
         <p className={classes.item_title}>{props.name}</p>
         <p className={classes.item_starting_price}>
-          {'Starts from '}
+          {"Starts from "}
           <span className={classes.starting_price}>${props.startingPrice}</span>
         </p>
       </div>
       <div className={classes.bidding_section}>
         <div className={classes.bidding_info}>
-            <p>
-            {'Highest Bid: '}
-              <span className={classes.detail_value}>{props.amount}$</span>
-            </p>
-            <p>
-            {'Number of bids: '}
-              <span className={classes.detail_value}>{props.count}</span>
-            </p>
-            <p>
-            {'Time left: '}
-              <span className={classes.detail_value}>
-                {props.auctionEndDate}
-              </span>
-            </p>
+          <p>
+            {"Highest Bid: "}
+            <span className={classes.detail_value}>{props.amount}$</span>
+          </p>
+          <p>
+            {"Number of bids: "}
+            <span className={classes.detail_value}>{props.count}</span>
+          </p>
+          <p>
+            {"Time left: "}
+            <span className={classes.detail_value}>{props.auctionEndDate}</span>
+          </p>
         </div>
         <div className={classes.bidding_form_container}>
           <Formik
@@ -80,16 +79,19 @@ function ItemInfo(props) {
               </Form>
             )}
           </Formik>
+          {response}
         </div>
         <div className={classes.details_buttons_container}>
-          <button className={`${classes.selected_option_button} ${classes.option_button}`}>Details</button>
+          <button
+            className={`${classes.selected_option_button} ${classes.option_button}`}
+          >
+            Details
+          </button>
           <button className={classes.option_button}>Seller information</button>
           <button className={classes.option_button}>Customer reviews</button>
         </div>
         <div className={classes.product_details}>
-          <p>
-            {props.details}
-          </p>
+          <p>{props.details}</p>
         </div>
       </div>
     </div>

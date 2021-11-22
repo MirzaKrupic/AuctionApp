@@ -43,11 +43,7 @@ public class Bid {
     private User user;
 
     @ManyToOne(
-            cascade = CascadeType.ALL
-    )
-    @JoinColumn(
-            name = "item_id",
-            referencedColumnName = "itemId"
+            fetch = FetchType.LAZY
     )
     private Item item;
 
