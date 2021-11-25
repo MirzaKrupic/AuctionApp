@@ -33,20 +33,20 @@ public class ItemService {
     JWTTokenHelper jwtTokenHelper;
     UserService userService;
 
-    public Page<Item>getAllItems(int page, int size, String order, String orderColumn){
+    public Page<Item> getAllItems(int page, int size, String order, String orderColumn) {
         PageRequest pageable;
-        if(order != null &&  orderColumn != null) {
+        if (order != null && orderColumn != null) {
             if (order.equals("asc")) {
                 pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
             } else {
                 pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
             }
-        }else{
+        } else {
             pageable = PageRequest.of(page, size);
         }
         Page<Item> statePage = itemRepository.findAll(pageable);
 
-        for(Item item : statePage){
+        for (Item item : statePage) {
             item.setBids(null);
         }
         return statePage;
@@ -59,27 +59,29 @@ public class ItemService {
     public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, BiddingRequest biddingRequest) {
         String token = jwtTokenHelper.getToken(httpServletRequest);
         Optional<User> user = userService.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
-        Long itemId= Long.parseLong(biddingRequest.getItemId());
+        Long itemId = Long.parseLong(biddingRequest.getItemId());
         double amount = Double.parseDouble(biddingRequest.getAmount());
-        if(!jwtTokenHelper.validateToken(token, user.get())){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your token is not valid, please login again!");
-        }else{
-            if(bidRepository.countBidsForItem(itemId)>0) {
-                double currentAmount = bidRepository.getHighestBidAmountByItemId(itemId);
-                if(currentAmount >= amount){
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You entered invalid amount");
-                }
-                Bid bid = new Bid(amount, user.get(), itemId);
-                bidRepository.save(bid);
-            }else{
-                Item item = itemRepository.getByItemId(itemId);
-                if(item.getStartingPrice() >= amount){
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You entered invalid amount");
-                }
-                Bid bid = new Bid(amount, user.get(), itemId);
-                bidRepository.save(bid);
+
+        Item item = itemRepository.getByItemId(itemId);
+
+        if (!item.getBids().isEmpty()) {
+            Bid maxBid = Arrays.stream(item.getBids().toArray(new Bid[0]))
+                    .max(Comparator.comparingDouble(Bid::getAmount))
+                    .orElseThrow(NoSuchElementException::new);
+
+            if (maxBid.getAmount() >= amount) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You entered invalid amount");
             }
+            Bid bid = new Bid(amount, user.get(), itemId);
+            bidRepository.save(bid);
+        } else {
+            if (item.getStartingPrice() >= amount) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You entered invalid amount");
+            }
+            Bid bid = new Bid(amount, user.get(), itemId);
+            bidRepository.save(bid);
         }
+
         return ResponseEntity.ok("Bid successfull");
     }
 }
