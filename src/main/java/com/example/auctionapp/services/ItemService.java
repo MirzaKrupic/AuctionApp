@@ -52,14 +52,8 @@ public class ItemService {
         return statePage;
     }
 
-    public ItemBid fetchItemsById(long itemId) {
-        if(bidRepository.countBidsForItem(itemId)>0) {
-            return itemRepository.getItemAndMaxBid(itemId);
-        }else{
-            Item item = itemRepository.getByItemId(itemId);
-            ItemBid itemBid = new ItemBid(item.getItemId(), item.getDetails(), 0, 0, item.getName(), item.getStartingPrice(), item.getPhoto(), item.getAuctionEndDate());
-            return itemBid;
-        }
+    public Item fetchItemsById(long itemId) {
+        return itemRepository.getByItemId(itemId);
     }
 
     public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, BiddingRequest biddingRequest) {

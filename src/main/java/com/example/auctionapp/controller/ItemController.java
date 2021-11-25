@@ -39,7 +39,7 @@ public class ItemController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/item/{itemId}")
-    public @ResponseBody ItemBid fetchItemsById(@PathVariable("itemId") long itemId){
+    public @ResponseBody Item fetchItemsById(@PathVariable("itemId") long itemId){
         return itemService.fetchItemsById(itemId);
     }
 
