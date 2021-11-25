@@ -14,7 +14,7 @@ function ImageGalery(props) {
     return (
       <div>
         {imagesArr.map((image, index) => (
-          <img className={classes.picture_option} src={image} />
+          <img className={classes.picture_option} src={image} onClick={() => setCurrentImage(image)} />
         ))}
       </div>
     );
