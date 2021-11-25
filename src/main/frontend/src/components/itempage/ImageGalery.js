@@ -1,23 +1,26 @@
 import classes from "./ImageGalery.module.css";
-import ItemImage from "../../assets/itempagepic.png";
+import { useState } from "react";
 
-const renderImageOptions = (images) => {
-  const imagesArr = images.split(";");
-  return (
-    <div>
-      {imagesArr.map((image, index) => (
-        <img className={classes.picture_option} src={image} />
-      ))}
-    </div>
-  );
-};
 
 function ImageGalery(props) {
+  const imagesArr = props.image.toString().split(";").filter(function(el) {return el.length != 0});
+  const [currentImage, setCurrentImage] = useState(imagesArr[0]);
+
+  const renderImageOptions = () => {
+    return (
+      <div>
+        {imagesArr.map((image, index) => (
+          <img className={classes.picture_option} src={image} />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className={classes.image_galery_container}>
-      <img className={classes.main_picture} src={props.image} />
+      <img className={classes.main_picture} src={currentImage} />
       <div className={classes.picture_selection_container}>
-        {renderImageOptions(props.image)}
+        {renderImageOptions()}
       </div>
     </div>
   );
