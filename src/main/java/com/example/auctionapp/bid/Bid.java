@@ -42,14 +42,12 @@ public class Bid {
     )
     private User user;
 
-    @ManyToOne(
-            fetch = FetchType.LAZY
-    )
-    private Item item;
+    @Column(name = "item_id")
+    private long itemId;
 
-    public Bid(double amount, User user, Item item) {
+    public Bid(double amount, User user, long itemId) {
         this.amount = amount;
         this.user = user;
-        this.item = item;
+        this.itemId = itemId;
     }
 }

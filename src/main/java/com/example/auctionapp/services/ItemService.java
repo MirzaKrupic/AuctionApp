@@ -45,6 +45,10 @@ public class ItemService {
             pageable = PageRequest.of(page, size);
         }
         Page<Item> statePage = itemRepository.findAll(pageable);
+
+        for(Item item : statePage){
+            item.setBids(null);
+        }
         return statePage;
     }
 
@@ -71,14 +75,14 @@ public class ItemService {
                 if(currentAmount >= amount){
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You entered invalid amount");
                 }
-                Bid bid = new Bid(amount, user.get(), itemRepository.getById(itemId));
+                Bid bid = new Bid(amount, user.get(), itemId);
                 bidRepository.save(bid);
             }else{
                 Item item = itemRepository.getByItemId(itemId);
                 if(item.getStartingPrice() >= amount){
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You entered invalid amount");
                 }
-                Bid bid = new Bid(amount, user.get(), itemRepository.getById(itemId));
+                Bid bid = new Bid(amount, user.get(), itemId);
                 bidRepository.save(bid);
             }
         }
