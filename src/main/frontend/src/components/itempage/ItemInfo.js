@@ -21,9 +21,6 @@ function ItemInfo(props) {
         amount: parseFloat(amount),
       });
       setResponse(itemRes.body);
-      if (itemRes.statusCodeValue === 401) {
-        history.push(`/login`);
-      }
     } catch (e) {
       console.error(e);
     }
