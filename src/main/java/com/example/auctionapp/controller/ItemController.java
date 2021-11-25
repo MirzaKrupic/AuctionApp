@@ -1,9 +1,7 @@
 package com.example.auctionapp.controller;
 
-import com.example.auctionapp.authentication.AuthenticationRequest;
 import com.example.auctionapp.bid.BiddingRequest;
 import com.example.auctionapp.entity.Item;
-import com.example.auctionapp.entity.ItemBid;
 import com.example.auctionapp.security.config.JWTTokenHelper;
 import com.example.auctionapp.services.ItemService;
 import lombok.AllArgsConstructor;
@@ -13,10 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1")
