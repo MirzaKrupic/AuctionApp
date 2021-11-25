@@ -1,10 +1,14 @@
 import classes from "./ImageGalery.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 function ImageGalery(props) {
-  const imagesArr = props.image.toString().split(";").filter(function(el) {return el.length != 0});
-  const [currentImage, setCurrentImage] = useState(imagesArr[0]);
+  const imagesArr =  props.image ? props.image.split(";").filter(function(el) {return el.length != 0}) : [];
+  const [currentImage, setCurrentImage] = useState(imagesArr ? imagesArr[0] : null);
+
+  useEffect(async () => {
+    setCurrentImage(imagesArr[0]);
+  }, [props.image]);
 
   const renderImageOptions = () => {
     return (
