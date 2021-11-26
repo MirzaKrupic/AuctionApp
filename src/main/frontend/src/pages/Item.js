@@ -17,6 +17,7 @@ function Item() {
     const fetchedItem = await fetchItemById(itemId,token);
 
     setItem(fetchedItem);
+    console.log(item);
   }, []);
 
   return (

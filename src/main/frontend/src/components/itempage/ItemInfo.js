@@ -4,13 +4,22 @@ import { Button } from "react-bootstrap";
 import { AuthContext } from "../../hooks";
 import { useContext } from "react";
 import { itemBid } from "../../utils/itemService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function ItemInfo(props) {
   const { token, isUserLoggedIn } = useContext(AuthContext);
   const [response, setResponse] = useState();
+  const [currentAmount, setCurrentAmount] = useState(0);
+  const [currentNumberOfBids, setCurrentNumberOfBids] = useState(0);
   const history = useHistory();
+
+  useEffect(async () => {
+    if(props.bids){
+      setCurrentNumberOfBids(props.bids.length);
+      setCurrentAmount(getHighestBid());
+    }
+  }, [props.bids]);
 
   const handleSubmit = async (item) => {
     const { amount } = item;
@@ -26,6 +35,10 @@ function ItemInfo(props) {
     }
   };
 
+  function getHighestBid() {
+    return (props.bids.length>0 ? props.bids.reduce((acc, bid) => acc = acc > bid.amount ? acc : bid.amount, 0) : props.startingPrice);
+  }
+
   return (
     <div className={classes.item_info_container}>
       <div className={classes.item_heading}>
@@ -39,11 +52,11 @@ function ItemInfo(props) {
         <div className={classes.bidding_info}>
           <p>
             {"Highest Bid: "}
-            <span className={classes.detail_value}>{props.amount}$</span>
+            <span className={classes.detail_value}>{currentAmount}$</span>
           </p>
           <p>
             {"Number of bids: "}
-            <span className={classes.detail_value}>{props.count}</span>
+            <span className={classes.detail_value}>{currentNumberOfBids}</span>
           </p>
           <p>
             {"Time left: "}
