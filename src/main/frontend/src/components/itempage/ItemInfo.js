@@ -16,13 +16,20 @@ function ItemInfo(props) {
   const history = useHistory();
 
   useEffect(async () => {
-    if(props.bids){
+    if (props.bids) {
       setCurrentNumberOfBids(props.bids.length);
       setCurrentAmount(getHighestBid());
 
-      let endDate = props.auctionEndDate.slice(0, 10).split('-');
-      let endTime = props.auctionEndDate.slice(11).split(':');
-      endDate = new Date(endDate[0], endDate[1] - 1, endDate[2], endTime[0], endTime[1], endTime[2]); 
+      let endDate = props.auctionEndDate.slice(0, 10).split("-");
+      let endTime = props.auctionEndDate.slice(11).split(":");
+      endDate = new Date(
+        endDate[0],
+        endDate[1] - 1,
+        endDate[2],
+        endTime[0],
+        endTime[1],
+        endTime[2]
+      );
 
       setTimeLeft(computeTimeLeft(endDate));
     }
@@ -56,28 +63,48 @@ function ItemInfo(props) {
     }
     let weeks = Math.floor(days / 7);
     days = days % 7;
-    if (years > 0) return years + ' years' + (months > 0 ? ' and ' + months + ' months' : ' and ' + weeks + ' weeks');
-    if (months > 0) return months + ' months' + (weeks > 0 ? ' and ' + weeks + ' weeks' : ' and ' + days + ' days');
-    if (weeks > 0) return weeks + ' weeks' + (days > 0 ? ' and ' + days + ' days' : '');
-    return days + ' days';
- }
+    if (years > 0)
+      return (
+        years +
+        " years" +
+        (months > 0 ? " and " + months + " months" : " and " + weeks + " weeks")
+      );
+    if (months > 0)
+      return (
+        months +
+        " months" +
+        (weeks > 0 ? " and " + weeks + " weeks" : " and " + days + " days")
+      );
+    if (weeks > 0)
+      return weeks + " weeks" + (days > 0 ? " and " + days + " days" : "");
+    return days + " days";
+  }
 
   const handleSubmit = async (item) => {
     const { amount } = item;
     const { itemId } = props;
-    try {
-      const itemRes = await itemBid(token, {
-        itemId,
-        amount: parseFloat(amount),
-      });
-      setResponse(itemRes.body);
-    } catch (e) {
-      console.error(e);
+    if (amount <= currentAmount) {
+      setResponse("You entered invalid amount!");
+    } else {
+      try {
+        const itemRes = await itemBid(token, {
+          itemId,
+          amount: parseFloat(amount),
+        });
+        setResponse(itemRes.body);
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
   function getHighestBid() {
-    return (props.bids.length>0 ? props.bids.reduce((acc, bid) => acc = acc > bid.amount ? acc : bid.amount, 0) : props.startingPrice);
+    return props.bids.length > 0
+      ? props.bids.reduce(
+          (acc, bid) => (acc = acc > bid.amount ? acc : bid.amount),
+          0
+        )
+      : props.startingPrice;
   }
 
   return (
