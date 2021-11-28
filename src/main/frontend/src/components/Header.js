@@ -19,19 +19,24 @@ function Header() {
   useEffect(async () => {
     if (token !== null) {
       setRightContent(
-        <p className={classes.logout} onClick={() => setToken(null)}>
+        <p className={classes.logout} onClick={handleLogout}>
           Logout
         </p>
       );
-    }else{
+    } else {
       setRightContent(
         <p className={classes.login_register_section}>
           <Link to="/login">Login</Link> or
           <Link to="/registration">Register</Link>
         </p>
-      )
+      );
     }
   }, [token]);
+
+  function handleLogout() {
+    setToken(null);
+    localStorage.removeItem("myKey");
+  }
 
   return (
     <div className={classes.headercontainer}>
