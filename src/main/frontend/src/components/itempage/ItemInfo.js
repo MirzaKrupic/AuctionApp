@@ -10,7 +10,7 @@ import ItemDetails from "./ItemDetails";
 
 function ItemInfo(props) {
   const { token, isUserLoggedIn } = useContext(AuthContext);
-  const [response, setResponse] = useState();
+  const [bidResponse, setBidResponse] = useState();
   const [currentAmount, setCurrentAmount] = useState(0);
   const [currentNumberOfBids, setCurrentNumberOfBids] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
@@ -85,14 +85,14 @@ function ItemInfo(props) {
     const { amount } = item;
     const { itemId } = props;
     if (amount <= currentAmount) {
-      setResponse("You entered invalid amount!");
+      setBidResponse("You entered invalid amount!");
     } else {
       try {
         const itemRes = await itemBid(token, {
           itemId,
           amount: parseFloat(amount),
         });
-        setResponse(itemRes.body);
+        setBidResponse(itemRes.body);
       } catch (e) {
         console.error(e);
       }
@@ -151,14 +151,13 @@ function ItemInfo(props) {
                   className={classes.bidding_button}
                   type="submit"
                   variant="outline-*"
-                  disabled={!isUserLoggedIn()}
                 >
                   PLACE BID
                 </Button>
               </Form>
             )}
           </Formik>
-          {response}
+          {bidResponse}
         </div>
         <ItemDetails details = {props.details}/>
       </div>

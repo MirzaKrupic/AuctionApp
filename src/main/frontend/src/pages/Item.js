@@ -11,10 +11,12 @@ import { useContext } from "react";
 function Item() {
   const { itemId } = useParams();
   const [item, setItem] = useState({});
-  const { token, isUserLoggedIn } = useContext(AuthContext);
+  const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
 
   useEffect(async () => {
-    console.log(token);
+    if (localStorage.getItem("myKey")) {
+      setToken(localStorage.getItem("myKey"));
+    }
     const fetchedItem = await fetchItemById(itemId,token);
 
     setItem(fetchedItem);
