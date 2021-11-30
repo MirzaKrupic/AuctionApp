@@ -20,9 +20,6 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @Autowired
-    private JWTTokenHelper jwtTokenHelper;
-
     @RequestMapping(method = RequestMethod.GET, path = "/items")
     public @ResponseBody Page<Item> fetchItems(@RequestParam("page") int page,
                                                @RequestParam("size") int size,
@@ -39,8 +36,6 @@ public class ItemController {
 
     @PostMapping("/item/bid")
     public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, @RequestBody BiddingRequest biddingRequest) {
-        System.out.println(jwtTokenHelper.getToken(httpServletRequest));
-        System.out.println(biddingRequest);
         ResponseEntity<?> token = itemService.itemBid(httpServletRequest, biddingRequest);
         return ResponseEntity.ok(token);
     }

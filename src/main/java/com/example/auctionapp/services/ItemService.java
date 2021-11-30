@@ -9,6 +9,7 @@ import com.example.auctionapp.security.config.JWTTokenHelper;
 import com.example.auctionapp.user.User;
 import com.example.auctionapp.user.UserService;
 import lombok.AllArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -59,24 +60,20 @@ public class ItemService {
 
         Item item = itemRepository.getByItemId(itemId);
 
-        if (!item.getBids().isEmpty()) {
-            Bid maxBid = Arrays.stream(item.getBids().toArray(new Bid[0]))
-                    .max(Comparator.comparingDouble(Bid::getAmount))
-                    .orElseThrow(NoSuchElementException::new);
+        if (CollectionUtils.isNotEmpty(item.getBids())) {
+            Optional<Bid> maxBid = item.getBids().stream()
+                    .max(Comparator.comparingDouble(Bid::getAmount));
 
-            if (maxBid.getAmount() >= amount) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You entered invalid amount");
+            if (maxBid.get().getAmount() >= amount) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Amount you entered is too low!");
             }
-            Bid bid = new Bid(amount, user.get(), itemId);
-            bidRepository.save(bid);
         } else {
             if (item.getStartingPrice() >= amount) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You entered invalid amount");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Amount you entered is too low!");
             }
-            Bid bid = new Bid(amount, user.get(), itemId);
-            bidRepository.save(bid);
         }
-
+        Bid bid = new Bid(amount, user.get(), itemId);
+        bidRepository.save(bid);
         return ResponseEntity.ok("Bid successfull");
     }
 }
