@@ -33,9 +33,8 @@ export const fetchItemById = async (id, token) => {
 };
 
 export const itemBid = async (token, item) => {
-  console.log(item);
   return axios
-    .post(`http://${host}/api/v1/item/bid`, item, {
+    .post(`http://${host}/api/v1/item/${item.itemId}/bid`, item.amount, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

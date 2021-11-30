@@ -52,11 +52,9 @@ public class ItemService {
         return itemRepository.getByItemId(itemId);
     }
 
-    public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, BiddingRequest biddingRequest) {
+    public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, Long itemId, double amount) {
         String token = jwtTokenHelper.getToken(httpServletRequest);
         Optional<User> user = userService.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
-        Long itemId = Long.parseLong(biddingRequest.getItemId());
-        double amount = Double.parseDouble(biddingRequest.getAmount());
 
         Item item = itemRepository.getByItemId(itemId);
 

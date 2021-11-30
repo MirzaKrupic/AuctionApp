@@ -34,9 +34,9 @@ public class ItemController {
         return itemService.fetchItemsById(itemId);
     }
 
-    @PostMapping("/item/bid")
-    public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, @RequestBody BiddingRequest biddingRequest) {
-        ResponseEntity<?> token = itemService.itemBid(httpServletRequest, biddingRequest);
+    @PostMapping("/item/{itemId}/bid")
+    public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, @PathVariable("itemId") long itemId, @RequestBody double amount) {
+        ResponseEntity<?> token = itemService.itemBid(httpServletRequest,itemId, amount);
         return ResponseEntity.ok(token);
     }
 }
