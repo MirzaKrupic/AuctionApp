@@ -5,7 +5,6 @@ import { AuthContext } from "../../hooks";
 import { useContext } from "react";
 import { itemBid } from "../../utils/itemService";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import ItemDetails from "./ItemDetails";
 import { computeTimeLeft } from "../../utils/itemUtils";
 
@@ -15,7 +14,6 @@ function ItemInfo({ bids, auctionEndDate, itemId, name, startingPrice, details }
   const [currentAmount, setCurrentAmount] = useState(0);
   const [currentNumberOfBids, setCurrentNumberOfBids] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
-  const history = useHistory();
 
   useEffect(async () => {
     if (bids) {
@@ -48,6 +46,8 @@ function ItemInfo({ bids, auctionEndDate, itemId, name, startingPrice, details }
           amount: parseFloat(amount),
         });
         setBidResponse(itemRes.body);
+        setCurrentAmount(amount);
+        setCurrentNumberOfBids(currentNumberOfBids + 1);
       } catch (e) {
         console.error(e);
       }
