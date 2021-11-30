@@ -1,7 +1,7 @@
 import classes from "./ImageGalery.module.css";
 import { useEffect, useState } from "react";
 
-function ImageGalery({ image }) {
+function ImageGallery({ image }) {
   const imagesArr = image
     ? image.split(";").filter((el) => el.length !== 0)
     : [];
@@ -38,4 +38,4 @@ function ImageGalery({ image }) {
   );
 }
 
-export default ImageGalery;
+export default ImageGallery;

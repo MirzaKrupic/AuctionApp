@@ -1,6 +1,6 @@
 import classes from "./Item.module.css";
 import LayoutContainer from "../components/LayoutContainer";
-import ImageGalery from "../components/itempage/ImageGalery";
+import ImageGallery from "../components/itempage/ImageGallery";
 import ItemInfo from "../components/itempage/ItemInfo";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -26,7 +26,7 @@ function Item() {
   return (
     <LayoutContainer>
       <div className={classes.items_positioning}>
-        <ImageGalery image={item.photo} />
+        <ImageGallery image={item.photo} />
         <ItemInfo
           {...item}
         />
