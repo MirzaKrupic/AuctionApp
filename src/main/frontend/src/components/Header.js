@@ -12,7 +12,7 @@ function Header() {
 
   function handleLogout() {
     setToken(null);
-    localStorage.removeItem("myKey");
+    localStorage.removeItem("token");
   }
 
   return (

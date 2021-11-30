@@ -41,7 +41,7 @@ public class ItemDataLoader implements CommandLineRunner {
                         "            to prevent the wind and water,for a comfortable fit. 3 in 1\n" +
                         "            Detachable Design provide more convenience, you can separate the\n" +
                         "            coat and inner as needed, or wear it together. It is suitable for\n" +
-                        "            different season and help you adapt to different climates").photo("/images/lowersectpic.png;/images/featurepic.png;").auctionEndDate(parseTimestamp("2022-05-01 12:30:00")).build());
+                        "            different season and help you adapt to different climates").photo("/images/lowersectpic.png;/images/featurepic.png").auctionEndDate(parseTimestamp("2022-05-01 12:30:00")).build());
             }
             }
     }

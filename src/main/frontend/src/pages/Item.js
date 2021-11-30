@@ -14,14 +14,10 @@ function Item() {
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
 
   useEffect(async () => {
-    if (localStorage.getItem("myKey")) {
-      setToken(localStorage.getItem("myKey"));
-    }
-    const fetchedItem = await fetchItemById(itemId,token);
+    const fetchedItem = token ? await fetchItemById(itemId,token) : {};
 
     setItem(fetchedItem);
-    console.log(item);
-  }, []);
+  }, [token]);
 
   return (
     <LayoutContainer>

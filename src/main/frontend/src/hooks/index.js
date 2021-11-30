@@ -8,14 +8,14 @@ export const AuthProvider = ({ children }) => {
   const isUserLoggedIn = () => !!token;
 
   useEffect(() => {
-    if (localStorage.getItem("myKey")) {
-      setToken(localStorage.getItem("myKey"));
+    if (localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
     }
   }, []);
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("myKey", token);
+      localStorage.setItem("token", token);
     }
   }, [token]);
 

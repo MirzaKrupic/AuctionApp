@@ -2,16 +2,16 @@ import axios from "axios";
 import { handleResponse } from "./requestHandler";
 const host = "localhost:8080";
 
-export const itemsFetch = async (page, size) => {
+export const fetchItems = async (page, size, order, orderColumn) => {
+  let url = `http://${host}/api/v1/items?page=${page}&size=${size}`;
+  if(order){
+    url = url + `&order=${order}`
+  }
+  if(size){
+    url = url + `&orderColumn=${orderColumn}`
+  }
   const items = await fetch(
-    `http://${host}/api/v1/items?page=${page}&size=${size}`
-  );
-  return items.json();
-};
-
-export const itemsFetchByDate = async (page, size, order, orderColumn) => {
-  const items = await fetch(
-    `http://${host}/api/v1/items?page=${page}&size=${size}&order=${order}&orderColumn=${orderColumn}`
+    url
   );
   return items.json();
 };
