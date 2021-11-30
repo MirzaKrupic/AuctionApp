@@ -5,33 +5,10 @@ import { Link } from "react-router-dom";
 import SocialMedia from "./SocialMedia";
 import LayoutContainer from "./LayoutContainer";
 import { AuthContext } from "../hooks";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 
 function Header() {
-  const { token, isUserLoggedIn, setToken } = useContext(AuthContext);
-  const [rightContent, setRightContent] = useState(
-    <p className={classes.login_register_section}>
-      <Link to="/login">Login</Link> or
-      <Link to="/registration">Register</Link>
-    </p>
-  );
-
-  useEffect(async () => {
-    if (token !== null) {
-      setRightContent(
-        <p className={classes.logout} onClick={handleLogout}>
-          Logout
-        </p>
-      );
-    } else {
-      setRightContent(
-        <p className={classes.login_register_section}>
-          <Link to="/login">Login</Link> or
-          <Link to="/registration">Register</Link>
-        </p>
-      );
-    }
-  }, [token]);
+  const { isUserLoggedIn, setToken } = useContext(AuthContext);
 
   function handleLogout() {
     setToken(null);
@@ -45,7 +22,18 @@ function Header() {
           <Col className={classes.socialmediafit}>
             <SocialMedia />
           </Col>
-          <Col className={classes.login_register_position}>{rightContent}</Col>
+          <Col className={classes.login_register_position}>
+            {!isUserLoggedIn() ? (
+              <p className={classes.login_register_section}>
+                <Link to="/login">Login</Link> or
+                <Link to="/registration">Register</Link>
+              </p>
+            ) : (
+              <p className={classes.logout} onClick={handleLogout}>
+                Logout
+              </p>
+            )}
+          </Col>
         </Row>
       </LayoutContainer>
     </div>
