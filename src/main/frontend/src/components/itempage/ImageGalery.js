@@ -1,21 +1,31 @@
 import classes from "./ImageGalery.module.css";
 import { useEffect, useState } from "react";
 
-
-function ImageGalery(props) {
-  const imagesArr =  props.image ? props.image.split(";").filter(function(el) {return el.length != 0}) : [];
-  const [currentImage, setCurrentImage] = useState(imagesArr ? imagesArr[0] : null);
+function ImageGalery({ image }) {
+  const imagesArr = image
+    ? image.split(";").filter((el) => el.length !== 0)
+    : [];
+  const [currentImage, setCurrentImage] = useState(
+    imagesArr ? imagesArr[0] : null
+  );
 
   useEffect(async () => {
     setCurrentImage(imagesArr[0]);
-  }, [props.image]);
+  }, [image]);
 
   const renderImageOptions = () => {
     return (
-      <div>
-        {imagesArr.map((image, index) => (
-          <img className={classes.picture_option} src={image} onClick={() => setCurrentImage(image)} />
-        ))}
+      <div className={classes.picture_selection_container}>
+        <div>
+          {imagesArr.map((image, index) => (
+            <img
+              key={index}
+              className={classes.picture_option}
+              src={image}
+              onClick={() => setCurrentImage(image)}
+            />
+          ))}
+        </div>
       </div>
     );
   };
@@ -23,9 +33,7 @@ function ImageGalery(props) {
   return (
     <div className={classes.image_galery_container}>
       <img className={classes.main_picture} src={currentImage} />
-      <div className={classes.picture_selection_container}>
-        {renderImageOptions()}
-      </div>
+      {renderImageOptions()}
     </div>
   );
 }
