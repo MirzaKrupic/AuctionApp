@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import ItemDetails from "./ItemDetails";
 
-function ItemInfo(props) {
+function ItemInfo({ bids, auctionEndDate, itemId, name, startingPrice, details }) {
   const { token, isUserLoggedIn } = useContext(AuthContext);
   const [bidResponse, setBidResponse] = useState();
   const [currentAmount, setCurrentAmount] = useState(0);
@@ -17,12 +17,12 @@ function ItemInfo(props) {
   const history = useHistory();
 
   useEffect(async () => {
-    if (props.bids) {
-      setCurrentNumberOfBids(props.bids.length);
+    if (bids) {
+      setCurrentNumberOfBids(bids.length);
       setCurrentAmount(getHighestBid());
 
-      let endDate = props.auctionEndDate.slice(0, 10).split("-");
-      let endTime = props.auctionEndDate.slice(11).split(":");
+      let endDate = auctionEndDate.slice(0, 10).split("-");
+      let endTime = auctionEndDate.slice(11).split(":");
       endDate = new Date(
         endDate[0],
         endDate[1] - 1,
@@ -34,7 +34,7 @@ function ItemInfo(props) {
 
       setTimeLeft(computeTimeLeft(endDate));
     }
-  }, [props.bids]);
+  }, [bids]);
 
   function computeTimeLeft(date) {
     let d1 = date;
@@ -83,7 +83,6 @@ function ItemInfo(props) {
 
   const handleSubmit = async (item) => {
     const { amount } = item;
-    const { itemId } = props;
     if (amount <= currentAmount) {
       setBidResponse("You entered invalid amount!");
     } else {
@@ -100,21 +99,21 @@ function ItemInfo(props) {
   };
 
   function getHighestBid() {
-    return props.bids.length > 0
-      ? props.bids.reduce(
+    return bids.length > 0
+      ? bids.reduce(
           (acc, bid) => (acc = acc > bid.amount ? acc : bid.amount),
           0
         )
-      : props.startingPrice;
+      : startingPrice;
   }
 
   return (
     <div className={classes.item_info_container}>
       <div className={classes.item_heading}>
-        <p className={classes.item_title}>{props.name}</p>
+        <p className={classes.item_title}>{name}</p>
         <p className={classes.item_starting_price}>
           {"Starts from "}
-          <span className={classes.starting_price}>${props.startingPrice}</span>
+          <span className={classes.starting_price}>${startingPrice}</span>
         </p>
       </div>
       <div className={classes.bidding_section}>
@@ -136,7 +135,7 @@ function ItemInfo(props) {
           <Formik
             onSubmit={handleSubmit}
             initialValues={{
-              itemId: props.itemId,
+              itemId: itemId,
               amount: "",
             }}
           >
@@ -159,7 +158,7 @@ function ItemInfo(props) {
           </Formik>
           {bidResponse}
         </div>
-        <ItemDetails details = {props.details}/>
+        <ItemDetails details = {details}/>
       </div>
     </div>
   );
