@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import InfiniteScrollComponent from "./InfiniteScrollComponent";
 import "./LowerSection.css";
 import { LANDING_PAGE_TAB_VALUES } from "../../utils/constants";
+import { AuthContext } from "../../hooks";
 
 function MiddleSection() {
+  
+
   const [items, setItems] = useState(
     <InfiniteScrollComponent criteria={LANDING_PAGE_TAB_VALUES["NORMAL"]} />
   );

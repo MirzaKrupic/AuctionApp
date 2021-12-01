@@ -4,36 +4,20 @@ import { useState } from "react";
 
 function ItemDetails({ details }) {
   const [selectedTab, setSelectedTab] = useState(
-    ITEM_PAGE_TAB_VALUES["DETAILS"]
+    ITEM_PAGE_TAB_VALUES.DETAILS
   );
 
   const renderButton = (title, value) => {
-    if (
-      value === ITEM_PAGE_TAB_VALUES["SELER_INFO"] ||
-      value === ITEM_PAGE_TAB_VALUES["CUSTOMER_REVIEWS"]
-    ) {
-      return (
-        <button
-          disabled
-          className={
-            selectedTab === value
-              ? "item_option_button selected_item_option_button"
-              : "item_option_button"
-          }
-          onClick={() => {}}
-        >
-          {title}
-        </button>
-      );
-    }
+    const notSupportedValue = value === ITEM_PAGE_TAB_VALUES["SELER_INFO"] || value === ITEM_PAGE_TAB_VALUES["CUSTOMER_REVIEWS"]
     return (
       <button
+        disabled={notSupportedValue}
         className={
           selectedTab === value
             ? "item_option_button selected_item_option_button"
             : "item_option_button"
         }
-        onClick={() => {}}
+        onClick={() => {setSelectedTab(value)}}
       >
         {title}
       </button>
@@ -43,16 +27,16 @@ function ItemDetails({ details }) {
   return (
     <div>
       <div className="details_buttons_container">
-        {renderButton("Details", ITEM_PAGE_TAB_VALUES["DETAILS"])}
-        {renderButton("Seller information", ITEM_PAGE_TAB_VALUES["SELER_INFO"])}
+        {renderButton("Details", ITEM_PAGE_TAB_VALUES.DETAILS)}
+        {renderButton("Seller information", ITEM_PAGE_TAB_VALUES.SELER_INFO)}
         {renderButton(
           "Customer reviews",
-          ITEM_PAGE_TAB_VALUES["CUSTOMER_REVIEWS"]
+          ITEM_PAGE_TAB_VALUES.CUSTOMER_REVIEWS
         )}
       </div>
       <div className="product_details">
         {selectedTab === ITEM_PAGE_TAB_VALUES["DETAILS"] && (
-          <p>{selectedTab === ITEM_PAGE_TAB_VALUES["DETAILS"] && details}</p>
+          <p>{details}</p>
         )}
       </div>
     </div>

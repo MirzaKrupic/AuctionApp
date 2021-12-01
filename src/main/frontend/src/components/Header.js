@@ -29,8 +29,8 @@ function Header() {
                 <Link to="/registration">Register</Link>
               </p>
             ) : (
-              <p className={classes.logout} onClick={handleLogout}>
-                Logout
+              <p className={`${classes.logout} ${classes.login_register_section}`}>
+                <Link onClick={handleLogout} to="/">Logout</Link>
               </p>
             )}
           </Col>

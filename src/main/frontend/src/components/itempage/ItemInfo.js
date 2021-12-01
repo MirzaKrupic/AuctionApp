@@ -61,7 +61,7 @@ function ItemInfo({
     }
   };
 
-  function getHighestBid() {
+  const getHighestBid = () => {
     if (bids.length > 0) {
       const amounts = bids.map((bid) => bid.amount);
       return Math.max(amounts);

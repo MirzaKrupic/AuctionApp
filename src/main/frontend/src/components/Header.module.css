@@ -42,12 +42,7 @@
 }
 
 .logout{
-  color: #fff;
-  margin-top: 6px;
-  text-align: right;
-  margin-left: auto;
-  margin-right: 0;
-  cursor: pointer;
+  max-width: 50px;
 }
 
 .login_register_section a {
