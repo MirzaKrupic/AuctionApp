@@ -16,7 +16,6 @@ function ImageGallery({ image }) {
   const renderImageOptions = () => {
     return (
       <div className={classes.picture_selection_container}>
-        <div>
           {imagesArr.map((image, index) => (
             <img
               key={index}
@@ -25,7 +24,6 @@ function ImageGallery({ image }) {
               onClick={() => setCurrentImage(image)}
             />
           ))}
-        </div>
       </div>
     );
   };
