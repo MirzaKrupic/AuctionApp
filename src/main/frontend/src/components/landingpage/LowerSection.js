@@ -8,14 +8,14 @@ function MiddleSection() {
   
 
   const [items, setItems] = useState(
-    <InfiniteScrollComponent criteria={LANDING_PAGE_TAB_VALUES["NORMAL"]} />
+    <InfiniteScrollComponent criteria={LANDING_PAGE_TAB_VALUES.NORMAL} />
   );
   const [selectedTab, setSelectedTab] = useState(
-    LANDING_PAGE_TAB_VALUES["NORMAL"]
+    LANDING_PAGE_TAB_VALUES.NORMAL
   );
 
   const renderButton = (title, value) => {
-    if (value === LANDING_PAGE_TAB_VALUES["TOP_RATED"]) {
+    if (value === LANDING_PAGE_TAB_VALUES.TOP_RATED) {
       return (
         <button disabled className="option_button">
           {title}
@@ -40,9 +40,9 @@ function MiddleSection() {
   return (
     <div className="section_container">
       <div className="section_title_div">
-        {renderButton("New Arrivals", LANDING_PAGE_TAB_VALUES["NORMAL"])}
-        {renderButton("Top Rated", LANDING_PAGE_TAB_VALUES["TOP_RATED"])}
-        {renderButton("Last Chance", LANDING_PAGE_TAB_VALUES["LAST_CHANCE"])}
+        {renderButton("New Arrivals", LANDING_PAGE_TAB_VALUES.NORMAL)}
+        {renderButton("Top Rated", LANDING_PAGE_TAB_VALUES.TOP_RATED)}
+        {renderButton("Last Chance", LANDING_PAGE_TAB_VALUES.LAST_CHANCE)}
       </div>
       <div className="feature_items_container">{items}</div>
     </div>

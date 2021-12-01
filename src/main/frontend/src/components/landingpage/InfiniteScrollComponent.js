@@ -15,9 +15,9 @@ function InfiniteScrollComponent(props) {
 
   useEffect(async () => {
     let data = "";
-    if(props.criteria === LANDING_PAGE_TAB_VALUES['NORMAL']){
+    if(props.criteria === LANDING_PAGE_TAB_VALUES.NORMAL){
       data = await fetchItems(page, 20);
-    }else if(props.criteria === LANDING_PAGE_TAB_VALUES['LAST_CHANCE']){
+    }else if(props.criteria === LANDING_PAGE_TAB_VALUES.LAST_CHANCE){
       data = await fetchItems(page, 20, "asc", "auctionEndDate");
     }
 
