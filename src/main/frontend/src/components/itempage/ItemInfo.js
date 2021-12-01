@@ -26,19 +26,7 @@ function ItemInfo({
     if (bids) {
       setCurrentNumberOfBids(bids.length);
       setCurrentAmount(getHighestBid());
-
-      let endDate = auctionEndDate.slice(0, 10).split("-");
-      let endTime = auctionEndDate.slice(11).split(":");
-      endDate = new Date(
-        endDate[0],
-        endDate[1] - 1,
-        endDate[2],
-        endTime[0],
-        endTime[1],
-        endTime[2]
-      );
-
-      setTimeLeft(computeTimeLeft(endDate));
+      setTimeLeft(computeTimeLeft(new Date(auctionEndDate)));
     }
   }, [bids]);
 
