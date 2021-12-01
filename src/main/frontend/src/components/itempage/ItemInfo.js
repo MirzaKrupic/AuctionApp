@@ -8,7 +8,14 @@ import { useEffect, useState } from "react";
 import ItemDetails from "./ItemDetails";
 import { computeTimeLeft } from "../../utils/itemUtils";
 
-function ItemInfo({ bids, auctionEndDate, itemId, name, startingPrice, details }) {
+function ItemInfo({
+  bids,
+  auctionEndDate,
+  itemId,
+  name,
+  startingPrice,
+  details,
+}) {
   const { token, isUserLoggedIn } = useContext(AuthContext);
   const [bidResponse, setBidResponse] = useState();
   const [currentAmount, setCurrentAmount] = useState(0);
@@ -55,12 +62,10 @@ function ItemInfo({ bids, auctionEndDate, itemId, name, startingPrice, details }
   };
 
   function getHighestBid() {
-    return bids.length > 0
-      ? bids.reduce(
-          (acc, bid) => (acc = acc > bid.amount ? acc : bid.amount),
-          0
-        )
-      : startingPrice;
+    if (bids.length > 0) {
+      const amounts = bids.map((bid) => bid.amount);
+      return Math.max(amounts);
+    } else return startingPrice;
   }
 
   return (
@@ -114,7 +119,7 @@ function ItemInfo({ bids, auctionEndDate, itemId, name, startingPrice, details }
           </Formik>
           {bidResponse}
         </div>
-        <ItemDetails details = {details}/>
+        <ItemDetails details={details} />
       </div>
     </div>
   );

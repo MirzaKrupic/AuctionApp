@@ -2,7 +2,7 @@ import "./ItemDetails.css";
 import { ITEM_PAGE_TAB_VALUES } from "../../utils/constants";
 import { useState } from "react";
 
-function ItemDetails({details}) {
+function ItemDetails({ details }) {
   const [selectedTab, setSelectedTab] = useState(
     ITEM_PAGE_TAB_VALUES["DETAILS"]
   );
@@ -52,7 +52,7 @@ function ItemDetails({details}) {
       </div>
       <div className="product_details">
         {selectedTab === ITEM_PAGE_TAB_VALUES["DETAILS"] && (
-          <p>{selectedTab===ITEM_PAGE_TAB_VALUES["DETAILS"] && details}</p>
+          <p>{selectedTab === ITEM_PAGE_TAB_VALUES["DETAILS"] && details}</p>
         )}
       </div>
     </div>
