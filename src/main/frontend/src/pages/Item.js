@@ -14,7 +14,7 @@ function Item() {
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
 
   useEffect(async () => {
-    const fetchedItem = token ? await fetchItemById(itemId,token) : {};
+    const fetchedItem = token ? await fetchItemById(itemId, token) : {};
 
     setItem(fetchedItem);
   }, [token]);
@@ -23,9 +23,7 @@ function Item() {
     <LayoutContainer>
       <div className={classes.items_positioning}>
         <ImageGallery image={item.photo} />
-        <ItemInfo
-          {...item}
-        />
+        <ItemInfo {...item} />
       </div>
     </LayoutContainer>
   );
