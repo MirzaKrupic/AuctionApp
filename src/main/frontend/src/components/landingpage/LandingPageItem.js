@@ -2,10 +2,10 @@ import "./LandingPageItem.css";
 import ItemImage from "../../assets/lowersectpic.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../hooks";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 
 function LandingPageItem(props) {
-  const { token } = useContext(AuthContext);
+  const { isUserLoggedIn } = useContext(AuthContext);
 
   return (
     <div
@@ -14,7 +14,7 @@ function LandingPageItem(props) {
       <div className={`${props.item_type.toLowerCase()}_image_container`}>
         <img className={`full_size_picture`} src={ItemImage} />
       </div>
-      {token ? (
+      {isUserLoggedIn ? (
         <Link className={`item_link`} to={`/items/${props.itemId}`}>
           <h3 className={`card_title`}>{props.name}</h3>
         </Link>
