@@ -1,11 +1,13 @@
 package com.example.auctionapp.entity;
 
+import com.example.auctionapp.bid.Bid;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -55,4 +57,46 @@ public class Item {
     )
     private Category category;
 
+    @Column(name="details", length=1024)
+    private String details;
+
+    @OneToMany(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "item_id"
+    )
+    private List<Bid> bids;
+
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getStartingPrice() {
+        return startingPrice;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public Date getAuctionEndDate() {
+        return auctionEndDate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public List<Bid> getBids() {
+        return bids;
+    }
 }

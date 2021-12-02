@@ -30,7 +30,18 @@ public class ItemDataLoader implements CommandLineRunner {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             for(int i = 0; i<101; i++ ) {
-                itemRepository.save(Item.builder().name("Shoes").startingPrice(22).photo("../../assets/lowersectpic.png").auctionEndDate(parseTimestamp("2022-05-01 12:30:00")).build());
+                itemRepository.save(Item.builder().name("Shoes").startingPrice(22).details("Note: The Jackets is US standard size, Please choose size as your\n" +
+                        "            usual wear Material: 100% Polyester Detachable Liner Fabric: Warm\n" +
+                        "            Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and\n" +
+                        "            Warm. Stand Collar Liner jacket, keep you warm in cold weather.\n" +
+                        "            Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on\n" +
+                        "            Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.\n" +
+                        "            Zippered Hand Pockets and Hidden Pocket keep your things secure.\n" +
+                        "            Humanized Design: Adjustable and Detachable Hood and Adjustable cuff\n" +
+                        "            to prevent the wind and water,for a comfortable fit. 3 in 1\n" +
+                        "            Detachable Design provide more convenience, you can separate the\n" +
+                        "            coat and inner as needed, or wear it together. It is suitable for\n" +
+                        "            different season and help you adapt to different climates").photo("/images/lowersectpic.png;/images/featurepic.png").auctionEndDate(parseTimestamp("2022-05-01 12:30:00")).build());
             }
             }
     }

@@ -32,7 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint).and()
-                .authorizeRequests((request) -> request.antMatchers("/api/v1/registration", "/api/v1/login", "/api/v1/items").permitAll()
+                .authorizeRequests((request) -> request
+                        .antMatchers("/api/v1/registration", "/api/v1/login", "/api/v1/items").permitAll()
                         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
                 .addFilterBefore(new JWTAuthenticationFilter(userService, jwtTokenHelper), UsernamePasswordAuthenticationFilter.class);
 

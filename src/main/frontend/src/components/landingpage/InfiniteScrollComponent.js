@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
 import LandingPageItem from "./LandingPageItem";
 import { Row } from "react-bootstrap";
-import {itemsFetch, itemsFetchByDate} from '../../utils/itemService';
+import {fetchItems} from '../../utils/itemService';
 import {LANDING_PAGE_TAB_VALUES} from '../../utils/constants';
 
 function InfiniteScrollComponent(props) {
@@ -15,10 +15,10 @@ function InfiniteScrollComponent(props) {
 
   useEffect(async () => {
     let data = "";
-    if(props.criteria === LANDING_PAGE_TAB_VALUES['NORMAL']){
-      data = await itemsFetch(page, 20);
-    }else if(props.criteria === LANDING_PAGE_TAB_VALUES['LAST_CHANCE']){
-      data = await itemsFetchByDate(page, 20, "asc", "auctionEndDate");
+    if(props.criteria === LANDING_PAGE_TAB_VALUES.NORMAL){
+      data = await fetchItems(page, 20);
+    }else if(props.criteria === LANDING_PAGE_TAB_VALUES.LAST_CHANCE){
+      data = await fetchItems(page, 20, "asc", "auctionEndDate");
     }
 
     setItems([...items, ...data.content]);
@@ -48,9 +48,7 @@ function InfiniteScrollComponent(props) {
               <LandingPageItem
                 item_type="SMALL"
                 key={item.itemId}
-                photo={item.photo}
-                card_title={item.name}
-                price={item.startingPrice}
+                {...item}
               />
             );
           })}

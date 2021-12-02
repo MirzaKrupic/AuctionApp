@@ -4,8 +4,17 @@ import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 import SocialMedia from "./SocialMedia";
 import LayoutContainer from "./LayoutContainer";
+import { AuthContext } from "../hooks";
+import { useContext } from "react";
 
 function Header() {
+  const { isUserLoggedIn, setToken } = useContext(AuthContext);
+
+  function handleLogout() {
+    setToken(null);
+    localStorage.removeItem("token");
+  }
+
   return (
     <div className={classes.headercontainer}>
       <LayoutContainer>
@@ -14,10 +23,16 @@ function Header() {
             <SocialMedia />
           </Col>
           <Col className={classes.login_register_position}>
-            <p className={classes.login_register_section}>
-              <Link to="/login">Login</Link> or
-              <Link to="/registration">Register</Link>
-            </p>
+            {!isUserLoggedIn() ? (
+              <p className={classes.login_register_section}>
+                <Link to="/login">Login</Link> or
+                <Link to="/registration">Register</Link>
+              </p>
+            ) : (
+              <p className={`${classes.logout} ${classes.login_register_section}`}>
+                <Link onClick={handleLogout} to="/">Logout</Link>
+              </p>
+            )}
           </Col>
         </Row>
       </LayoutContainer>

@@ -10,25 +10,25 @@ function MiddleSection() {
       <div className={classes.feature_items_container}>
         <LandingPageItem
           item_type="MEDIUM"
-          card_title="test"
+          name="test"
           price="22"
           url="images/secondayfeaturepic.png"
         />
         <LandingPageItem
           item_type="MEDIUM"
-          card_title="test"
+          name="test"
           price="22"
           url="images/secondayfeaturepic.png"
         />
         <LandingPageItem
           item_type="MEDIUM"
-          card_title="test"
+          name="test"
           price="22"
           url="images/secondayfeaturepic.png"
         />
         <LandingPageItem
           item_type="MEDIUM"
-          card_title="test"
+          name="test"
           price="22"
           url="images/secondayfeaturepic.png"
         />
