@@ -30,7 +30,7 @@ function Navigation() {
                   >
                     Home
                   </Link>
-                  <Link className={classes.navigation_option} to="/">
+                  <Link className={classes.navigation_option} to="/shop">
                     Shop
                   </Link>
                   <Link className={classes.navigation_option} to="/">

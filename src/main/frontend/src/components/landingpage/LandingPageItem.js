@@ -14,7 +14,7 @@ function LandingPageItem(props) {
       <div className={`${props.item_type.toLowerCase()}_image_container`}>
         <img className={`full_size_picture`} src={ItemImage} />
       </div>
-      {isUserLoggedIn ? (
+      {!isUserLoggedIn ? (
         <Link className={`item_link`} to={`/items/${props.itemId}`}>
           <h3 className={`card_title`}>{props.name}</h3>
         </Link>
