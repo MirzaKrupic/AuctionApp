@@ -1,6 +1,7 @@
 package com.example.auctionapp.controller;
 
 import com.example.auctionapp.bid.BiddingRequest;
+import com.example.auctionapp.entity.Category;
 import com.example.auctionapp.entity.Item;
 import com.example.auctionapp.security.config.JWTTokenHelper;
 import com.example.auctionapp.services.ItemService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1")
@@ -38,5 +40,10 @@ public class ItemController {
     public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, @PathVariable("itemId") long itemId, @RequestBody double amount) {
         ResponseEntity<?> token = itemService.itemBid(httpServletRequest,itemId, amount);
         return ResponseEntity.ok(token);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/items/shop")
+    public @ResponseBody List<Category> fetchItemsShop(){
+        return itemService.fetchItemsByCategory();
     }
 }

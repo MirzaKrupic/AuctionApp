@@ -1,8 +1,10 @@
 package com.example.auctionapp.entity;
 
+import com.example.auctionapp.bid.Bid;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,12 +29,22 @@ public class Category {
     @NonNull
     private String name;
 
-    @ManyToOne(
+    @OneToMany(
             cascade = CascadeType.ALL
     )
     @JoinColumn(
-            name = "supercategory_id",
-            referencedColumnName = "categoryId"
+            name = "supercategory_id"
     )
-    private Category superCategory;
+    private List<Category> subcategories;
+
+    @Column(name = "supercategory_id")
+    private Long supercategoryId;
+
+    @OneToMany(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "category_id"
+    )
+    private List<Item> items;
 }

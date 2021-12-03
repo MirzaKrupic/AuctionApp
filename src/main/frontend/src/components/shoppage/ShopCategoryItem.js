@@ -1,19 +1,31 @@
 import classes from "./ShopCategoryItem.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function ShopCategoryItem() {
+function ShopCategoryItem({ category, onItemChange }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [categoryFetched, setCategoryFetched] = useState(false);
+
+  useEffect(async () => {
+    if (category) {
+      setCategoryFetched(true);
+    }
+  }, [category]);
 
   const renderOptions = () => {
     return (
-      <div className={classes.subcategoriy_item}>
-        <input
-          className={classes.category_checkbox}
-          type="checkbox"
-          name="accesories"
-          value="Accesories"
-        />
-        {" Accesories"}
+      <div>
+        {category.subcategories.map((category) => (
+          <div className={classes.subcategoriy_item}>
+            <input
+              className={classes.category_checkbox}
+              type="checkbox"
+              name={category.name}
+              value={category.name}
+              onChange={onItemChange}
+            />
+            {" " + category.name + " (" + category.items.length + ")"}
+          </div>
+        ))}
       </div>
     );
   };
@@ -21,7 +33,9 @@ function ShopCategoryItem() {
   return (
     <div>
       <div className={classes.category_item_container}>
-        <p className={classes.category_item_text}>Women</p>
+        <p className={classes.category_item_text}>
+          {category && category.name}
+        </p>
         <p
           className={`${classes.collapse_optiono} ${classes.category_item_text}`}
           onClick={() => setIsCollapsed(!isCollapsed)}
@@ -29,7 +43,7 @@ function ShopCategoryItem() {
           {isCollapsed ? "-" : "+"}
         </p>
       </div>
-      {isCollapsed && renderOptions()}
+      {category && isCollapsed && renderOptions()}
     </div>
   );
 }

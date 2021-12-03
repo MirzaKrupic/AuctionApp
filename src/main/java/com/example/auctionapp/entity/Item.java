@@ -48,14 +48,8 @@ public class Item {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date auctionEndDate;
 
-    @ManyToOne(
-            cascade = CascadeType.ALL
-    )
-    @JoinColumn(
-            name = "category_id",
-            referencedColumnName = "categoryId"
-    )
-    private Category category;
+    @Column(name = "category_id")
+    private long categoryId;
 
     @Column(name="details", length=1024)
     private String details;
@@ -88,8 +82,8 @@ public class Item {
         return auctionEndDate;
     }
 
-    public Category getCategory() {
-        return category;
+    public long getCategory() {
+        return categoryId;
     }
 
     public String getDetails() {
