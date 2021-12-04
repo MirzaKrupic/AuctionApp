@@ -19,8 +19,8 @@ function ShopCategoryItem({ category, onItemChange }) {
             <input
               className={classes.category_checkbox}
               type="checkbox"
-              name={category.name}
-              value={category.name}
+              name={category.categoryId}
+              value={category.categoryId}
               onChange={onItemChange}
             />
             {" " + category.name + " (" + category.items.length + ")"}

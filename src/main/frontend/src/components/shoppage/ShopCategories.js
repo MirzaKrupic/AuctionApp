@@ -12,10 +12,6 @@ function ShopCategories(props) {
     }
   }, [props.categories]);
 
-  const onCategoryChange = (item) => {
-    console.log(item.target.value);
-  };
-
   const renderCategories = () => {
     console.log(props.categories);
     return (
@@ -25,7 +21,7 @@ function ShopCategories(props) {
             return category.supercategoryId == null;
           })
           .map((category) => (
-            <ShopCategoryItem onItemChange = {onCategoryChange} category = {category} />
+            <ShopCategoryItem onItemChange = {props.onCategoryChange} category = {category} />
           ))}
       </div>
     );
