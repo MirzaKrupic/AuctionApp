@@ -12,10 +12,22 @@ function ItemPageInfiniteScrollComponent(props) {
   const [hasMoreItems, setHasMoreItems] = useState(true);
   let res = null;
   const [page, setPage] = useState(0);
-
-  useEffect(async () => {}, []);
+  const [myArray, setMyArray] = useState([]);
 
   useEffect(async () => {
+    console.log(items);
+    if(items.length > 0){
+      
+    setMyArray(oldArray => [...oldArray, ...items.slice(0, 2)]);
+  }
+  }, [items]);
+
+  useEffect(async () => {
+    console.log("ovo je" + myArray);
+  }, [myArray]);
+
+  useEffect(async () => {
+    setMyArray([]);
     let itemsToRender = [];
     console.log(props.selectedCategories.length);
     if (props.selectedCategories.length == 0) {
@@ -38,7 +50,7 @@ function ItemPageInfiniteScrollComponent(props) {
       );
     }
     setItems(itemsToRender);
-  }, [props.selectedCategories]);
+  }, [props.categories, props.selectedCategories]);
 
   const fetchData = async () => {
     setPage(page + 1);
