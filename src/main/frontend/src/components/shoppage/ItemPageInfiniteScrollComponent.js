@@ -2,8 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
-import { fetchItems } from "../../utils/itemService";
-import { LANDING_PAGE_TAB_VALUES } from "../../utils/constants";
 import ItemPageListItem from "./ItemPageListItem";
 
 function ItemPageInfiniteScrollComponent(props) {
@@ -14,10 +12,7 @@ function ItemPageInfiniteScrollComponent(props) {
   const [itemsToRender, setItemsToRender] = useState([]);
 
   useEffect(async () => {
-    console.log(items);
     if (items.length > 0) {
-      const newLocks = [...items];
-      console.log(items.slice(page, 2))
       setItemsToRender((oldArray) => [...oldArray, ...items.slice(page, 2)]);
       setPage(page + 2);
     }
