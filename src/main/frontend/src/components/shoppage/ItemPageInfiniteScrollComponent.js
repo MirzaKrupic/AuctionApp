@@ -10,26 +10,24 @@ function ItemPageInfiniteScrollComponent(props) {
   const [items, setItems] = useState([]);
 
   const [hasMoreItems, setHasMoreItems] = useState(true);
-  let res = null;
   const [page, setPage] = useState(0);
-  const [myArray, setMyArray] = useState([]);
+  const [itemsToRender, setItemsToRender] = useState([]);
 
   useEffect(async () => {
     console.log(items);
-    if(items.length > 0){
-      
-    setMyArray(oldArray => [...oldArray, ...items.slice(0, 2)]);
-  }
+    if (items.length > 0) {
+      const newLocks = [...items];
+      console.log(items.slice(page, 2))
+      setItemsToRender((oldArray) => [...oldArray, ...items.slice(page, 2)]);
+      setPage(page + 2);
+    }
   }, [items]);
 
   useEffect(async () => {
-    console.log("ovo je" + myArray);
-  }, [myArray]);
-
-  useEffect(async () => {
-    setMyArray([]);
+    setItemsToRender([]);
+    setHasMoreItems(true)
+    setPage(0);
     let itemsToRender = [];
-    console.log(props.selectedCategories.length);
     if (props.selectedCategories.length == 0) {
       props.categories
         .filter(function (category) {
@@ -53,7 +51,11 @@ function ItemPageInfiniteScrollComponent(props) {
   }, [props.categories, props.selectedCategories]);
 
   const fetchData = async () => {
-    setPage(page + 1);
+    setItemsToRender((oldArray) => [...oldArray, ...items.slice(page, page+2)]);
+    if(page+2 >= items.length){
+      setHasMoreItems(false);
+    }
+    setPage(page + 2);
   };
 
   const renderItems = () => {
@@ -61,7 +63,7 @@ function ItemPageInfiniteScrollComponent(props) {
       <InfiniteScroll
         dataLength={items.length} //This is important field to render the next data
         next={fetchData}
-        hasMore={true}
+        hasMore={hasMoreItems}
         loader={<h4>Loading...</h4>}
         endMessage={
           <p style={{ textAlign: "center" }}>
@@ -71,7 +73,7 @@ function ItemPageInfiniteScrollComponent(props) {
       >
         <div className="container-fluid">
           <Row>
-            {items.map((item) => {
+            {itemsToRender.map((item) => {
               return <ItemPageListItem />;
             })}
           </Row>
