@@ -1,7 +1,7 @@
 import classes from "./ShopCategoryItem.module.css";
 import { useEffect, useState } from "react";
 
-function ShopCategoryItem({ category, onItemChange }) {
+function ShopCategoryItem({ category, onItemChange, selected }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [categoryFetched, setCategoryFetched] = useState(false);
 
@@ -22,6 +22,7 @@ function ShopCategoryItem({ category, onItemChange }) {
               name={category.categoryId}
               value={category.categoryId}
               onChange={onItemChange}
+              checked={selected==category.categoryId ? 'checked' : ''}
             />
             {" " + category.name + " (" + category.items.length + ")"}
           </div>

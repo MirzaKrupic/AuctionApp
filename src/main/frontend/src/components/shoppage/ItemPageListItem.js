@@ -1,19 +1,15 @@
 import classes from "./ItemPageListItem.module.css";
 
-function ItemPageListItem() {
+function ItemPageListItem({name, price, photo, details}) {
   return (
     <div className={classes.item_container}>
-      <img className={classes.item_picture} src="/images/lowersectpic.png" />
+      <img className={classes.item_picture} src={photo.split(";")[0]} />
       <div className={classes.details_section}>
-        <p className={classes.item_name}>Shoes Collection</p>
+        <p className={classes.item_name}>{name}</p>
         <p className={classes.item_description}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-          hendrerit odio a erat lobortis auctor. Curabitur sodales pharetra
-          placerat. Aenean auctor luctus tempus. Cras laoreet et magna in
-          dignissim. Nam et tincidunt augue. Vivamus quis malesuada velit. In
-          hac habitasse platea dictumst.
+          {details}
         </p>
-        <p className={classes.item_price}>Start From $59.00</p>
+        <p className={classes.item_price}>Start From ${price}</p>
         <div className={classes.button_group}>
           <div class={classes.item_button}>
             {"Watchlist "}

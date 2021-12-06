@@ -69,7 +69,7 @@ function ItemPageInfiniteScrollComponent(props) {
         <div className="container-fluid">
           <Row>
             {itemsToRender.map((item) => {
-              return <ItemPageListItem />;
+              return <ItemPageListItem details = {item.details} name = {item.name} photo = {item.photo} price = {item.startingPrice} />;
             })}
           </Row>
         </div>

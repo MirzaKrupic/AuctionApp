@@ -29,3 +29,8 @@
   text-align: left;
   border-bottom: 1px solid #d8d8d8;
 }
+
+.category_item_content{
+  text-decoration: none;
+  color: #252525;
+}

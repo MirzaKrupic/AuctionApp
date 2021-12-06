@@ -3,25 +3,23 @@ import ShopCategoryItem from "./ShopCategoryItem";
 import { fetchCategories } from "../../utils/categoryService";
 import { useEffect, useState } from "react";
 
-function ShopCategories(props) {
+function ShopCategories({categories, onCategoryChange, selected}) {
   const [categoriesFetched, setCategoriesFetched] = useState(false);
 
   useEffect(async () => {
-    if (props.categories.length > 0) {
+    if (categories.length > 0) {
       setCategoriesFetched(true);
     }
-  }, [props.categories]);
+  }, [categories]);
 
   const renderCategories = () => {
-    console.log(props.categories);
     return (
       <div>
-        {props
-          .categories.filter(function (category) {
+        {categories.filter(function (category) {
             return category.supercategoryId == null;
           })
           .map((category) => (
-            <ShopCategoryItem onItemChange = {props.onCategoryChange} category = {category} />
+            <ShopCategoryItem selected={selected} onItemChange = {onCategoryChange} category = {category} />
           ))}
       </div>
     );
