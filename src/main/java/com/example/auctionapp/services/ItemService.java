@@ -32,9 +32,12 @@ public class ItemService {
     UserService userService;
     CategoryRepository categoryRepository;
 
-    public Page<Item> getAllItems(int page, int size, String order, String orderColumn) {
+    public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId) {
         PageRequest pageable;
-        if (order != null && orderColumn != null) {
+        if (superCategoryId != null){
+            pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
+            return itemRepository.getBySupercategory(superCategoryId, pageable);
+        }else if (order != null && orderColumn != null) {
             if (order.equals("asc")) {
                 pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
             } else {
@@ -48,12 +51,6 @@ public class ItemService {
         for (Item item : statePage) {
             item.setBids(null);
         }
-        return statePage;
-    }
-
-    public List<Category> fetchItemsByCategory() {
-        List<Category> statePage = categoryRepository.findAll();
-
         return statePage;
     }
 
