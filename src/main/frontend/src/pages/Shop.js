@@ -9,6 +9,7 @@ import ItemPageInfiniteScrollComponent from "../components/shoppage/ItemPageInfi
 function Shop() {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
   const { categoryId } = useParams();
 
   const onCategoryChange = (item) => {
@@ -22,7 +23,7 @@ function Shop() {
   };
 
   useEffect(async () => {
-    if (categoryId) setSelectedCategories([...selectedCategories, categoryId]);
+    if (categoryId) setSelectedSuperCategory(categoryId);
     const fetchedCategories = await fetchCategories();
     setCategories(fetchedCategories);
   }, []);
@@ -45,8 +46,8 @@ function Shop() {
           </select>
           <div className={classes.infinite_scroll}>
           <ItemPageInfiniteScrollComponent
-          
-            selectedCategories={selectedCategories}
+            //selectedCategories={selectedCategories}
+            selectedSuperCategory = {selectedSuperCategory}
             categories={categories}
           />
           </div>
