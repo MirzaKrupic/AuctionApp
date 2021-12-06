@@ -15,6 +15,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     Item getByItemId(long itemId);
 
-    @Query("SELECT i FROM Item i where i.category.superCategory.categoryId = ?1")
+    @Query("SELECT i FROM Item i where i.category.supercategoryId = ?1")
     Page<Item> getBySupercategory(Long id, Pageable pageable);
 }

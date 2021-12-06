@@ -8,6 +8,7 @@ function ShopCategoryItem({ category, onItemChange, selected }) {
   useEffect(async () => {
     if (category) {
       setCategoryFetched(true);
+      console.log(category)
     }
   }, [category]);
 

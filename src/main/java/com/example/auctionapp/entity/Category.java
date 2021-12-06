@@ -29,12 +29,14 @@ public class Category {
     @NonNull
     private String name;
 
-    @ManyToOne(
+    @OneToMany(
             cascade = CascadeType.ALL
     )
     @JoinColumn(
-            name = "supercategory_id",
-            referencedColumnName = "categoryId"
+            name = "supercategory_id"
     )
-    private Category superCategory;
+    private List<Category> subcategories;
+
+    @Column(name = "supercategory_id")
+    private Long supercategoryId;
 }
