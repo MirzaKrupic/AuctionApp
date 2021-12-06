@@ -13,6 +13,9 @@ function ShopCategoryItem({ category, onItemChange, selected }) {
   }, [category]);
 
   const renderOptions = () => {
+    {category.subcategories.map((category) => (
+      console.log(category)
+    ))}
     return (
       <div>
         {category.subcategories.map((category) => (
@@ -25,7 +28,7 @@ function ShopCategoryItem({ category, onItemChange, selected }) {
               onChange={onItemChange}
               checked={selected==category.categoryId ? 'checked' : ''}
             />
-            {" " + category.name + " (" + category.items.length + ")"}
+            {" " + category.name}
           </div>
         ))}
       </div>

@@ -16,7 +16,7 @@ function ShopCategories({categories, onCategoryChange, selected}) {
     return (
       <div>
         {categories.filter(function (category) {
-            return category.superCategory == null;
+            return category.supercategoryId == null;
           })
           .map((category) => (
             <ShopCategoryItem selected={selected} onItemChange = {onCategoryChange} category = {category} />
