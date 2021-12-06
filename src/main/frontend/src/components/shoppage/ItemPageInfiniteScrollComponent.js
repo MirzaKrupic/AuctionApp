@@ -1,8 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
-import { Row } from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 import ItemPageListItem from "./ItemPageListItem";
+import classes from "./ItemPageInfiniteScrollComponent.module.css";
 
 function ItemPageInfiniteScrollComponent(props) {
   const [items, setItems] = useState([]);
@@ -66,13 +67,13 @@ function ItemPageInfiniteScrollComponent(props) {
           </p>
         }
       >
-        <div className="container-fluid">
-          <Row>
+        <Container fluid className={classes.no_padding_left}>
+          <Row no-gutters>
             {itemsToRender.map((item) => {
               return <ItemPageListItem details = {item.details} name = {item.name} photo = {item.photo} price = {item.startingPrice} />;
             })}
           </Row>
-        </div>
+        </Container >
       </InfiniteScroll>
     );
   };

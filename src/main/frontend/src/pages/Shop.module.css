@@ -4,3 +4,18 @@
   flex-direction: row;
   align-items: flex-start;
 }
+
+.shop_right_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 24px;
+  overflow: hidden;
+}
+
+.shop_right_section select {
+  margin-bottom: 40px;
+  width: 268px;
+  height: 43px;
+  border: 2px solid #d8d8d8;
+}

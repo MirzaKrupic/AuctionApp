@@ -35,10 +35,22 @@ function Shop() {
           onCategoryChange={onCategoryChange}
           categories={categories}
         />
-        <ItemPageInfiniteScrollComponent
-          selectedCategories={selectedCategories}
-          categories={categories}
-        />
+        <div className={classes.shop_right_section}>
+          <select name="sorting" id="sorting">
+            <option value="default">Default Sorting</option>
+            <option value="popularity">Sort by Popularity</option>
+            <option value="rating">Sort by Rating</option>
+            <option value="newness">Sort by Newness</option>
+            <option value="price">Sort by Price</option>
+          </select>
+          <div className={classes.infinite_scroll}>
+          <ItemPageInfiniteScrollComponent
+          
+            selectedCategories={selectedCategories}
+            categories={categories}
+          />
+          </div>
+        </div>
       </div>
     </LayoutContainer>
   );
