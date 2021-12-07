@@ -13,17 +13,27 @@ function Shop() {
   const { categoryId } = useParams();
 
   const onCategoryChange = (item) => {
-    if (!selectedCategories.includes(item.target.value)) {
-      setSelectedCategories([...selectedCategories, ...item.target.value]);
-    } else {
-      setSelectedCategories(
-        selectedCategories.filter((val) => val !== item.target.value)
-      );
+    // if (!selectedCategories.includes(item.target.value)) {
+    //   setSelectedCategories([...selectedCategories, ...item.target.value]);
+    // } else {
+    //   setSelectedCategories(
+    //     selectedCategories.filter((val) => val !== item.target.value)
+    //   );
+    // }
+  };
+
+  const onSuperCategoryChange = (item) => {
+    if(!selectedSuperCategory){
+      setSelectedCategories(item)
+    }else if(selectedSuperCategory == item){
+      setSelectedSuperCategory(null)
+    }else{
+      setSelectedSuperCategory(parseInt(item))
     }
   };
 
   useEffect(async () => {
-    if (categoryId) setSelectedSuperCategory(categoryId);
+    if (categoryId) setSelectedSuperCategory(parseInt(categoryId));
     const fetchedCategories = await fetchCategories();
     setCategories(fetchedCategories);
   }, []);
@@ -35,6 +45,8 @@ function Shop() {
           selected={categoryId ? categoryId : null}
           onCategoryChange={onCategoryChange}
           categories={categories}
+          selectedSuperCategory = {selectedSuperCategory}
+          onSuperCategoryChange = {onSuperCategoryChange}
         />
         <div className={classes.shop_right_section}>
           <select name="sorting" id="sorting">

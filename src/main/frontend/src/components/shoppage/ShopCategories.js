@@ -3,7 +3,7 @@ import ShopCategoryItem from "./ShopCategoryItem";
 import { fetchCategories } from "../../utils/categoryService";
 import { useEffect, useState } from "react";
 
-function ShopCategories({categories, onCategoryChange, selected}) {
+function ShopCategories({categories, onCategoryChange, selected, selectedSuperCategory, onSuperCategoryChange}) {
   const [categoriesFetched, setCategoriesFetched] = useState(false);
 
   useEffect(async () => {
@@ -19,7 +19,7 @@ function ShopCategories({categories, onCategoryChange, selected}) {
             return category.supercategoryId == null;
           })
           .map((category) => (
-            <ShopCategoryItem selected={selected} onItemChange = {onCategoryChange} category = {category} />
+            <ShopCategoryItem onSuperCategoryChange = {onSuperCategoryChange} selectedSuperCategory = {selectedSuperCategory} selected={selected} onItemChange = {onCategoryChange} category = {category} />
           ))}
       </div>
     );
