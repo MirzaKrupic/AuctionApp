@@ -21,7 +21,7 @@ function Categories(props) {
       {categories &&
         categories
           .filter(function (category) {
-            return category.superCategory == null;
+            return category.supercategoryId == null;
           })
           .slice(0, 9)
           .map((category) => (
