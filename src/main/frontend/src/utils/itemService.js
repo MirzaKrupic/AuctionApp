@@ -4,7 +4,7 @@ const host = "localhost:8080";
 
 export const fetchItems = async (page, size, order, orderColumn, categoryId) => {
   let url = `http://${host}/api/v1/items?page=${page}&size=${size}`;
-  if(order && order!== null){
+  if(!!order){
     url = url + `&order=${order}`
   }
   if(orderColumn && orderColumn!== null){
@@ -13,7 +13,6 @@ export const fetchItems = async (page, size, order, orderColumn, categoryId) => 
   if(categoryId && categoryId!== null){
     url = url + `&superCategoryId=${categoryId}`
   }
-  console.log(url);
   const items = await fetch(
     url
   );

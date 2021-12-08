@@ -11,6 +11,28 @@ function Shop() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
   const { categoryId } = useParams();
+  const options = [
+    {
+      value: "default",
+      name: "Default Sorting",
+    },
+    {
+      value: "popularity",
+      name: "Sort by Popularit",
+    },
+    {
+      value: "rating",
+      name: "Sort by Rating",
+    },
+    {
+      value: "newness",
+      name: "Sort by Newness",
+    },
+    {
+      value: "price",
+      name: "Sort by Price",
+    },
+  ];
 
   const onCategoryChange = (item) => {
     // if (!selectedCategories.includes(item.target.value)) {
@@ -23,12 +45,12 @@ function Shop() {
   };
 
   const onSuperCategoryChange = (item) => {
-    if(!selectedSuperCategory){
-      setSelectedCategories(item)
-    }else if(selectedSuperCategory == item){
-      setSelectedSuperCategory(null)
-    }else{
-      setSelectedSuperCategory(parseInt(item))
+    if (!selectedSuperCategory) {
+      setSelectedCategories(item);
+    } else if (selectedSuperCategory == item) {
+      setSelectedSuperCategory(null);
+    } else {
+      setSelectedSuperCategory(parseInt(item));
     }
   };
 
@@ -45,23 +67,21 @@ function Shop() {
           selected={categoryId ? categoryId : null}
           onCategoryChange={onCategoryChange}
           categories={categories}
-          selectedSuperCategory = {selectedSuperCategory}
-          onSuperCategoryChange = {onSuperCategoryChange}
+          selectedSuperCategory={selectedSuperCategory}
+          onSuperCategoryChange={onSuperCategoryChange}
         />
         <div className={classes.shop_right_section}>
           <select name="sorting" id="sorting">
-            <option value="default">Default Sorting</option>
-            <option value="popularity">Sort by Popularity</option>
-            <option value="rating">Sort by Rating</option>
-            <option value="newness">Sort by Newness</option>
-            <option value="price">Sort by Price</option>
+            {options.map((option) => (
+              <option value={option.value}>{option.name}</option>
+            ))}
           </select>
           <div className={classes.infinite_scroll}>
-          <ItemPageInfiniteScrollComponent
-            //selectedCategories={selectedCategories}
-            selectedSuperCategory = {selectedSuperCategory}
-            categories={categories}
-          />
+            <ItemPageInfiniteScrollComponent
+              //selectedCategories={selectedCategories}
+              selectedSuperCategory={selectedSuperCategory}
+              categories={categories}
+            />
           </div>
         </div>
       </div>

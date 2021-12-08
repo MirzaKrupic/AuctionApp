@@ -1,6 +1,5 @@
 import classes from "./ShopCategoryItem.module.css";
 import { useEffect, useState } from "react";
-import { AirlineSeatFlat } from "@material-ui/icons";
 
 function ShopCategoryItem({
   category,
@@ -10,14 +9,10 @@ function ShopCategoryItem({
   onSuperCategoryChange,
 }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [categoryFetched, setCategoryFetched] = useState(false);
 
   useEffect(async () => {
-    if (category) {
-      setCategoryFetched(true);
-      if (selectedSuperCategory === category.categoryId) {
-        setIsCollapsed(true);
-      }
+    if (selectedSuperCategory === category.categoryId) {
+      setIsCollapsed(true);
     }
   }, [category]);
 
@@ -35,7 +30,7 @@ function ShopCategoryItem({
               onChange={onItemChange}
               checked={selected == category.categoryId ? "checked" : ""}
             />
-            {" " + category.name}
+            {` ${category.name}`}
           </div>
         ))}
       </div>
@@ -49,10 +44,10 @@ function ShopCategoryItem({
           {category && category.name}
         </p>
         <p
-          className={`${classes.collapse_optiono} ${classes.category_item_text}`}
+          className={`${classes.collapse_option} ${classes.category_item_text}`}
           onClick={() => {
             setIsCollapsed(!isCollapsed);
-            onSuperCategoryChange("jes");
+            onSuperCategoryChange(category.categoryId);
           }}
         >
           {isCollapsed ? "-" : "+"}

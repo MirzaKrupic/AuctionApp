@@ -1,34 +1,34 @@
 import classes from "./ShopCategories.module.css";
 import ShopCategoryItem from "./ShopCategoryItem";
-import { fetchCategories } from "../../utils/categoryService";
-import { useEffect, useState } from "react";
 
-function ShopCategories({categories, onCategoryChange, selected, selectedSuperCategory, onSuperCategoryChange}) {
-  const [categoriesFetched, setCategoriesFetched] = useState(false);
-
-  useEffect(async () => {
-    if (categories.length > 0) {
-      setCategoriesFetched(true);
-    }
-  }, [categories]);
-
-  const renderCategories = () => {
-    return (
-      <div>
-        {categories.filter(function (category) {
-            return category.supercategoryId == null;
-          })
-          .map((category) => (
-            <ShopCategoryItem onSuperCategoryChange = {onSuperCategoryChange} selectedSuperCategory = {selectedSuperCategory} selected={selected} onItemChange = {onCategoryChange} category = {category} />
-          ))}
-      </div>
-    );
-  };
+function ShopCategories({
+  categories,
+  onCategoryChange,
+  selected,
+  selectedSuperCategory,
+  onSuperCategoryChange,
+}) {
 
   return (
     <div className={classes.categories_container}>
       <p className={classes.categories_heading}>PRODUCT CATEGORIES</p>
-      {categoriesFetched && renderCategories()}
+      {categories.length > 0 && (
+        <div>
+          {categories
+            .filter(function (category) {
+              return category.supercategoryId == null;
+            })
+            .map((category) => (
+              <ShopCategoryItem
+                onSuperCategoryChange={onSuperCategoryChange}
+                selectedSuperCategory={selectedSuperCategory}
+                selected={selected}
+                onItemChange={onCategoryChange}
+                category={category}
+              />
+            ))}
+        </div>
+      )}
     </div>
   );
 }

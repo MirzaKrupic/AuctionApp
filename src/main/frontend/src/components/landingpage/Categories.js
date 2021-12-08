@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Categories(props) {
-  const [categories, setCategories] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   useEffect(async () => {
     const fetchedCategories = await fetchCategories();
@@ -18,17 +18,20 @@ function Categories(props) {
       >
         <p className={classes.categoriesheading}>CATEGORIES</p>
       </div>
-      {categories &&
-        categories
-          .filter(function (category) {
-            return category.supercategoryId == null;
-          })
-          .slice(0, 9)
-          .map((category) => (
-            <div className={classes.category_item}>
-              <Link className={classes.category_item_content} to={`/shop/${category.categoryId}`}>{category.name}</Link>
-            </div>
-          ))}
+      {categories
+        .filter((category) => {
+          return category.supercategoryId === null;
+        })
+        .map((category) => (
+          <div className={classes.category_item}>
+            <Link
+              className={classes.category_item_content}
+              to={`/shop/${category.categoryId}`}
+            >
+              {category.name}
+            </Link>
+          </div>
+        ))}
 
       <div className={classes.category_item}>
         <p>All Categories</p>
