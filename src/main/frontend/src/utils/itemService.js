@@ -10,7 +10,7 @@ export const fetchItems = async (page, size, order, orderColumn, categoryId) => 
   if(orderColumn && orderColumn!== null){
     url = url + `&orderColumn=${orderColumn}`
   }
-  if(categoryId && categoryId!== null){
+  if(categoryId && categoryId !== 0 && categoryId!== null){
     url = url + `&superCategoryId=${categoryId}`
   }
   const items = await fetch(

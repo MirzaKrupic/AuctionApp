@@ -26,9 +26,6 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @Autowired
-    private ItemRepository itemRepository;
-
     @RequestMapping(method = RequestMethod.GET, path = "/items")
     public @ResponseBody Page<Item> fetchItems(@RequestParam("page") int page,
                                                @RequestParam("size") int size,

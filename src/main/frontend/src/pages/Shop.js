@@ -45,17 +45,18 @@ function Shop() {
   };
 
   const onSuperCategoryChange = (item) => {
-    if (!selectedSuperCategory) {
-      setSelectedCategories(item);
-    } else if (selectedSuperCategory == item) {
-      setSelectedSuperCategory(null);
-    } else {
+    if (selectedSuperCategory === 0) {
       setSelectedSuperCategory(parseInt(item));
+    } else if (selectedSuperCategory === item) {
+      setSelectedSuperCategory(0);
+    } else {
+      setSelectedSuperCategory(item);
     }
   };
 
   useEffect(async () => {
     if (categoryId) setSelectedSuperCategory(parseInt(categoryId));
+    else setSelectedSuperCategory(0);
     const fetchedCategories = await fetchCategories();
     setCategories(fetchedCategories);
   }, []);

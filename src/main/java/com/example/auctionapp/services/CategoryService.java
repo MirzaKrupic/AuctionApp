@@ -14,8 +14,6 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public List<Category> fetchCategories() {
-        List<Category> statePage = categoryRepository.findAll();
-
-        return statePage;
+        return categoryRepository.findAll();
     }
 }
