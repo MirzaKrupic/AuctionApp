@@ -8,34 +8,13 @@ function ShopCategoryItem({
   selectedSuperCategory,
   onSuperCategoryChange,
 }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (selectedSuperCategory === category.categoryId) {
-      setIsCollapsed(true);
+      setIsCollapsed(false);
     }
   }, [category]);
-
-  const renderOptions = () => {
-    return (
-      <div>
-        {category.subcategories.map((category) => (
-          <div className={classes.subcategoriy_item}>
-            <input
-              disabled
-              className={classes.category_checkbox}
-              type="checkbox"
-              name={category.categoryId}
-              value={category.categoryId}
-              onChange={onItemChange}
-              checked={selected == category.categoryId ? "checked" : ""}
-            />
-            {` ${category.name}`}
-          </div>
-        ))}
-      </div>
-    );
-  };
 
   return (
     <div>
@@ -50,10 +29,27 @@ function ShopCategoryItem({
             onSuperCategoryChange(category.categoryId);
           }}
         >
-          {isCollapsed ? "-" : "+"}
+          {!isCollapsed ? "-" : "+"}
         </p>
       </div>
-      {category && isCollapsed && renderOptions()}
+      {category && !isCollapsed && (
+        <div>
+          {category.subcategories.map((category) => (
+            <div className={classes.subcategoriy_item}>
+              <input
+                disabled
+                className={classes.category_checkbox}
+                type="checkbox"
+                name={category.categoryId}
+                value={category.categoryId}
+                onChange={onItemChange}
+                checked={selected == category.categoryId ? "checked" : ""}
+              />
+              {` ${category.name}`}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

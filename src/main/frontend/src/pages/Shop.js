@@ -4,7 +4,7 @@ import classes from "./Shop.module.css";
 import { fetchCategories } from "../utils/categoryService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ItemPageInfiniteScrollComponent from "../components/shoppage/ItemPageInfiniteScrollComponent";
+import ItemList from "../components/shoppage/ItemList";
 
 function Shop() {
   const [categories, setCategories] = useState([]);
@@ -44,19 +44,22 @@ function Shop() {
     // }
   };
 
-  const onSuperCategoryChange = (item) => {
+  const onSuperCategoryChange = (superCategory) => {
     if (selectedSuperCategory === 0) {
-      setSelectedSuperCategory(parseInt(item));
-    } else if (selectedSuperCategory === item) {
+      setSelectedSuperCategory(parseInt(superCategory));
+    } else if (selectedSuperCategory === superCategory) {
       setSelectedSuperCategory(0);
     } else {
-      setSelectedSuperCategory(item);
+      setSelectedSuperCategory(superCategory);
     }
   };
 
   useEffect(async () => {
-    if (categoryId) setSelectedSuperCategory(parseInt(categoryId));
-    else setSelectedSuperCategory(0);
+    if (categoryId) {
+      setSelectedSuperCategory(parseInt(categoryId));
+    } else {
+      setSelectedSuperCategory(0);
+    }
     const fetchedCategories = await fetchCategories();
     setCategories(fetchedCategories);
   }, []);
@@ -78,7 +81,7 @@ function Shop() {
             ))}
           </select>
           <div className={classes.infinite_scroll}>
-            <ItemPageInfiniteScrollComponent
+            <ItemList
               //selectedCategories={selectedCategories}
               selectedSuperCategory={selectedSuperCategory}
               categories={categories}

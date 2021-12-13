@@ -19,8 +19,8 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @RequestMapping(method = RequestMethod.GET, path = "/categories")
-    public @ResponseBody
-    List<Category> fetchAllCategories(){
+    @ResponseBody
+    public List<Category> fetchAllCategories(){
         return categoryService.fetchCategories();
     }
 }

@@ -9,3 +9,7 @@ export const ITEM_PAGE_TAB_VALUES= {
     SELLER_INFO: "SELLER_INFO",
     CUSTOMER_REVIEWS: "CUSTOMER_REVIEWS"
 }
+
+export const SORTING_VALUES= {
+    NAME: "name"
+}

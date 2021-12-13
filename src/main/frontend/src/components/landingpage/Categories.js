@@ -19,9 +19,7 @@ function Categories(props) {
         <p className={classes.categoriesheading}>CATEGORIES</p>
       </div>
       {categories
-        .filter((category) => {
-          return category.supercategoryId === null;
-        })
+        .filter(category => category.supercategoryId === null)
         .map((category) => (
           <div className={classes.category_item}>
             <Link

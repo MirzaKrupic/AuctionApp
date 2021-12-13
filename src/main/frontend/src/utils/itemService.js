@@ -2,7 +2,7 @@ import axios from "axios";
 import { handleResponse } from "./requestHandler";
 const host = "localhost:8080";
 
-export const fetchItems = async (page, size, order, orderColumn, categoryId) => {
+export const fetchItems = async (page, size, order, orderColumn, superCategoryId) => {
   let url = `http://${host}/api/v1/items?page=${page}&size=${size}`;
   if(!!order){
     url = url + `&order=${order}`
@@ -10,8 +10,8 @@ export const fetchItems = async (page, size, order, orderColumn, categoryId) => 
   if(orderColumn && orderColumn!== null){
     url = url + `&orderColumn=${orderColumn}`
   }
-  if(categoryId && categoryId !== 0 && categoryId!== null){
-    url = url + `&superCategoryId=${categoryId}`
+  if(superCategoryId && superCategoryId !== 0){
+    url = url + `&superCategoryId=${superCategoryId}`
   }
   const items = await fetch(
     url

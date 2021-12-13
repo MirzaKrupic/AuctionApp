@@ -1,39 +1,43 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState, useRef } from "react";
 import { Row, Container } from "react-bootstrap";
 import ItemPageListItem from "./ItemPageListItem";
-import classes from "./ItemPageInfiniteScrollComponent.module.css";
+import classes from "./ItemList.module.css";
 import { fetchItems } from "../../utils/itemService";
+import { SORTING_VALUES } from "../../utils/constants";
 
-function ItemPageInfiniteScrollComponent(props) {
+function ItemList(props) {
   const [items, setItems] = useState([]);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const [page, setPage] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState(
+  const [selectedSupercategory, setSelectedSupercategory] = useState(
     props.selectedSuperCategory
   );
-  const isMounted = useRef(false);
-  const size = 2;
-  const sortBy = "name";
+  const PAGE_SIZE = 2;
 
   useEffect(async () => {
     setItems([]);
     setHasMoreItems(true);
     setPage(0);
     if (props.selectedSuperCategory != null) {
-      setSelectedCategory(props.selectedSuperCategory);
+      setSelectedSupercategory(props.selectedSuperCategory);
     }
   }, [props.selectedSuperCategory]);
 
   useEffect(async () => {
     let data = "";
-    if (selectedCategory !== null) {
-      data = await fetchItems(page, size, null, sortBy, selectedCategory);
+    if (selectedSupercategory !== null) {
+      data = await fetchItems(
+        page,
+        PAGE_SIZE,
+        null,
+        SORTING_VALUES.NAME,
+        selectedSupercategory
+      );
       setItems([...items, ...data.content]);
       setHasMoreItems(!data.last);
     }
-  }, [selectedCategory, page]);
+  }, [selectedSupercategory, page]);
 
   // useEffect(async () => {
   //   setItemsToRender([]);
@@ -66,32 +70,33 @@ function ItemPageInfiniteScrollComponent(props) {
     setPage(page + 1);
   };
 
-  const renderItems = () => {
-    return (
-      <InfiniteScroll
-        dataLength={items.length} //This is important field to render the next data
-        hasMore={hasMoreItems}
-      >
-        <Container fluid className={classes.no_padding_left}>
-          <Row no-gutters>
-            {items.map((item) => {
-              return (
-                <ItemPageListItem
-                  details={item.details}
-                  name={item.name}
-                  photo={item.photo}
-                  price={item.startingPrice}
-                />
-              );
-            })}
-          </Row>
-        </Container>
-        {hasMoreItems && <button className={classes.fetch_button} onClick = {fetchData}>EXPLORE MORE</button>}
-      </InfiniteScroll>
-    );
-  };
-
-  return <div>{props.categories && renderItems()}</div>;
+  return (
+    <div>
+      {props.categories && (
+        <div>
+          <Container fluid className={classes.no_padding_left}>
+            <Row no-gutters>
+              {items.map((item) => {
+                return (
+                  <ItemPageListItem
+                    details={item.details}
+                    name={item.name}
+                    photo={item.photo}
+                    price={item.startingPrice}
+                  />
+                );
+              })}
+            </Row>
+          </Container>
+          {hasMoreItems && (
+            <button className={classes.fetch_button} onClick={fetchData}>
+              EXPLORE MORE
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default ItemPageInfiniteScrollComponent;
+export default ItemList;
