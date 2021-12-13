@@ -45,7 +45,7 @@ function ShopCategoryItem({
                 onChange={onItemChange}
                 checked={selected == category.categoryId ? "checked" : ""}
               />
-              {` ${category.name}`}
+                {category.name}
             </div>
           ))}
         </div>
