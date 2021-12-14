@@ -31,8 +31,11 @@ public class ItemService {
     JWTTokenHelper jwtTokenHelper;
     UserService userService;
 
-    public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId) {
+    public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId, Long[] categories) {
         PageRequest pageable;
+        if(categories != null){
+            return itemRepository.findByCategoryCategoryIdIn(Arrays.asList(categories), PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
+        }
         if (superCategoryId != null) {
             pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
             return itemRepository.getBySupercategory(superCategoryId, pageable);
