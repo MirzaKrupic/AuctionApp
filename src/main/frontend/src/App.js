@@ -7,6 +7,7 @@ import Registration from "./pages/Registration";
 import Login from "./pages/Login";
 import { AuthProvider } from "./hooks";
 import Item from "./pages/Item";
+import Shop from "./pages/Shop";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
             <Switch>
               <Route path="/" exact>
                 <Home />
+              </Route>
+              <Route path="/shop/:categoryId?" exact>
+                <Shop />
               </Route>
               <Route path="/items/:itemId" exact>
                 <Item />

@@ -2,7 +2,6 @@ package com.example.auctionapp.services;
 
 import com.example.auctionapp.bid.Bid;
 import com.example.auctionapp.bid.BidRepository;
-import com.example.auctionapp.bid.BiddingRequest;
 import com.example.auctionapp.entity.Item;
 import com.example.auctionapp.repository.ItemRepository;
 import com.example.auctionapp.security.config.JWTTokenHelper;
@@ -18,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.data.domain.Pageable;
+
 import java.util.*;
 
 @Service
@@ -29,16 +31,21 @@ public class ItemService {
     JWTTokenHelper jwtTokenHelper;
     UserService userService;
 
-    public Page<Item> getAllItems(int page, int size, String order, String orderColumn) {
+    public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId) {
         PageRequest pageable;
-        if (order != null && orderColumn != null) {
-            if (order.equals("asc")) {
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
-            } else {
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
-            }
+        if (superCategoryId != null) {
+            pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
+            return itemRepository.getBySupercategory(superCategoryId, pageable);
         } else {
-            pageable = PageRequest.of(page, size);
+            if (order != null && orderColumn != null) {
+                if (order.equals("asc")) {
+                    pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
+                } else {
+                    pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
+                }
+            } else {
+                pageable = PageRequest.of(page, size);
+            }
         }
         Page<Item> statePage = itemRepository.findAll(pageable);
 
