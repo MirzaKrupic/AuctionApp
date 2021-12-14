@@ -5,6 +5,7 @@ import { fetchCategories } from "../utils/categoryService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ItemList from "../components/shoppage/ItemList";
+import PriceFilter from "../components/shoppage/PriceFilter";
 
 function Shop() {
   const [categories, setCategories] = useState([]);
@@ -67,6 +68,7 @@ function Shop() {
   return (
     <LayoutContainer>
       <div className={classes.items_positioning}>
+        <div className={classes.shop_left_section}>
         <ShopCategories
           onCategoryChange={onCategoryChange}
           categories={categories}
@@ -74,13 +76,15 @@ function Shop() {
           selectedSuperCategory={selectedSuperCategory}
           onSuperCategoryChange={onSuperCategoryChange}
         />
+        <PriceFilter />
+        </div>
         <div className={classes.shop_right_section}>
           <select name="sorting" id="sorting">
             {options.map((option) => (
               <option value={option.value}>{option.name}</option>
             ))}
           </select>
-          <div className={classes.infinite_scroll}>
+          <div className={classes.item_list}>
             <ItemList
               selectedCategories={selectedCategories}
               selectedSuperCategory={selectedSuperCategory}

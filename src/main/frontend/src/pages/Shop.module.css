@@ -19,3 +19,9 @@
   height: 43px;
   border: 2px solid #d8d8d8;
 }
+
+.shop_left_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
