@@ -4,11 +4,10 @@ import ShopCategoryItem from "./ShopCategoryItem";
 function ShopCategories({
   categories,
   onCategoryChange,
-  selected,
+  selectedCategories,
   selectedSuperCategory,
   onSuperCategoryChange,
 }) {
-
   return (
     <div className={classes.categories_container}>
       <p className={classes.categories_heading}>PRODUCT CATEGORIES</p>
@@ -22,9 +21,9 @@ function ShopCategories({
               <ShopCategoryItem
                 onSuperCategoryChange={onSuperCategoryChange}
                 selectedSuperCategory={selectedSuperCategory}
-                selected={selected}
                 onItemChange={onCategoryChange}
                 category={category}
+                selectedCategories={selectedCategories}
               />
             ))}
         </div>

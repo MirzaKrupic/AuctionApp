@@ -14,6 +14,7 @@ function ItemList(props) {
     props.selectedSuperCategory
   );
   const PAGE_SIZE = 2;
+  const [refreshState, setRefreshState] = useState(true);
 
   useEffect(async () => {
     setItems([]);
@@ -22,7 +23,11 @@ function ItemList(props) {
     if (props.selectedSuperCategory != null) {
       setSelectedSupercategory(props.selectedSuperCategory);
     }
-  }, [props.selectedSuperCategory]);
+    if (props.selectedCategories.length > 0) {
+      setSelectedSupercategory(0);
+    }
+    setRefreshState(!refreshState);
+  }, [props.selectedSuperCategory, props.selectedCategories]);
 
   useEffect(async () => {
     let data = "";
@@ -32,12 +37,13 @@ function ItemList(props) {
         PAGE_SIZE,
         null,
         SORTING_VALUES.NAME,
-        selectedSupercategory
+        selectedSupercategory,
+        props.selectedCategories
       );
       setItems([...items, ...data.content]);
       setHasMoreItems(!data.last);
     }
-  }, [selectedSupercategory, page]);
+  }, [selectedSupercategory, page, refreshState]);
 
   // useEffect(async () => {
   //   setItemsToRender([]);

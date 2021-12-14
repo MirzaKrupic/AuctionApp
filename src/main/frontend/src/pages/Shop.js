@@ -35,13 +35,13 @@ function Shop() {
   ];
 
   const onCategoryChange = (item) => {
-    // if (!selectedCategories.includes(item.target.value)) {
-    //   setSelectedCategories([...selectedCategories, ...item.target.value]);
-    // } else {
-    //   setSelectedCategories(
-    //     selectedCategories.filter((val) => val !== item.target.value)
-    //   );
-    // }
+    if (!selectedCategories.includes(parseInt(item.target.value))) {
+      setSelectedCategories([...selectedCategories, parseInt(item.target.value)]);
+    } else {
+      setSelectedCategories(
+        selectedCategories.filter((val) => val !== parseInt(item.target.value))
+      );
+    }
   };
 
   const onSuperCategoryChange = (superCategory) => {
@@ -68,9 +68,9 @@ function Shop() {
     <LayoutContainer>
       <div className={classes.items_positioning}>
         <ShopCategories
-          selected={categoryId ? categoryId : null}
           onCategoryChange={onCategoryChange}
           categories={categories}
+          selectedCategories = {selectedCategories}
           selectedSuperCategory={selectedSuperCategory}
           onSuperCategoryChange={onSuperCategoryChange}
         />
@@ -82,7 +82,7 @@ function Shop() {
           </select>
           <div className={classes.infinite_scroll}>
             <ItemList
-              //selectedCategories={selectedCategories}
+              selectedCategories={selectedCategories}
               selectedSuperCategory={selectedSuperCategory}
               categories={categories}
             />
