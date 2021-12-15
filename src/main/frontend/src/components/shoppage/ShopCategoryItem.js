@@ -13,8 +13,10 @@ function ShopCategoryItem({
   useEffect(() => {
     if (selectedSuperCategory === category.categoryId) {
       setIsCollapsed(false);
+    }else{
+      setIsCollapsed(true);
     }
-  }, [category]);
+  }, [category, selectedSuperCategory]);
 
   return (
     <div>

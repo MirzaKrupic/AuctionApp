@@ -7,12 +7,14 @@ import { useParams } from "react-router-dom";
 import ItemList from "../components/shoppage/ItemList";
 import PriceFilter from "../components/shoppage/PriceFilter";
 import * as React from "react";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 function Shop() {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
-  const [price, setPrice] = React.useState([0, 1000]);
+  const [price, setPrice] = useState([0, 1000]);
   const { categoryId } = useParams();
   const options = [
     {
@@ -75,6 +77,18 @@ function Shop() {
     setCategories(fetchedCategories);
   }, []);
 
+  const chipFilter = (id) => {
+    if (id === selectedSuperCategory) {
+      setSelectedSuperCategory(0);
+    } else if (selectedCategories.includes(id)) {
+      setSelectedCategories(
+        selectedCategories.filter((val) => val !== parseInt(id))
+      );
+    } else {
+      setPrice([0, 1000]);
+    }
+  };
+
   return (
     <LayoutContainer>
       <div className={classes.items_positioning}>
@@ -94,13 +108,37 @@ function Shop() {
               <option value={option.value}>{option.name}</option>
             ))}
           </select>
-          {categories
-            .filter((category) => {
-              return selectedCategories.includes(category.categoryId) || selectedSuperCategory === category.categoryId;
-            })
-            .map((category) => (
-              category.name
-            ))}
+          <Stack direction="row" spacing={1}>
+            {categories
+              .filter((category) => {
+                return (
+                  selectedCategories.includes(category.categoryId) ||
+                  selectedSuperCategory === category.categoryId
+                );
+              })
+              .map((category) => (
+                <Chip
+                  style={{
+                    backgroundColor: "#8367d8",
+                    color: "#fff",
+                    marginBottom: "10px",
+                  }}
+                  label={category.name}
+                  onDelete={() => chipFilter(category.categoryId)}
+                />
+              ))}
+            {(price[0] !== 0 || price[1] !== 1000) && (
+              <Chip
+                style={{
+                  backgroundColor: "#8367d8",
+                  color: "#fff",
+                  marginBottom: "10px",
+                }}
+                label={'$'+price[0] + '-$' + price[1]}
+                onDelete={() => chipFilter(-1)}
+              />
+            )}
+          </Stack>
           <div className={classes.item_list}>
             <ItemList
               selectedCategories={selectedCategories}
