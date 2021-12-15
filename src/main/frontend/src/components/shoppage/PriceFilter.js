@@ -5,16 +5,7 @@ import * as React from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 
-function PriceFilter() {
-  function valuetext(value) {
-    return `${value}°C`;
-  }
-  
-    const [value, setValue] = React.useState([20, 37]);
-  
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
+function PriceFilter({onPriceChange, price}) {
 
     const muiTheme = createMuiTheme({
       overrides:{
@@ -37,12 +28,13 @@ function PriceFilter() {
       <p className={classes.categories_heading}>FILTER BY PRICE</p>
       <ThemeProvider theme={muiTheme}>
       <Slider
-        getAriaLabel={() => "Temperature range"}
-        value={value}
-        onChange={handleChange}
-        getAriaValueText={valuetext}
+        value={price}
+        onChange={onPriceChange}
+        min={0}
+        max={1000}
       />
       </ThemeProvider>
+      <p>${price[0]}-${price[1]}</p>
     </div>
   );
 }

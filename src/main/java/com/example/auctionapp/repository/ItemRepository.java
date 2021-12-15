@@ -16,8 +16,13 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     Item getByItemId(long itemId);
 
-    @Query("SELECT i FROM Item i where i.category.supercategoryId = :id")
-    Page<Item> getBySupercategory(@Param("id")Long id, Pageable pageable);
+    Page<Item> findByCategorySupercategoryId(Long categoryId, Pageable pageable);
 
     Page<Item> findByCategoryCategoryIdIn(List<Long> ids, Pageable pageable);
+
+    Page<Item> findByStartingPriceBetween(int fromPrice, int toPrice, Pageable pageable);
+
+    Page<Item> findByCategoryCategoryIdInAndStartingPriceBetween(List<Long> ids, int fromPrice, int toPrice, Pageable pageable);
+
+    Page<Item> findByCategorySupercategoryIdAndStartingPriceBetween(Long categoryId, int fromPrice, int toPrice, Pageable pageable);
 }

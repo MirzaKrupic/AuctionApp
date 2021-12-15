@@ -32,9 +32,10 @@ public class ItemController {
                                                @RequestParam(name = "order", required = false) String order,
                                                @RequestParam(name = "orderColumn", required = false) String orderColumn,
                                                @RequestParam(name = "superCategoryId", required = false) Long superCategoryId,
-                                               @RequestParam(name = "categories", required = false) Long[] categories){
+                                               @RequestParam(name = "categories", required = false) Long[] categories,
+                                               @RequestParam(name = "prices", required = false) int[] prices){
 
-        return itemService.getAllItems(page, size, order, orderColumn, superCategoryId, categories);
+        return itemService.getAllItems(page, size, order, orderColumn, superCategoryId, categories, prices);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/item/{itemId}")

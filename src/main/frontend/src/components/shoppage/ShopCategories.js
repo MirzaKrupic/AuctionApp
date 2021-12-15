@@ -14,8 +14,8 @@ function ShopCategories({
       {categories.length > 0 && (
         <div>
           {categories
-            .filter(function (category) {
-              return category.supercategoryId == null;
+            .filter((category) => {
+              return category.supercategoryId === null;
             })
             .map((category) => (
               <ShopCategoryItem
