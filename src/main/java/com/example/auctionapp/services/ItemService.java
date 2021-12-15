@@ -34,13 +34,11 @@ public class ItemService {
     public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId, Long[] categories, int[] prices) {
         PageRequest pageable;
         Page<Item> statePage;
-        if(prices != null){
-            if(categories != null){
-                return itemRepository.findByCategoryCategoryIdInAndStartingPriceBetween(Arrays.asList(categories), prices[0], prices[1], PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
-            }
-            if (superCategoryId != null) {
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
-                return itemRepository.findByCategorySupercategoryIdAndStartingPriceBetween(superCategoryId, prices[0], prices[1], pageable);
+        if (prices != null) {
+            if (categories != null) {
+                statePage = itemRepository.findByCategoryCategoryIdInAndStartingPriceBetween(Arrays.asList(categories), prices[0], prices[1], PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
+            } else if (superCategoryId != null) {
+                statePage = itemRepository.findByCategorySupercategoryIdAndStartingPriceBetween(superCategoryId, prices[0], prices[1], PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
             } else {
                 if (order != null && orderColumn != null) {
                     if (order.equals("asc")) {
@@ -51,15 +49,13 @@ public class ItemService {
                 } else {
                     pageable = PageRequest.of(page, size);
                 }
+                statePage = itemRepository.findByStartingPriceBetween(prices[0], prices[1], pageable);
             }
-            statePage = itemRepository.findByStartingPriceBetween(prices[0], prices[1], pageable);
-        }else{
-            if(categories != null){
-                return itemRepository.findByCategoryCategoryIdIn(Arrays.asList(categories), PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
-            }
-            if (superCategoryId != null) {
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
-                return itemRepository.findByCategorySupercategoryId(superCategoryId, pageable);
+        } else {
+            if (categories != null) {
+                statePage = itemRepository.findByCategoryCategoryIdIn(Arrays.asList(categories), PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
+            } else if (superCategoryId != null) {
+                statePage = itemRepository.findByCategorySupercategoryId(superCategoryId, PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
             } else {
                 if (order != null && orderColumn != null) {
                     if (order.equals("asc")) {
@@ -70,8 +66,8 @@ public class ItemService {
                 } else {
                     pageable = PageRequest.of(page, size);
                 }
+                statePage = itemRepository.findAll(pageable);
             }
-            statePage = itemRepository.findAll(pageable);
         }
 
         for (Item item : statePage) {

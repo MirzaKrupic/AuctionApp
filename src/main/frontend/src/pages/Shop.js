@@ -80,6 +80,7 @@ function Shop() {
   const chipFilter = (id) => {
     if (id === selectedSuperCategory) {
       setSelectedSuperCategory(0);
+      setSelectedCategories([]);
     } else if (selectedCategories.includes(id)) {
       setSelectedCategories(
         selectedCategories.filter((val) => val !== parseInt(id))
