@@ -19,12 +19,19 @@ function PriceFilter() {
     const muiTheme = createMuiTheme({
       overrides:{
         MuiSlider: {
+          thumb:{
           color: "#8367d8",
+          },
+          track: {
+            color: '#8367d8'
+          },
+          rail: {
+            color: '#8367d8'
           }
         }
     }
-    );
-
+    });
+    
   return (
     <div className={classes.categories_container}>
       <p className={classes.categories_heading}>FILTER BY PRICE</p>
