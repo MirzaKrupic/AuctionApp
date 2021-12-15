@@ -77,7 +77,7 @@ function Shop() {
     setCategories(fetchedCategories);
   }, []);
 
-  const chipFilter = (id) => {
+  const chipDelete = (id) => {
     if (id === selectedSuperCategory) {
       setSelectedSuperCategory(0);
       setSelectedCategories([]);
@@ -87,6 +87,16 @@ function Shop() {
       );
     } else {
       setPrice([0, 1000]);
+    }
+  };
+
+  const onPriceInputChange = (field) => {
+    if (field.target.value !== "") {
+      if (field.target.name === "max") {
+        setPrice([price[0], field.target.value]);
+      } else {
+        setPrice([field.target.value, price[1]]);
+      }
     }
   };
 
@@ -101,7 +111,11 @@ function Shop() {
             selectedSuperCategory={selectedSuperCategory}
             onSuperCategoryChange={onSuperCategoryChange}
           />
-          <PriceFilter onPriceChange={onPriceChange} price={price} />
+          <PriceFilter
+            onPriceInputChange={onPriceInputChange}
+            onPriceChange={onPriceChange}
+            price={price}
+          />
         </div>
         <div className={classes.shop_right_section}>
           <select name="sorting" id="sorting">
@@ -125,7 +139,7 @@ function Shop() {
                     marginBottom: "10px",
                   }}
                   label={category.name}
-                  onDelete={() => chipFilter(category.categoryId)}
+                  onDelete={() => chipDelete(category.categoryId)}
                 />
               ))}
             {(price[0] !== 0 || price[1] !== 1000) && (
@@ -135,8 +149,8 @@ function Shop() {
                   color: "#fff",
                   marginBottom: "10px",
                 }}
-                label={'$'+price[0] + '-$' + price[1]}
-                onDelete={() => chipFilter(-1)}
+                label={"$" + price[0] + "-$" + price[1]}
+                onDelete={() => chipDelete(-1)}
               />
             )}
           </Stack>
