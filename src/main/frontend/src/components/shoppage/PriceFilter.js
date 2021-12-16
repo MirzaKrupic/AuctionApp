@@ -32,23 +32,23 @@ function PriceFilter({ onPriceChange, price, onPriceInputChange }) {
         <input
           className={classes.price_input}
           name="min"
-          placeholder={"eg. $" + price[0]}
+          placeholder={"eg. $" + price.min}
           onChange={onPriceInputChange}
         />
         <input
           className={classes.price_input}
           name="max"
-          placeholder={"eg. $" + price[1]}
+          placeholder={"eg. $" + price.max}
           onChange={onPriceInputChange}
         />
       </div>
       <ThemeProvider theme={muiTheme}>
-        <Slider value={price} onChange={onPriceChange} min={PRICE_VALUES.MIN} max={PRICE_VALUES.MAX} />
+        <Slider value={[price.min, price.max]} onChange={onPriceChange} min={PRICE_VALUES.MIN} max={PRICE_VALUES.MAX} />
       </ThemeProvider>
       <p className={classes.current_prices}>
-        ${price[0]}-${price[1]}
+        ${price.min}-${price.max}
       </p>
-      <p className={classes.average_price}>The average price is ${((price[1]+price[0])/2).toFixed(2)}</p>
+      <p className={classes.average_price}>The average price is ${((price.max+price.min)/2).toFixed(2)}</p>
     </div>
   );
 }

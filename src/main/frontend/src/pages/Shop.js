@@ -10,12 +10,16 @@ import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/styles";
+import { PRICE_VALUES } from "../utils/constants";
 
 function Shop() {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
-  const [price, setPrice] = useState([0, 1000]);
+  const [price, setPrice] = useState({
+    min: null,
+    max: null,
+  });
   const { categoryId } = useParams();
   const options = [
     {
@@ -65,7 +69,7 @@ function Shop() {
   };
 
   const onPriceChange = (event, newPrice) => {
-    setPrice(newPrice);
+    setPrice({ min: newPrice[0], max: newPrice[1] });
   };
 
   useEffect(async () => {
@@ -94,9 +98,9 @@ function Shop() {
   const onPriceInputChange = (field) => {
     if (field.target.value !== "") {
       if (field.target.name === "max") {
-        setPrice([price[0], field.target.value]);
+        setPrice({ min: price.min, max: field.target.value });
       } else {
-        setPrice([field.target.value, price[1]]);
+        setPrice({ min: field.target.value, max: price.max });
       }
     }
   };

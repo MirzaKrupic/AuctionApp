@@ -31,45 +31,9 @@ public class ItemService {
     JWTTokenHelper jwtTokenHelper;
     UserService userService;
 
-    public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId, Long[] categories, int[] prices) {
-        PageRequest pageable;
+    public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId, Long[] categories, Integer minPrice, Integer maxPrice) {
         Page<Item> statePage;
-        if (prices != null) {
-            if (categories != null) {
-                statePage = itemRepository.findByCategoryCategoryIdInAndStartingPriceBetween(Arrays.asList(categories), prices[0], prices[1], PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
-            } else if (superCategoryId != null) {
-                statePage = itemRepository.findByCategorySupercategoryIdAndStartingPriceBetween(superCategoryId, prices[0], prices[1], PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
-            } else {
-                if (order != null && orderColumn != null) {
-                    if (order.equals("asc")) {
-                        pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
-                    } else {
-                        pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
-                    }
-                } else {
-                    pageable = PageRequest.of(page, size);
-                }
-                statePage = itemRepository.findByStartingPriceBetween(prices[0], prices[1], pageable);
-            }
-        } else {
-            if (categories != null) {
-                statePage = itemRepository.findByCategoryCategoryIdIn(Arrays.asList(categories), PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
-            } else if (superCategoryId != null) {
-                statePage = itemRepository.findByCategorySupercategoryId(superCategoryId, PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
-            } else {
-                if (order != null && orderColumn != null) {
-                    if (order.equals("asc")) {
-                        pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
-                    } else {
-                        pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
-                    }
-                } else {
-                    pageable = PageRequest.of(page, size);
-                }
-                statePage = itemRepository.findAll(pageable);
-            }
-        }
-
+        statePage = itemRepository.findItemsFiltered(superCategoryId, categories, minPrice, maxPrice, PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
         for (Item item : statePage) {
             item.setBids(null);
         }

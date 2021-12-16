@@ -39,7 +39,8 @@ function ItemList(props) {
         SORTING_VALUES.NAME,
         selectedSupercategory,
         props.selectedCategories,
-        props.price
+        props.price.min,
+        props.price.max
       );
       setItems([...items, ...data.content]);
       setHasMoreItems(!data.last);

@@ -16,13 +16,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     Item getByItemId(long itemId);
 
-    Page<Item> findByCategorySupercategoryId(Long categoryId, Pageable pageable);
-
-    Page<Item> findByCategoryCategoryIdIn(List<Long> ids, Pageable pageable);
-
-    Page<Item> findByStartingPriceBetween(int fromPrice, int toPrice, Pageable pageable);
-
-    Page<Item> findByCategoryCategoryIdInAndStartingPriceBetween(List<Long> ids, int fromPrice, int toPrice, Pageable pageable);
-
-    Page<Item> findByCategorySupercategoryIdAndStartingPriceBetween(Long categoryId, int fromPrice, int toPrice, Pageable pageable);
+    @Query("SELECT i from Item i WHERE (:supercategoryId is null or i.category.supercategoryId = :supercategoryId) and (:subcategories is null or i.category.categoryId in :subcategories) and (:minPrice is null or i.startingPrice>= :minPrice) and (:maxPrice is null or i.startingPrice <= :maxPrice)")
+    Page<Item> findItemsFiltered(@Param("supercategoryId")Long supercategoryId, @Param("subcategories")Long[] subcategories, @Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice, Pageable pageable);
 }
