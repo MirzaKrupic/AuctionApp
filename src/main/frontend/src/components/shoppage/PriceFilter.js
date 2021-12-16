@@ -4,19 +4,22 @@ import ShopCategoryItem from "./ShopCategoryItem";
 import * as React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import {PRICE_VALUES} from "../../utils/constants"
 
 function PriceFilter({ onPriceChange, price, onPriceInputChange }) {
+  const SLIDER_COLOR = "#8367d8";
+
   const muiTheme = createMuiTheme({
     overrides: {
       MuiSlider: {
         thumb: {
-          color: "#8367d8",
+          color: SLIDER_COLOR,
         },
         track: {
-          color: "#8367d8",
+          color: SLIDER_COLOR,
         },
         rail: {
-          color: "#8367d8",
+          color: SLIDER_COLOR,
         },
       },
     },
@@ -40,7 +43,7 @@ function PriceFilter({ onPriceChange, price, onPriceInputChange }) {
         />
       </div>
       <ThemeProvider theme={muiTheme}>
-        <Slider value={price} onChange={onPriceChange} min={0} max={1000} />
+        <Slider value={price} onChange={onPriceChange} min={PRICE_VALUES.MIN} max={PRICE_VALUES.MAX} />
       </ThemeProvider>
       <p className={classes.current_prices}>
         ${price[0]}-${price[1]}

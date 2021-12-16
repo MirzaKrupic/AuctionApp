@@ -13,7 +13,7 @@ function ShopCategoryItem({
   useEffect(() => {
     if (selectedSuperCategory === category.categoryId) {
       setIsCollapsed(false);
-    }else{
+    } else {
       setIsCollapsed(true);
     }
   }, [category, selectedSuperCategory]);
@@ -44,9 +44,13 @@ function ShopCategoryItem({
                 name={category.categoryId}
                 value={category.categoryId}
                 onChange={onItemChange}
-                checked={selectedCategories.includes(category.categoryId) ? "checked" : ""}
+                checked={
+                  selectedCategories.includes(category.categoryId)
+                    ? "checked"
+                    : ""
+                }
               />
-                {`${category.name} (${category.numberOfItems})`}
+              {`${category.name} (${category.numberOfItems})`}
             </div>
           ))}
         </div>
