@@ -9,6 +9,7 @@ import PriceFilter from "../components/shoppage/PriceFilter";
 import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import { styled } from "@mui/styles";
 
 function Shop() {
   const [categories, setCategories] = useState([]);
@@ -100,6 +101,12 @@ function Shop() {
     }
   };
 
+  const CustomChip = styled(Chip)({
+    backgroundColor: "#8367d8",
+    color: "#fff",
+    marginBottom: "10px",
+  });
+
   return (
     <LayoutContainer>
       <div className={classes.items_positioning}>
@@ -132,12 +139,7 @@ function Shop() {
                 );
               })
               .map((category) => (
-                <Chip
-                  style={{
-                    backgroundColor: "#8367d8",
-                    color: "#fff",
-                    marginBottom: "10px",
-                  }}
+                <CustomChip
                   label={category.name}
                   onDelete={() => chipDelete(category.categoryId)}
                 />
