@@ -32,13 +32,13 @@ function PriceFilter({ onPriceChange, price, onPriceInputChange }) {
         <input
           className={classes.price_input}
           name="min"
-          placeholder={"eg. $" + price.min}
+          placeholder={"eg. $" + PRICE_VALUES.MIN}
           onChange={onPriceInputChange}
         />
         <input
           className={classes.price_input}
           name="max"
-          placeholder={"eg. $" + price.max}
+          placeholder={"eg. $" + PRICE_VALUES.MAX}
           onChange={onPriceInputChange}
         />
       </div>

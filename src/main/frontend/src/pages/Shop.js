@@ -91,7 +91,7 @@ function Shop() {
         selectedCategories.filter((val) => val !== parseInt(id))
       );
     } else {
-      setPrice([0, 1000]);
+      setPrice({ min: null, max: null });
     }
   };
 
@@ -148,14 +148,9 @@ function Shop() {
                   onDelete={() => chipDelete(category.categoryId)}
                 />
               ))}
-            {(price[0] !== 0 || price[1] !== 1000) && (
-              <Chip
-                style={{
-                  backgroundColor: "#8367d8",
-                  color: "#fff",
-                  marginBottom: "10px",
-                }}
-                label={"$" + price[0] + "-$" + price[1]}
+            {(price.min !== null || price.max !== null) && (
+              <CustomChip
+                label={"$" + price.min + "-$" + price.max}
                 onDelete={() => chipDelete(-1)}
               />
             )}

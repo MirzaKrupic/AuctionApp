@@ -2,7 +2,9 @@ package com.example.auctionapp.services;
 
 import com.example.auctionapp.bid.Bid;
 import com.example.auctionapp.bid.BidRepository;
+import com.example.auctionapp.entity.Category;
 import com.example.auctionapp.entity.Item;
+import com.example.auctionapp.repository.CategoryRepository;
 import com.example.auctionapp.repository.ItemRepository;
 import com.example.auctionapp.security.config.JWTTokenHelper;
 import com.example.auctionapp.user.User;
@@ -27,13 +29,51 @@ import java.util.*;
 public class ItemService {
 
     ItemRepository itemRepository;
+    CategoryRepository categoryRepository;
     BidRepository bidRepository;
     JWTTokenHelper jwtTokenHelper;
     UserService userService;
 
+    final Integer MIN_PRICE = 0;
+    final Integer MAX_PRICE = 1000;
+
     public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId, Long[] categories, Integer minPrice, Integer maxPrice) {
         Page<Item> statePage;
-        statePage = itemRepository.findItemsFiltered(superCategoryId, categories, minPrice, maxPrice, PageRequest.of(page, size, Sort.by(orderColumn).ascending()));
+
+        Pageable pageable = PageRequest.of(page, size);;
+
+        if(orderColumn != null){
+            if(order == "asc"){
+                pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
+            } else {
+                pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
+            }
+        }
+
+        if(minPrice == null){
+            minPrice = MIN_PRICE;
+        }
+        if(maxPrice == null){
+            maxPrice = MAX_PRICE;
+        }
+
+        if(superCategoryId == null && categories == null){
+            List<Category> allCategories = categoryRepository.findAll();
+            List<Long> allCategoriesIds = new ArrayList<Long>();
+            for(Category i : allCategories){
+                allCategoriesIds.add(i.getCategoryId());
+            }
+            statePage = itemRepository.findItemsFiltered(Long.valueOf(0), allCategoriesIds, minPrice, maxPrice, pageable);
+        } else if(superCategoryId == null){
+            superCategoryId = Long.valueOf(0);
+            statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, pageable);
+        } else if(categories == null) {
+            categories = new Long[0];
+            statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, pageable);
+        } else {
+            statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, pageable);
+        }
+
         for (Item item : statePage) {
             item.setBids(null);
         }
