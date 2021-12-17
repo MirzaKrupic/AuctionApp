@@ -5,11 +5,21 @@ import { fetchCategories } from "../utils/categoryService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ItemList from "../components/shoppage/ItemList";
+import PriceFilter from "../components/shoppage/PriceFilter";
+import * as React from "react";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/styles";
+import { PRICE_VALUES } from "../utils/constants";
 
 function Shop() {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
+  const [price, setPrice] = useState({
+    min: null,
+    max: null,
+  });
   const { categoryId } = useParams();
   const options = [
     {
@@ -35,13 +45,16 @@ function Shop() {
   ];
 
   const onCategoryChange = (item) => {
-    // if (!selectedCategories.includes(item.target.value)) {
-    //   setSelectedCategories([...selectedCategories, ...item.target.value]);
-    // } else {
-    //   setSelectedCategories(
-    //     selectedCategories.filter((val) => val !== item.target.value)
-    //   );
-    // }
+    if (!selectedCategories.includes(parseInt(item.target.value))) {
+      setSelectedCategories([
+        ...selectedCategories,
+        parseInt(item.target.value),
+      ]);
+    } else {
+      setSelectedCategories(
+        selectedCategories.filter((val) => val !== parseInt(item.target.value))
+      );
+    }
   };
 
   const onSuperCategoryChange = (superCategory) => {
@@ -49,9 +62,14 @@ function Shop() {
       setSelectedSuperCategory(parseInt(superCategory));
     } else if (selectedSuperCategory === superCategory) {
       setSelectedSuperCategory(0);
+      setSelectedCategories([]);
     } else {
-      setSelectedSuperCategory(superCategory);
+      setSelectedSuperCategory(parseInt(superCategory));
     }
+  };
+
+  const onPriceChange = (event, newPrice) => {
+    setPrice({ min: newPrice[0], max: newPrice[1] });
   };
 
   useEffect(async () => {
@@ -64,27 +82,85 @@ function Shop() {
     setCategories(fetchedCategories);
   }, []);
 
+  const chipDelete = (id) => {
+    if (id === selectedSuperCategory) {
+      setSelectedSuperCategory(0);
+      setSelectedCategories([]);
+    } else if (selectedCategories.includes(id)) {
+      setSelectedCategories(
+        selectedCategories.filter((val) => val !== parseInt(id))
+      );
+    } else {
+      setPrice({ min: null, max: null });
+    }
+  };
+
+  const onPriceInputChange = (field) => {
+    if (field.target.value !== "") {
+      if (field.target.name === "max") {
+        setPrice({ min: price.min, max: field.target.value });
+      } else {
+        setPrice({ min: field.target.value, max: price.max });
+      }
+    }
+  };
+
+  const CustomChip = styled(Chip)({
+    backgroundColor: "#8367d8",
+    color: "#fff",
+    marginBottom: "10px",
+  });
+
   return (
     <LayoutContainer>
       <div className={classes.items_positioning}>
-        <ShopCategories
-          selected={categoryId ? categoryId : null}
-          onCategoryChange={onCategoryChange}
-          categories={categories}
-          selectedSuperCategory={selectedSuperCategory}
-          onSuperCategoryChange={onSuperCategoryChange}
-        />
+        <div className={classes.shop_left_section}>
+          <ShopCategories
+            onCategoryChange={onCategoryChange}
+            categories={categories}
+            selectedCategories={selectedCategories}
+            selectedSuperCategory={selectedSuperCategory}
+            onSuperCategoryChange={onSuperCategoryChange}
+          />
+          <PriceFilter
+            onPriceInputChange={onPriceInputChange}
+            onPriceChange={onPriceChange}
+            price={price}
+          />
+        </div>
         <div className={classes.shop_right_section}>
           <select name="sorting" id="sorting">
             {options.map((option) => (
               <option value={option.value}>{option.name}</option>
             ))}
           </select>
-          <div className={classes.infinite_scroll}>
+          <Stack direction="row" spacing={1}>
+            {categories
+              .filter((category) => {
+                return (
+                  selectedCategories.includes(category.categoryId) ||
+                  selectedSuperCategory === category.categoryId
+                );
+              })
+              .map((category) => (
+                <CustomChip
+                  label={category.name}
+                  onDelete={() => chipDelete(category.categoryId)}
+                />
+              ))}
+            {(price.min !== null || price.max !== null) && (
+              <CustomChip
+                label={"$" + price.min + "-$" + price.max}
+                onDelete={() => chipDelete(-1)}
+              />
+            )}
+          </Stack>
+          <div className={classes.item_list}>
             <ItemList
-              //selectedCategories={selectedCategories}
+              selectedCategories={selectedCategories}
               selectedSuperCategory={selectedSuperCategory}
               categories={categories}
+              price={price}
             />
           </div>
         </div>

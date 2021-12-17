@@ -2,6 +2,7 @@ package com.example.auctionapp.entity;
 
 import com.example.auctionapp.bid.Bid;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.List;
@@ -39,4 +40,7 @@ public class Category {
 
     @Column(name = "supercategory_id")
     private Long supercategoryId;
+
+    @Formula(value="(SELECT COUNT(i.item_id) FROM item i WHERE i.category_id=category_id)")
+    private int numberOfItems;
 }

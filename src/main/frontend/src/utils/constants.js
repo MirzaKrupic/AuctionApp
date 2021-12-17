@@ -13,3 +13,8 @@ export const ITEM_PAGE_TAB_VALUES= {
 export const SORTING_VALUES= {
     NAME: "name"
 }
+
+export const PRICE_VALUES= {
+    MIN: 0,
+    MAX: 1000
+}

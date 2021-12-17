@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 function ShopCategoryItem({
   category,
   onItemChange,
-  selected,
+  selectedCategories,
   selectedSuperCategory,
   onSuperCategoryChange,
 }) {
@@ -13,8 +13,10 @@ function ShopCategoryItem({
   useEffect(() => {
     if (selectedSuperCategory === category.categoryId) {
       setIsCollapsed(false);
+    } else {
+      setIsCollapsed(true);
     }
-  }, [category]);
+  }, [category, selectedSuperCategory]);
 
   return (
     <div>
@@ -37,15 +39,18 @@ function ShopCategoryItem({
           {category.subcategories.map((category) => (
             <div className={classes.subcategoriy_item}>
               <input
-                disabled
                 className={classes.category_checkbox}
                 type="checkbox"
                 name={category.categoryId}
                 value={category.categoryId}
                 onChange={onItemChange}
-                checked={selected == category.categoryId ? "checked" : ""}
+                checked={
+                  selectedCategories.includes(category.categoryId)
+                    ? "checked"
+                    : ""
+                }
               />
-                {category.name}
+              {`${category.name} (${category.numberOfItems})`}
             </div>
           ))}
         </div>
