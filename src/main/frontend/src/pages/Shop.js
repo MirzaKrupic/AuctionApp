@@ -10,7 +10,7 @@ import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/styles";
-import { PRICE_VALUES } from "../utils/constants";
+import { SORT_BY, ORDER } from "../utils/constants";
 
 function Shop() {
   const [categories, setCategories] = useState([]);
@@ -23,26 +23,27 @@ function Shop() {
   const { categoryId } = useParams();
   const options = [
     {
-      value: "default",
+      value: { orderBy: SORT_BY.DEFAULT, direction: ORDER.ASC },
       name: "Default Sorting",
     },
     {
-      value: "popularity",
-      name: "Sort by Popularit",
-    },
-    {
-      value: "rating",
-      name: "Sort by Rating",
-    },
-    {
-      value: "newness",
+      value: { orderBy: SORT_BY.NEWNESS, direction: ORDER.ASC},
       name: "Sort by Newness",
     },
     {
-      value: "price",
-      name: "Sort by Price",
+      value: { orderBy: SORT_BY.TIME_LEFT, direction: ORDER.ASC },
+      name: "Sort by Time Left",
+    },
+    {
+      value: { orderBy: SORT_BY.PRICE, direction: ORDER.ASC },
+      name: "Sort by Price: Low to High",
+    },
+    {
+      value: { orderBy: SORT_BY.PRICE, direction: ORDER.DESC },
+      name: "Sort by Price: High to Low",
     },
   ];
+  const [selectedSort, setSelectedSort] = useState(options[0].value);
 
   const onCategoryChange = (item) => {
     if (!selectedCategories.includes(parseInt(item.target.value))) {
@@ -111,6 +112,10 @@ function Shop() {
     marginBottom: "10px",
   });
 
+  const onSortChange = (e) => {
+    setSelectedSort(JSON.parse(e.target.value));
+  }
+
   return (
     <LayoutContainer>
       <div className={classes.items_positioning}>
@@ -129,9 +134,9 @@ function Shop() {
           />
         </div>
         <div className={classes.shop_right_section}>
-          <select name="sorting" id="sorting">
+          <select name="sorting" id="sorting" onChange={onSortChange}>
             {options.map((option) => (
-              <option value={option.value}>{option.name}</option>
+              <option value={JSON.stringify(option.value)}>{option.name}</option>
             ))}
           </select>
           <Stack direction="row" spacing={1}>
@@ -161,6 +166,7 @@ function Shop() {
               selectedSuperCategory={selectedSuperCategory}
               categories={categories}
               price={price}
+              selectedSort = {selectedSort}
             />
           </div>
         </div>

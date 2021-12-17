@@ -4,6 +4,8 @@ import com.example.auctionapp.bid.Bid;
 import com.example.auctionapp.bid.BidRepository;
 import com.example.auctionapp.entity.Category;
 import com.example.auctionapp.entity.Item;
+import com.example.auctionapp.enumeration.ItemSortBy;
+import com.example.auctionapp.enumeration.Order;
 import com.example.auctionapp.repository.CategoryRepository;
 import com.example.auctionapp.repository.ItemRepository;
 import com.example.auctionapp.security.config.JWTTokenHelper;
@@ -37,16 +39,16 @@ public class ItemService {
     final Integer MIN_PRICE = 0;
     final Integer MAX_PRICE = 1000;
 
-    public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId, Long[] categories, Integer minPrice, Integer maxPrice) {
+    public Page<Item> getAllItems(int page, int size, Order order, ItemSortBy orderColumn, Long superCategoryId, Long[] categories, Integer minPrice, Integer maxPrice) {
         Page<Item> statePage;
 
-        Pageable pageable = PageRequest.of(page, size);;
+        Pageable pageable = PageRequest.of(page, size);
 
         if(orderColumn != null){
-            if(order == "asc"){
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
+            if(order.toString().equals("asc")){
+                pageable = PageRequest.of(page, size, Sort.by(orderColumn.toString()).ascending());
             } else {
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
+                pageable = PageRequest.of(page, size, Sort.by(orderColumn.toString()).descending());
             }
         }
 

@@ -27,7 +27,7 @@ function ItemList(props) {
       setSelectedSupercategory(0);
     }
     setRefreshState(!refreshState);
-  }, [props.selectedSuperCategory, props.selectedCategories, props.price]);
+  }, [props.selectedSuperCategory, props.selectedCategories, props.price, props.selectedSort]);
 
   useEffect(async () => {
     let data = "";
@@ -35,8 +35,8 @@ function ItemList(props) {
       data = await fetchItems(
         page,
         PAGE_SIZE,
-        null,
-        SORTING_VALUES.NAME,
+        props.selectedSort.direction,
+        props.selectedSort.orderBy,
         selectedSupercategory,
         props.selectedCategories,
         props.price.min,

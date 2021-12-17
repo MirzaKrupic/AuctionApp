@@ -3,6 +3,8 @@ package com.example.auctionapp.controller;
 import com.example.auctionapp.bid.BiddingRequest;
 import com.example.auctionapp.entity.Category;
 import com.example.auctionapp.entity.Item;
+import com.example.auctionapp.enumeration.ItemSortBy;
+import com.example.auctionapp.enumeration.Order;
 import com.example.auctionapp.repository.ItemRepository;
 import com.example.auctionapp.security.config.JWTTokenHelper;
 import com.example.auctionapp.services.ItemService;
@@ -29,8 +31,8 @@ public class ItemController {
     @RequestMapping(method = RequestMethod.GET, path = "/items")
     public @ResponseBody Page<Item> fetchItems(@RequestParam("page") int page,
                                                @RequestParam("size") int size,
-                                               @RequestParam(name = "order", required = false) String order,
-                                               @RequestParam(name = "orderColumn", required = false) String orderColumn,
+                                               @RequestParam(name = "order", required = false) Order order,
+                                               @RequestParam(name = "orderColumn", required = false) ItemSortBy orderColumn,
                                                @RequestParam(name = "superCategoryId", required = false) Long superCategoryId,
                                                @RequestParam(name = "categories", required = false) Long[] categories,
                                                @RequestParam(name = "minPrice", required = false) Integer minPrice,
