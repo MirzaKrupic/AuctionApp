@@ -9,12 +9,17 @@ import PriceFilter from "../components/shoppage/PriceFilter";
 import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import { styled } from "@mui/styles";
+import { PRICE_VALUES } from "../utils/constants";
 
 function Shop() {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
-  const [price, setPrice] = useState([0, 1000]);
+  const [price, setPrice] = useState({
+    min: null,
+    max: null,
+  });
   const { categoryId } = useParams();
   const options = [
     {
@@ -64,7 +69,7 @@ function Shop() {
   };
 
   const onPriceChange = (event, newPrice) => {
-    setPrice(newPrice);
+    setPrice({ min: newPrice[0], max: newPrice[1] });
   };
 
   useEffect(async () => {
@@ -86,19 +91,25 @@ function Shop() {
         selectedCategories.filter((val) => val !== parseInt(id))
       );
     } else {
-      setPrice([0, 1000]);
+      setPrice({ min: null, max: null });
     }
   };
 
   const onPriceInputChange = (field) => {
     if (field.target.value !== "") {
       if (field.target.name === "max") {
-        setPrice([price[0], field.target.value]);
+        setPrice({ min: price.min, max: field.target.value });
       } else {
-        setPrice([field.target.value, price[1]]);
+        setPrice({ min: field.target.value, max: price.max });
       }
     }
   };
+
+  const CustomChip = styled(Chip)({
+    backgroundColor: "#8367d8",
+    color: "#fff",
+    marginBottom: "10px",
+  });
 
   return (
     <LayoutContainer>
@@ -132,24 +143,14 @@ function Shop() {
                 );
               })
               .map((category) => (
-                <Chip
-                  style={{
-                    backgroundColor: "#8367d8",
-                    color: "#fff",
-                    marginBottom: "10px",
-                  }}
+                <CustomChip
                   label={category.name}
                   onDelete={() => chipDelete(category.categoryId)}
                 />
               ))}
-            {(price[0] !== 0 || price[1] !== 1000) && (
-              <Chip
-                style={{
-                  backgroundColor: "#8367d8",
-                  color: "#fff",
-                  marginBottom: "10px",
-                }}
-                label={"$" + price[0] + "-$" + price[1]}
+            {(price.min !== null || price.max !== null) && (
+              <CustomChip
+                label={"$" + price.min + "-$" + price.max}
                 onDelete={() => chipDelete(-1)}
               />
             )}
