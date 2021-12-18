@@ -40,7 +40,7 @@ public class Item {
     private int startingPrice;
 
     @NonNull
-    @Column
+    @Column(columnDefinition="TEXT")
     private String photo;
 
     @NonNull
