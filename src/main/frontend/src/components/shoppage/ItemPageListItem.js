@@ -7,7 +7,7 @@ function ItemPageListItem({name, price, photo, details}) {
       <div className={classes.details_section}>
         <p className={classes.item_name}>{name}</p>
         <p className={classes.item_description}>
-          {details}
+          {details.length > 100 ? details.substring(0, 100) + "..." : details}
         </p>
         <p className={classes.item_price}>Start From ${price}</p>
         <div className={classes.button_group}>
