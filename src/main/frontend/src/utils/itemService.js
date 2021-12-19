@@ -1,9 +1,16 @@
 import axios from "axios";
 import { handleResponse } from "./requestHandler";
-const host = "localhost:8080";
+import { HOST } from "./constants";
+
+let api = "";
+if (process.env.REACT_APP_URL) {
+  api = process.env.REACT_APP_URL;
+} else {
+  api = HOST;
+}
 
 export const fetchItems = async (page, size, order, orderColumn, superCategoryId, categories, minPrice, maxPrice) => {
-  let url = `http://${host}/api/v1/items?page=${page}&size=${size}`;
+  let url = `${api}/api/v1/items?page=${page}&size=${size}`;
   if(!!order){
     url = url + `&order=${order}`
   }
@@ -30,7 +37,7 @@ export const fetchItems = async (page, size, order, orderColumn, superCategoryId
 
 export const fetchItemById = async (id, token) => {
   return axios
-    .get(`http://${host}/api/v1/item/${id}`, {
+    .get(`${api}/api/v1/item/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -46,7 +53,7 @@ export const fetchItemById = async (id, token) => {
 
 export const itemBid = async (token, item) => {
   return axios
-    .post(`http://${host}/api/v1/item/${item.itemId}/bid`, item.amount, {
+    .post(`${api}/api/v1/item/${item.itemId}/bid`, item.amount, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

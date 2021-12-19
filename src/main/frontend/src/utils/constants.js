@@ -4,6 +4,8 @@ export const LANDING_PAGE_TAB_VALUES = {
   TOP_RATED: "TOP_RATED",
 };
 
+export const HOST = "http://localhost:8080"
+
 export const ITEM_PAGE_TAB_VALUES = {
   DETAILS: "DETAILS",
   SELLER_INFO: "SELLER_INFO",
