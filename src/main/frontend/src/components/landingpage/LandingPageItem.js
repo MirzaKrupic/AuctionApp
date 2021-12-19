@@ -12,7 +12,7 @@ function LandingPageItem(props) {
       className={`item_box_common ${props.item_type.toLowerCase()}_item_box`}
     >
       <div className={`${props.item_type.toLowerCase()}_image_container`}>
-        <img className={`full_size_picture`} src={ItemImage} />
+        {props.photo && <img className={`full_size_picture`} src={props.photo.split(";")[0]} />}
       </div>
       {isUserLoggedIn() ? (
         <Link className={`item_link`} to={`/items/${props.itemId}`}>
