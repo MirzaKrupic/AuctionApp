@@ -1,12 +1,12 @@
 package com.example.auctionapp.enumeration;
 
-public enum Order {
+public enum Direction {
     ASC("asc"),
     DESC("desc");
 
     String order;
 
-    Order(String order) {
+    Direction(String order) {
         this.order = order;
     }
 

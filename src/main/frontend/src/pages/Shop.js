@@ -23,24 +23,24 @@ function Shop() {
   const { categoryId } = useParams();
   const options = [
     {
-      value: { orderBy: SORT_BY.DEFAULT, direction: ORDER.ASC },
+      value: { order: SORT_BY.DEFAULT, direction: ORDER.ASC },
       name: "Default Sorting",
     },
     {
-      value: { orderBy: SORT_BY.NEWNESS, direction: ORDER.ASC},
-      name: "Sort by Newness",
+      value: { order: SORT_BY.DATE_ADDED, direction: ORDER.ASC},
+      name: "Added: New to old",
     },
     {
-      value: { orderBy: SORT_BY.TIME_LEFT, direction: ORDER.ASC },
-      name: "Sort by Time Left",
+      value: { order: SORT_BY.TIME_LEFT, direction: ORDER.ASC },
+      name: "Time Left",
     },
     {
-      value: { orderBy: SORT_BY.PRICE, direction: ORDER.ASC },
-      name: "Sort by Price: Low to High",
+      value: { order: SORT_BY.PRICE, direction: ORDER.ASC },
+      name: "Price: Low to High",
     },
     {
-      value: { orderBy: SORT_BY.PRICE, direction: ORDER.DESC },
-      name: "Sort by Price: High to Low",
+      value: { order: SORT_BY.PRICE, direction: ORDER.DESC },
+      name: "Price: High to Low",
     },
   ];
   const [selectedSort, setSelectedSort] = useState(options[0].value);

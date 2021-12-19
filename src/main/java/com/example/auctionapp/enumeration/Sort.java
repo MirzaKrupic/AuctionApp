@@ -1,14 +1,14 @@
 package com.example.auctionapp.enumeration;
 
-public enum ItemSortBy {
-    ITEMID("itemId"),
+public enum Sort {
+    STARTDATE("startDate"),
     NAME("name"),
     AUCTIONENDDATE("auctionEndDate"),
     STARTINGPRICE("startingPrice");
 
     String orderByColumn;
 
-    ItemSortBy(String orderByColumn) {
+    Sort(String orderByColumn) {
         this.orderByColumn = orderByColumn;
     }
 

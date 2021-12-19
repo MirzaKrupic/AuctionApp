@@ -36,7 +36,7 @@ function ItemList(props) {
         page,
         PAGE_SIZE,
         props.selectedSort.direction,
-        props.selectedSort.orderBy,
+        props.selectedSort.order,
         selectedSupercategory,
         props.selectedCategories,
         props.price.min,
