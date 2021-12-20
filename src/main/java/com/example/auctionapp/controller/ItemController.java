@@ -1,22 +1,16 @@
 package com.example.auctionapp.controller;
 
-import com.example.auctionapp.bid.BiddingRequest;
-import com.example.auctionapp.entity.Category;
 import com.example.auctionapp.entity.Item;
-import com.example.auctionapp.repository.ItemRepository;
-import com.example.auctionapp.security.config.JWTTokenHelper;
+import com.example.auctionapp.enumeration.Sort;
+import com.example.auctionapp.enumeration.Direction;
 import com.example.auctionapp.services.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1")
@@ -29,8 +23,8 @@ public class ItemController {
     @RequestMapping(method = RequestMethod.GET, path = "/items")
     public @ResponseBody Page<Item> fetchItems(@RequestParam("page") int page,
                                                @RequestParam("size") int size,
-                                               @RequestParam(name = "order", required = false) String order,
-                                               @RequestParam(name = "orderColumn", required = false) String orderColumn,
+                                               @RequestParam(name = "order", required = false) Direction order,
+                                               @RequestParam(name = "orderColumn", required = false) Sort orderColumn,
                                                @RequestParam(name = "superCategoryId", required = false) Long superCategoryId,
                                                @RequestParam(name = "categories", required = false) Long[] categories,
                                                @RequestParam(name = "minPrice", required = false) Integer minPrice,

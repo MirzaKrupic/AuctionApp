@@ -27,7 +27,12 @@ function ItemList(props) {
       setSelectedSupercategory(0);
     }
     setRefreshState(!refreshState);
-  }, [props.selectedSuperCategory, props.selectedCategories, props.price]);
+  }, [
+    props.selectedSuperCategory,
+    props.selectedCategories,
+    props.price,
+    props.selectedSort,
+  ]);
 
   useEffect(async () => {
     let data = "";
@@ -35,8 +40,8 @@ function ItemList(props) {
       data = await fetchItems(
         page,
         PAGE_SIZE,
-        null,
-        SORTING_VALUES.NAME,
+        props.selectedSort.direction,
+        props.selectedSort.order,
         selectedSupercategory,
         props.selectedCategories,
         props.price.min,
@@ -87,6 +92,7 @@ function ItemList(props) {
               {items.map((item) => {
                 return (
                   <ItemPageListItem
+                    itemId={item.itemId}
                     details={item.details}
                     name={item.name}
                     photo={item.photo}

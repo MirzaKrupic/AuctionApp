@@ -4,6 +4,8 @@ import com.example.auctionapp.bid.Bid;
 import com.example.auctionapp.bid.BidRepository;
 import com.example.auctionapp.entity.Category;
 import com.example.auctionapp.entity.Item;
+import com.example.auctionapp.enumeration.Sort;
+import com.example.auctionapp.enumeration.Direction;
 import com.example.auctionapp.repository.CategoryRepository;
 import com.example.auctionapp.repository.ItemRepository;
 import com.example.auctionapp.security.config.JWTTokenHelper;
@@ -13,7 +15,6 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -37,16 +38,16 @@ public class ItemService {
     final Integer MIN_PRICE = 0;
     final Integer MAX_PRICE = 1000;
 
-    public Page<Item> getAllItems(int page, int size, String order, String orderColumn, Long superCategoryId, Long[] categories, Integer minPrice, Integer maxPrice) {
+    public Page<Item> getAllItems(int page, int size, Direction order, Sort orderColumn, Long superCategoryId, Long[] categories, Integer minPrice, Integer maxPrice) {
         Page<Item> statePage;
 
-        Pageable pageable = PageRequest.of(page, size);;
+        Pageable pageable = PageRequest.of(page, size);
 
         if(orderColumn != null){
-            if(order == "asc"){
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).ascending());
+            if(order.toString().equals("asc")){
+                pageable = PageRequest.of(page, size, org.springframework.data.domain.Sort.by(orderColumn.toString()).ascending());
             } else {
-                pageable = PageRequest.of(page, size, Sort.by(orderColumn).descending());
+                pageable = PageRequest.of(page, size, org.springframework.data.domain.Sort.by(orderColumn.toString()).descending());
             }
         }
 

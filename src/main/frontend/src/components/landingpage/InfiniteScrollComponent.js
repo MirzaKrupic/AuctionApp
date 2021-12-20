@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import LandingPageItem from "./LandingPageItem";
 import { Row } from "react-bootstrap";
 import {fetchItems} from '../../utils/itemService';
-import {LANDING_PAGE_TAB_VALUES} from '../../utils/constants';
+import {LANDING_PAGE_TAB_VALUES, SORT_BY, ORDER} from '../../utils/constants';
 
 function InfiniteScrollComponent(props) {
   const [items, setItems] = useState([]);
@@ -18,7 +18,7 @@ function InfiniteScrollComponent(props) {
     if(props.criteria === LANDING_PAGE_TAB_VALUES.NORMAL){
       data = await fetchItems(page, 20);
     }else if(props.criteria === LANDING_PAGE_TAB_VALUES.LAST_CHANCE){
-      data = await fetchItems(page, 20, "asc", "auctionEndDate");
+      data = await fetchItems(page, 20, ORDER.ASC, SORT_BY.TIME_LEFT);
     }
 
     setItems([...items, ...data.content]);

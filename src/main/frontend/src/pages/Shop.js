@@ -10,9 +10,10 @@ import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/styles";
-import { PRICE_VALUES } from "../utils/constants";
+import { SORT_BY, ORDER } from "../utils/constants";
+import {PAGES} from "../utils/constants"
 
-function Shop() {
+function Shop({setCurrentPage}) {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
@@ -23,26 +24,27 @@ function Shop() {
   const { categoryId } = useParams();
   const options = [
     {
-      value: "default",
+      value: { order: SORT_BY.DEFAULT, direction: ORDER.ASC },
       name: "Default Sorting",
     },
     {
-      value: "popularity",
-      name: "Sort by Popularit",
+      value: { order: SORT_BY.DATE_ADDED, direction: ORDER.ASC},
+      name: "Added: New to old",
     },
     {
-      value: "rating",
-      name: "Sort by Rating",
+      value: { order: SORT_BY.TIME_LEFT, direction: ORDER.ASC },
+      name: "Time Left",
     },
     {
-      value: "newness",
-      name: "Sort by Newness",
+      value: { order: SORT_BY.PRICE, direction: ORDER.ASC },
+      name: "Price: Low to High",
     },
     {
-      value: "price",
-      name: "Sort by Price",
+      value: { order: SORT_BY.PRICE, direction: ORDER.DESC },
+      name: "Price: High to Low",
     },
   ];
+  const [selectedSort, setSelectedSort] = useState(options[0].value);
 
   const onCategoryChange = (item) => {
     if (!selectedCategories.includes(parseInt(item.target.value))) {
@@ -111,6 +113,12 @@ function Shop() {
     marginBottom: "10px",
   });
 
+  const onSortChange = (e) => {
+    setSelectedSort(JSON.parse(e.target.value));
+  }
+
+  setCurrentPage(PAGES.SHOP);
+
   return (
     <LayoutContainer>
       <div className={classes.items_positioning}>
@@ -129,9 +137,9 @@ function Shop() {
           />
         </div>
         <div className={classes.shop_right_section}>
-          <select name="sorting" id="sorting">
+          <select name="sorting" id="sorting" onChange={onSortChange}>
             {options.map((option) => (
-              <option value={option.value}>{option.name}</option>
+              <option value={JSON.stringify(option.value)}>{option.name}</option>
             ))}
           </select>
           <Stack direction="row" spacing={1}>
@@ -161,6 +169,7 @@ function Shop() {
               selectedSuperCategory={selectedSuperCategory}
               categories={categories}
               price={price}
+              selectedSort = {selectedSort}
             />
           </div>
         </div>

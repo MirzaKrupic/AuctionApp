@@ -1,9 +1,16 @@
 import axios from "axios";
-const host = "localhost:8080";
+import { HOST } from "./constants";
+
+let api = "";
+if (process.env.REACT_APP_URL) {
+  api = process.env.REACT_APP_URL;
+} else {
+  api = HOST;
+}
 
 export const register = async (person) => {
   return axios
-    .post(`http://${host}/api/v1/registration`, person)
+    .post(`${api}/api/v1/registration`, person)
     .then((res) => {
       return { response: res.data.response, status: res.status };
     })
@@ -14,7 +21,7 @@ export const register = async (person) => {
 
 export const login = async (person) => {
     return axios
-    .post(`http://${host}/api/v1/login`, person)
+    .post(`${api}/api/v1/login`, person)
     .then((res) => {
       return { token: res.data.token, status: res.status };
     })

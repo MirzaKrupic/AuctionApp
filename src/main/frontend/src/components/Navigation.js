@@ -4,44 +4,60 @@ import classes from "./Navigation.module.css";
 import { ReactComponent as LogoSvg } from "../assets/auction-app-logo 1.svg";
 import { Link } from "react-router-dom";
 import LayoutContainer from "./LayoutContainer";
+import { PAGES } from "../utils/constants";
 
-function Navigation() {
+function Navigation({ currentPage }) {
   return (
     <div>
-    <LayoutContainer>
-    <Navbar className={classes.navigation_bar} collapseOnSelect expand="sm">
-      <Container className="no-gutters mx-0 px-0">
+      <LayoutContainer>
+        <Navbar className={classes.navigation_bar} collapseOnSelect expand="sm">
+          <Container className="no-gutters mx-0 px-0">
             <LogoSvg className={classes.application_logo} />
-              <input
-                className={classes.search_bar}
-                type="text"
-                placeholder="Search"
-                aria-label="Search"
-              />
+            <input
+              className={classes.search_bar}
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+            />
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse
               id="responsive-navbar-nav"
               className="justify-content-end"
             >
               <Nav>
+                {currentPage === PAGES.HOME ? (
                   <Link
                     className={`${classes.navigation_option} ${classes.active_navigation_option}`}
                     to="/"
                   >
                     Home
                   </Link>
-                  <Link className={classes.navigation_option} to="/shop">
+                ) : (
+                  <Link className={`${classes.navigation_option}`} to="/">
+                    Home
+                  </Link>
+                )}
+                {currentPage === PAGES.SHOP ? (
+                  <Link
+                    className={`${classes.navigation_option} ${classes.active_navigation_option}`}
+                    to="/shop"
+                  >
                     Shop
                   </Link>
-                  <Link className={classes.navigation_option} to="/">
-                    My Account
+                ) : (
+                  <Link className={`${classes.navigation_option}`} to="/shop">
+                    Shop
                   </Link>
+                )}
+
+                <Link className={classes.navigation_option} to="/">
+                  My Account
+                </Link>
               </Nav>
             </Navbar.Collapse>
-        
-      </Container>
-    </Navbar>
-    </LayoutContainer>
+          </Container>
+        </Navbar>
+      </LayoutContainer>
     </div>
   );
 }
