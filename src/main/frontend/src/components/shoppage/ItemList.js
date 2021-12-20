@@ -27,7 +27,12 @@ function ItemList(props) {
       setSelectedSupercategory(0);
     }
     setRefreshState(!refreshState);
-  }, [props.selectedSuperCategory, props.selectedCategories, props.price, props.selectedSort]);
+  }, [
+    props.selectedSuperCategory,
+    props.selectedCategories,
+    props.price,
+    props.selectedSort,
+  ]);
 
   useEffect(async () => {
     let data = "";
@@ -87,6 +92,7 @@ function ItemList(props) {
               {items.map((item) => {
                 return (
                   <ItemPageListItem
+                    itemId={item.itemId}
                     details={item.details}
                     name={item.name}
                     photo={item.photo}
