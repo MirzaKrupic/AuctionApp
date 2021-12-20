@@ -11,8 +11,9 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/styles";
 import { SORT_BY, ORDER } from "../utils/constants";
+import {PAGES} from "../utils/constants"
 
-function Shop() {
+function Shop({setCurrentPage}) {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
@@ -115,6 +116,8 @@ function Shop() {
   const onSortChange = (e) => {
     setSelectedSort(JSON.parse(e.target.value));
   }
+
+  setCurrentPage(PAGES.SHOP);
 
   return (
     <LayoutContainer>

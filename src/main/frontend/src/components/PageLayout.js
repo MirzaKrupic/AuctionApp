@@ -6,7 +6,7 @@ function PageLayout(props) {
   return (
     <div>
       <Header />
-      <Navigation />
+      <Navigation currentPage={props.currentPage} />
       {props.children}
       <Footer />
     </div>

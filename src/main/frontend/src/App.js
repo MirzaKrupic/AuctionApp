@@ -8,19 +8,23 @@ import Login from "./pages/Login";
 import { AuthProvider } from "./hooks";
 import Item from "./pages/Item";
 import Shop from "./pages/Shop";
+import { useEffect, useState } from "react";
+import {PAGES} from "./utils/constants"
 
 function App() {
+  const [currentPage, setCurrentPage] = useState(PAGES.HOME);
+
   return (
     <AuthProvider>
       <BrowserRouter>
         <div className="App">
-          <PageLayout>
+          <PageLayout currentPage={currentPage}>
             <Switch>
               <Route path="/" exact>
-                <Home />
+                <Home setCurrentPage={setCurrentPage} />
               </Route>
               <Route path="/shop/:categoryId?" exact>
-                <Shop />
+                <Shop setCurrentPage={setCurrentPage} />
               </Route>
               <Route path="/items/:itemId" exact>
                 <Item />

@@ -6,8 +6,11 @@ import UpperSection from "../components/landingpage/UpperSection";
 import LowerSection from "../components/landingpage/LowerSection";
 import classes from "./Home.module.css";
 import LayoutContainer from "../components/LayoutContainer";
+import {PAGES} from "../utils/constants"
 
-function Home() {
+function Home({setCurrentPage}) {
+
+  setCurrentPage(PAGES.HOME);
 
   return (
     <LayoutContainer >

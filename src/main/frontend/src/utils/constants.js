@@ -32,3 +32,8 @@ export const ORDER = {
   ASC: "ASC",
   DESC: "DESC",
 };
+
+export const PAGES = {
+  HOME: "HOME",
+  SHOP: "SHOP",
+};
