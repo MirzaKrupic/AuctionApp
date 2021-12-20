@@ -11,9 +11,9 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/styles";
 import { SORT_BY, ORDER } from "../utils/constants";
-import {PAGES} from "../utils/constants"
+import { PAGES } from "../utils/constants";
 
-function Shop({setCurrentPage}) {
+function Shop({ setCurrentPage }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
@@ -28,7 +28,7 @@ function Shop({setCurrentPage}) {
       name: "Default Sorting",
     },
     {
-      value: { order: SORT_BY.DATE_ADDED, direction: ORDER.ASC},
+      value: { order: SORT_BY.DATE_ADDED, direction: ORDER.ASC },
       name: "Added: New to old",
     },
     {
@@ -115,7 +115,7 @@ function Shop({setCurrentPage}) {
 
   const onSortChange = (e) => {
     setSelectedSort(JSON.parse(e.target.value));
-  }
+  };
 
   setCurrentPage(PAGES.SHOP);
 
@@ -137,11 +137,19 @@ function Shop({setCurrentPage}) {
           />
         </div>
         <div className={classes.shop_right_section}>
-          <select name="sorting" id="sorting" onChange={onSortChange}>
-            {options.map((option) => (
-              <option value={JSON.stringify(option.value)}>{option.name}</option>
-            ))}
-          </select>
+          <div className={classes.sort_and_view_section}>
+            <select name="sorting" id="sorting" onChange={onSortChange}>
+              {options.map((option) => (
+                <option value={JSON.stringify(option.value)}>
+                  {option.name}
+                </option>
+              ))}
+            </select>
+            <div className={classes.view_options}>
+              <button>Nest</button>
+              <button>Nest</button>
+            </div>
+          </div>
           <Stack direction="row" spacing={1}>
             {categories
               .filter((category) => {
@@ -169,7 +177,7 @@ function Shop({setCurrentPage}) {
               selectedSuperCategory={selectedSuperCategory}
               categories={categories}
               price={price}
-              selectedSort = {selectedSort}
+              selectedSort={selectedSort}
             />
           </div>
         </div>
