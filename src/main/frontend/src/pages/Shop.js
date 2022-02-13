@@ -10,13 +10,14 @@ import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/styles";
-import { SORT_BY, ORDER } from "../utils/constants";
+import { SORT_BY, ORDER, VIEWS } from "../utils/constants";
 import { PAGES } from "../utils/constants";
 
 function Shop({ setCurrentPage }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
+  const [selectedView, setSelectedView] = useState(VIEWS.LIST);
   const [price, setPrice] = useState({
     min: null,
     max: null,
@@ -146,8 +147,20 @@ function Shop({ setCurrentPage }) {
               ))}
             </select>
             <div className={classes.view_options}>
-              <button>Nest</button>
-              <button>Nest</button>
+              <button
+                onClick={() => {
+                  setSelectedView("GRID");
+                }}
+              >
+                grid
+              </button>
+              <button
+                onClick={() => {
+                  setSelectedView("LIST");
+                }}
+              >
+                list
+              </button>
             </div>
           </div>
           <Stack direction="row" spacing={1}>
@@ -178,6 +191,7 @@ function Shop({ setCurrentPage }) {
               categories={categories}
               price={price}
               selectedSort={selectedSort}
+              selectedView={selectedView}
             />
           </div>
         </div>

@@ -63,18 +63,30 @@ function ItemList(props) {
         <div>
           <Container fluid className={classes.no_padding_left}>
             <Row no-gutters>
-              {items.map((item) => {
-                return (
-                  <LandingPageItem
-                    item_type="SMALL"
-                    itemId={item.itemId}
-                    details={item.details}
-                    name={item.name}
-                    photo={item.photo}
-                    price={item.startingPrice}
-                  />
-                );
-              })}
+              {props.selectedView === "LIST"
+                ? items.map((item) => {
+                    return (
+                      <ItemPageListItem
+                        itemId={item.itemId}
+                        details={item.details}
+                        name={item.name}
+                        photo={item.photo}
+                        price={item.startingPrice}
+                      />
+                    );
+                  })
+                : items.map((item) => {
+                    return (
+                      <LandingPageItem
+                        item_type="SMALL"
+                        itemId={item.itemId}
+                        details={item.details}
+                        name={item.name}
+                        photo={item.photo}
+                        price={item.startingPrice}
+                      />
+                    );
+                  })}
             </Row>
           </Container>
           {hasMoreItems && (
