@@ -4,7 +4,7 @@ import { Row, Container } from "react-bootstrap";
 import ItemPageListItem from "./ItemPageListItem";
 import classes from "./ItemList.module.css";
 import { fetchItems } from "../../utils/itemService";
-import { SORTING_VALUES } from "../../utils/constants";
+import { VIEWS } from "../../utils/constants";
 import LandingPageItem from "../landingpage/LandingPageItem";
 
 function ItemList(props) {
@@ -63,7 +63,7 @@ function ItemList(props) {
         <div>
           <Container fluid className={classes.no_padding_left}>
             <Row no-gutters>
-              {props.selectedView === "LIST"
+              {props.selectedView === VIEWS.LIST
                 ? items.map((item) => {
                     return (
                       <ItemPageListItem

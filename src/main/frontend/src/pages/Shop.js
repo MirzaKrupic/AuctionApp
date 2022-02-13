@@ -149,14 +149,14 @@ function Shop({ setCurrentPage }) {
             <div className={classes.view_options}>
               <button
                 onClick={() => {
-                  setSelectedView("GRID");
+                  setSelectedView(VIEWS.GRID);
                 }}
               >
                 grid
               </button>
               <button
                 onClick={() => {
-                  setSelectedView("LIST");
+                  setSelectedView(VIEWS.LIST);
                 }}
               >
                 list
