@@ -13,6 +13,13 @@ function InfiniteScrollComponent(props) {
 
   const [page, setPage] = useState(0);
 
+  const infiniteScrollStyles = {
+    landing_page_row: {
+      display: "flex",
+      justifyContent: "space-between"
+    }
+  };
+
   useEffect(async () => {
     let data = "";
     if(props.criteria === LANDING_PAGE_TAB_VALUES.NORMAL){
@@ -41,8 +48,8 @@ function InfiniteScrollComponent(props) {
         </p>
       }
     >
-      <div className="container-fluid">
-        <Row>
+      <div className="container">
+        <Row style={infiniteScrollStyles.landing_page_row}>
           {items.map((item) => {
             return (
               <LandingPageItem
