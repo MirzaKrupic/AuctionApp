@@ -12,6 +12,8 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/styles";
 import { SORT_BY, ORDER, VIEWS } from "../utils/constants";
 import { PAGES } from "../utils/constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTableCells, faBars } from "@fortawesome/free-solid-svg-icons";
 
 function Shop({ setCurrentPage }) {
   const [categories, setCategories] = useState([]);
@@ -147,20 +149,54 @@ function Shop({ setCurrentPage }) {
               ))}
             </select>
             <div className={classes.view_options}>
-              <button
-                onClick={() => {
-                  setSelectedView(VIEWS.GRID);
-                }}
-              >
-                grid
-              </button>
-              <button
-                onClick={() => {
-                  setSelectedView(VIEWS.LIST);
-                }}
-              >
-                list
-              </button>
+              {selectedView === VIEWS.GRID ? (
+                <button
+                  className={`${classes.view_btn} ${classes.view_btn_selected}`}
+                  onClick={() => {
+                    setSelectedView(VIEWS.GRID);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    className={classes.btn_icon}
+                    icon={faTableCells}
+                  />
+                  grid
+                </button>
+              ) : (
+                <button
+                  className={classes.view_btn}
+                  onClick={() => {
+                    setSelectedView(VIEWS.GRID);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    className={classes.btn_icon}
+                    icon={faTableCells}
+                  />
+                  grid
+                </button>
+              )}
+              {selectedView === VIEWS.LIST ? (
+                <button
+                  className={`${classes.view_btn} ${classes.view_btn_selected}`}
+                  onClick={() => {
+                    setSelectedView(VIEWS.LIST);
+                  }}
+                >
+                  <FontAwesomeIcon className={classes.btn_icon} icon={faBars} />
+                  list
+                </button>
+              ) : (
+                <button
+                  className={classes.view_btn}
+                  onClick={() => {
+                    setSelectedView(VIEWS.LIST);
+                  }}
+                >
+                  <FontAwesomeIcon className={classes.btn_icon} icon={faBars} />
+                  list
+                </button>
+              )}
             </div>
           </div>
           <Stack direction="row" spacing={1}>
