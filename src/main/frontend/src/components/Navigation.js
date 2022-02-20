@@ -49,10 +49,18 @@ function Navigation({ currentPage }) {
                     Shop
                   </Link>
                 )}
-
-                <Link className={classes.navigation_option} to="/">
-                  My Account
-                </Link>
+                {currentPage == PAGES.MY_ACCOUNT ? (
+                  <Link
+                    className={`${classes.navigation_option} ${classes.active_navigation_option}`}
+                    to="/myaccount"
+                  >
+                    My Account
+                  </Link>
+                ) : (
+                  <Link className={classes.navigation_option} to="/myaccount">
+                    My Account
+                  </Link>
+                )}
               </Nav>
             </Navbar.Collapse>
           </Container>
