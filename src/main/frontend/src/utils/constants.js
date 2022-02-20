@@ -37,3 +37,8 @@ export const PAGES = {
   HOME: "HOME",
   SHOP: "SHOP",
 };
+
+export const VIEWS = {
+  LIST: "LIST",
+  GRID: "GRID",
+};

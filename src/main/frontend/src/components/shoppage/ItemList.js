@@ -4,7 +4,8 @@ import { Row, Container } from "react-bootstrap";
 import ItemPageListItem from "./ItemPageListItem";
 import classes from "./ItemList.module.css";
 import { fetchItems } from "../../utils/itemService";
-import { SORTING_VALUES } from "../../utils/constants";
+import { VIEWS } from "../../utils/constants";
+import LandingPageItem from "../landingpage/LandingPageItem";
 
 function ItemList(props) {
   const [items, setItems] = useState([]);
@@ -13,7 +14,7 @@ function ItemList(props) {
   const [selectedSupercategory, setSelectedSupercategory] = useState(
     props.selectedSuperCategory
   );
-  const PAGE_SIZE = 2;
+  const PAGE_SIZE = 4;
   const [refreshState, setRefreshState] = useState(true);
 
   useEffect(async () => {
@@ -52,33 +53,6 @@ function ItemList(props) {
     }
   }, [selectedSupercategory, page, refreshState]);
 
-  // useEffect(async () => {
-  //   setItemsToRender([]);
-  //   setHasMoreItems(true)
-  //   setPage(0);
-  //   let itemsToRender = [];
-  //   if (props.selectedCategories.length == 0) {
-  //     props.categories
-  //       .filter(function (category) {
-  //         return category.supercategoryId != null && category.items.length > 0;
-  //       })
-  //       .map((category) =>
-  //         category.items.map((item) => itemsToRender.push(item))
-  //       );
-  //   } else {
-  //     props.selectedCategories.map((selectedCategory) =>
-  //       props.categories
-  //         .filter(function (category) {
-  //           return category.categoryId == selectedCategory;
-  //         })
-  //         .map((category) =>
-  //           category.items.map((item) => itemsToRender.push(item))
-  //         )
-  //     );
-  //   }
-  //   setItems(itemsToRender);
-  // }, [props.categories, props.selectedCategories]);
-
   const fetchData = async () => {
     setPage(page + 1);
   };
@@ -89,17 +63,30 @@ function ItemList(props) {
         <div>
           <Container fluid className={classes.no_padding_left}>
             <Row no-gutters>
-              {items.map((item) => {
-                return (
-                  <ItemPageListItem
-                    itemId={item.itemId}
-                    details={item.details}
-                    name={item.name}
-                    photo={item.photo}
-                    price={item.startingPrice}
-                  />
-                );
-              })}
+              {props.selectedView === VIEWS.LIST
+                ? items.map((item) => {
+                    return (
+                      <ItemPageListItem
+                        itemId={item.itemId}
+                        details={item.details}
+                        name={item.name}
+                        photo={item.photo}
+                        price={item.startingPrice}
+                      />
+                    );
+                  })
+                : items.map((item) => {
+                    return (
+                      <LandingPageItem
+                        item_type="SMALL"
+                        itemId={item.itemId}
+                        details={item.details}
+                        name={item.name}
+                        photo={item.photo}
+                        price={item.startingPrice}
+                      />
+                    );
+                  })}
             </Row>
           </Container>
           {hasMoreItems && (
