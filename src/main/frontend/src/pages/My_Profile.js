@@ -34,6 +34,10 @@ function My_Profile({ setCurrentPage }) {
             <p>Required</p>
           </div>
         </div>
+        <div className={classes.required_section}>
+          <div className={classes.image_section}></div>
+          <div className={classes.info_section}></div>
+        </div>
       </LayoutContainer>
     </div>
   );
