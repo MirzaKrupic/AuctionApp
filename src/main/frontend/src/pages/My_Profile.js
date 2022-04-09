@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import classes from "./My_Profile.module.css";
 import browserHistory from "history/createBrowserHistory";
 import LayoutContainer from "../components/LayoutContainer";
+import { Button } from "react-bootstrap";
 
 function My_Profile({ setCurrentPage }) {
   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -33,10 +34,19 @@ function My_Profile({ setCurrentPage }) {
           <div className={classes.section_heading}>
             <p>Required</p>
           </div>
-        </div>
-        <div className={classes.required_section}>
-          <div className={classes.image_section}></div>
-          <div className={classes.info_section}></div>
+          <div className={classes.required_section}>
+            <div className={classes.image_section}>
+              <div className={classes.round_img}></div>
+              <Button
+                  className={classes.bidding_button}
+                  type="submit"
+                  variant="outline-*"
+                >
+                  PLACE BID
+                </Button>
+            </div>
+            <div className={classes.info_section}></div>
+          </div>
         </div>
       </LayoutContainer>
     </div>
