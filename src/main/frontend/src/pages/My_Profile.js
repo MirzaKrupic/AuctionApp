@@ -7,45 +7,58 @@ import LayoutContainer from "../components/LayoutContainer";
 import { Button } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
-import { SORT_BY, ORDER } from "../utils/constants";
+import { getUserByToken } from "../utils/userUtils";
 
 function My_Profile({ setCurrentPage }) {
   setCurrentPage(PAGES.MY_ACCOUNT);
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
   const options = [
     {
-      value: { gender: "NONE"},
+      value: { gender: "NONE" },
       name: "Select gender",
     },
     {
-      value: { gender: "MALE"},
+      value: { gender: "MALE" },
       name: "Male",
     },
     {
-      value: { gender: "FEMALE"},
+      value: { gender: "FEMALE" },
       name: "Female",
-    }
+    },
   ];
   const [selectedGender, setSelectedGender] = useState(options[0].value);
-  const [registrationInfo, setRegistrationInfo] = useState({
+  const [formInfo, setFormInfo] = useState({
     firstName: "",
-    lastName: "", 
+    lastName: "",
     email: "",
-    password: "",
+    gender: "",
   });
+  const [user, setUser] = useState(null);
 
   const onSortChange = (e) => {
     setSelectedGender(JSON.parse(e.target.value));
   };
 
   useEffect(async () => {
-    console.log(token);
     const history = browserHistory();
     if (token === null) {
       history.push("/login");
       window.location.reload(false);
+    } else {
+      setUser(await getUserByToken(token));
     }
   }, [token]);
+
+  useEffect(async () => {
+    if(user){
+      setFormInfo({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        gender: user.gender
+      })
+    }
+  }, [user]);
 
   const handleSubmit = async (user) => {
     user.gender = selectedGender.gender;
@@ -80,13 +93,8 @@ function My_Profile({ setCurrentPage }) {
             </div>
             <div className={classes.info_section}>
               <Formik
-              onSubmit={handleSubmit}
-                initialValues={{
-                  firstName: "",
-                  lastName: "",
-                  email: "",
-                  gender: "",
-                }}
+                onSubmit={handleSubmit}
+                initialValues={formInfo}
               >
                 {({ errors, touched }) => (
                   <Form>
@@ -120,7 +128,10 @@ function My_Profile({ setCurrentPage }) {
                         className={classes.gender_select}
                       >
                         {options.map((option) => (
-                          <option name="gender" value={JSON.stringify(option.value)}>
+                          <option
+                            name="gender"
+                            value={JSON.stringify(option.value)}
+                          >
                             {option.name}
                           </option>
                         ))}

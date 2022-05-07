@@ -29,3 +29,19 @@ export const login = async (person) => {
       return error.response;
     });
 };
+
+export const getUserByToken = async (token) => {
+  return axios
+    .get(`${api}/api/v1/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
