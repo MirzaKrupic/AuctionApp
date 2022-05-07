@@ -27,6 +27,12 @@ function My_Profile({ setCurrentPage }) {
     }
   ];
   const [selectedGender, setSelectedGender] = useState(options[0].value);
+  const [registrationInfo, setRegistrationInfo] = useState({
+    firstName: "",
+    lastName: "", 
+    email: "",
+    password: "",
+  });
 
   const onSortChange = (e) => {
     setSelectedGender(JSON.parse(e.target.value));
@@ -40,6 +46,11 @@ function My_Profile({ setCurrentPage }) {
       window.location.reload(false);
     }
   }, [token]);
+
+  const handleSubmit = async (user) => {
+    user.gender = selectedGender.gender;
+    console.log(user);
+  };
 
   return (
     <div>
@@ -69,6 +80,7 @@ function My_Profile({ setCurrentPage }) {
             </div>
             <div className={classes.info_section}>
               <Formik
+              onSubmit={handleSubmit}
                 initialValues={{
                   firstName: "",
                   lastName: "",
@@ -103,13 +115,12 @@ function My_Profile({ setCurrentPage }) {
                     <label className={classes.input_container}>
                       I am...
                       <select
-                        name="sorting"
                         id="sorting"
                         onChange={onSortChange}
                         className={classes.gender_select}
                       >
                         {options.map((option) => (
-                          <option value={JSON.stringify(option.value)}>
+                          <option name="gender" value={JSON.stringify(option.value)}>
                             {option.name}
                           </option>
                         ))}
