@@ -11,7 +11,7 @@
   height: 905px;
   border: 1px solid #e3e3e3;
 }
-.required_section{
+.required_section {
   display: flex;
   flex-direction: row;
 }
@@ -20,22 +20,24 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  width: 548px;
+  width: 100%;
   height: 106px;
   flex: none;
   order: 0;
   flex-grow: 0;
   margin: 32px 0px;
 }
-
+.info_section {
+  width: 62%;
+}
 .registration_input {
   border: 1px solid #d8d8d8;
   box-sizing: border-box;
   padding: 18px 42px 18px 24px;
-  width: 548px;
+  width: 80%;
   height: 63px;
 }
-.image_section{
+.image_section {
   display: flex;
   flex-direction: column;
   width: 38%;
@@ -77,4 +79,8 @@
 
 .bidding_button:hover {
   color: #8367d8;
+}
+.gender_select {
+  width: 357px;
+  height: 64px;
 }
