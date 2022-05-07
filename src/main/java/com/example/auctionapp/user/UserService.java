@@ -1,26 +1,18 @@
 package com.example.auctionapp.user;
 
-import com.example.auctionapp.authentication.AuthenticationRequest;
-import com.example.auctionapp.authentication.AuthenticationResponse;
 import com.example.auctionapp.registration.EmailValidator;
 import com.example.auctionapp.registration.RegistrationRequest;
 import com.example.auctionapp.security.config.JWTTokenHelper;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -31,6 +23,7 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private EmailValidator emailValidator;
+    JWTTokenHelper jwtTokenHelper;
 
     private static final String USER_EXISTS_RESPONSE = "User with this email already exists";
     private static final String ACCOUNT_CREATED_RESPONSE = "Account successfully created";
@@ -70,6 +63,13 @@ public class UserService implements UserDetailsService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseJson);
         }
         return ResponseEntity.status(HttpStatus.OK).body(responseJson);
+    }
+
+    public Optional<User> getUserByToken(HttpServletRequest httpServletRequest){
+        String token = jwtTokenHelper.getToken(httpServletRequest);
+        Optional<User> user = this.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
+
+        return user;
     }
 
 }

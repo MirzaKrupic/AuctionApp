@@ -46,6 +46,10 @@ public class User implements UserDetails {
     @NonNull
     private String password;
 
+    @Column(columnDefinition = "varchar(255) default 'NONE'")
+    @Enumerated(EnumType.STRING)
+    private UserGender gender;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
