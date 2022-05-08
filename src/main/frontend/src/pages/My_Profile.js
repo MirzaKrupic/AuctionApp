@@ -1,6 +1,6 @@
 import { PAGES } from "../utils/constants";
 import { AuthContext } from "../hooks";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef, React } from "react";
 import classes from "./My_Profile.module.css";
 import browserHistory from "history/createBrowserHistory";
 import LayoutContainer from "../components/LayoutContainer";
@@ -8,9 +8,13 @@ import { Button } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { getUserByToken } from "../utils/userUtils";
+import FileBase64 from "react-file-base64";
 
 function My_Profile({ setCurrentPage }) {
   setCurrentPage(PAGES.MY_ACCOUNT);
+  const fileRef = useRef();
+  const textInput = useRef(null);
+  let inputFile = '';
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
   const options = [
     {
@@ -60,12 +64,28 @@ function My_Profile({ setCurrentPage }) {
       })
     }
     console.log(formInfo);
-
   }, [user]);
 
   const handleSubmit = async (user) => {
     user.gender = selectedGender;
     console.log(user);
+  };
+
+  const handleChange = (e) => {
+    const [file] = e.target.files;
+    console.log(file);
+  };
+
+  function handleSubmit2(e) {
+    e.preventDefault();
+    console.log('You clicked submit.');
+    textInput.current.focus();
+  }
+
+  const uploadClick = e => {
+    e.preventDefault();
+    inputFile.click();
+    return false;
   };
 
   return (
@@ -88,11 +108,25 @@ function My_Profile({ setCurrentPage }) {
               <div className={classes.round_img}></div>
               <Button
                 className={classes.bidding_button}
-                type="submit"
                 variant="outline-*"
+                ref={fileRef}
+                onChange={handleChange}
+                onClick={uploadClick}
+                multiple={false}
+                type="file"
               >
                 SELECT IMAGE
               </Button>
+              <input
+                style={{height: "0px", overflow: "hidden"}}
+                type="file"
+                name="fileUpload"
+                ref={input => {
+                  // assigns a reference so we can trigger it later
+                  inputFile = input;
+                }}
+                accept="image/png, image/gif, image/jpeg"
+              />
             </div>
             <div className={classes.info_section}>
               <Formik
