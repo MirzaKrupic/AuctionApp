@@ -14,15 +14,15 @@ function My_Profile({ setCurrentPage }) {
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
   const options = [
     {
-      value: { gender: "NONE" },
+      value: "NONE",
       name: "Select gender",
     },
     {
-      value: { gender: "MALE" },
+      value: "MALE",
       name: "Male",
     },
     {
-      value: { gender: "FEMALE" },
+      value: "FEMALE",
       name: "Female",
     },
   ];
@@ -36,7 +36,8 @@ function My_Profile({ setCurrentPage }) {
   const [user, setUser] = useState(null);
 
   const onSortChange = (e) => {
-    setSelectedGender(JSON.parse(e.target.value));
+    console.log(e.target.value);
+    setSelectedGender(e.target.value);
   };
 
   useEffect(async () => {
@@ -58,10 +59,12 @@ function My_Profile({ setCurrentPage }) {
         gender: user.gender
       })
     }
+    console.log(formInfo);
+
   }, [user]);
 
   const handleSubmit = async (user) => {
-    user.gender = selectedGender.gender;
+    user.gender = selectedGender;
     console.log(user);
   };
 
@@ -94,7 +97,8 @@ function My_Profile({ setCurrentPage }) {
             <div className={classes.info_section}>
               <Formik
                 onSubmit={handleSubmit}
-                initialValues={formInfo}
+                initialValues= {formInfo}
+                enableReinitialize= {true}
               >
                 {({ errors, touched }) => (
                   <Form>
@@ -122,20 +126,21 @@ function My_Profile({ setCurrentPage }) {
                     </label>
                     <label className={classes.input_container}>
                       I am...
-                      <select
+                     {user && <select
                         id="sorting"
                         onChange={onSortChange}
                         className={classes.gender_select}
+                        defaultValue={user.gender}
                       >
                         {options.map((option) => (
                           <option
                             name="gender"
-                            value={JSON.stringify(option.value)}
+                            value={option.value}
                           >
                             {option.name}
                           </option>
                         ))}
-                      </select>
+                      </select>}
                     </label>
                     <label className={classes.input_container}>
                       Email
