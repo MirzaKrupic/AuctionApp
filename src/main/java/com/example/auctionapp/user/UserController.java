@@ -2,6 +2,7 @@ package com.example.auctionapp.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,5 +19,11 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, path = "/user")
     public @ResponseBody Optional<User> fetchItems(HttpServletRequest httpServletRequest){
         return userService.getUserByToken(httpServletRequest);
+    }
+
+    @PostMapping("/user")
+    public ResponseEntity<?> updateUser(HttpServletRequest httpServletRequest, @RequestBody UpdateUser user) {
+        ResponseEntity<?> token = userService.updateUser(httpServletRequest,user);
+        return ResponseEntity.ok(token);
     }
 }

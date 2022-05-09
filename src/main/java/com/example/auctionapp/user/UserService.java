@@ -72,4 +72,17 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public ResponseEntity<?> updateUser(HttpServletRequest httpServletRequest, UpdateUser user) {
+        String token = jwtTokenHelper.getToken(httpServletRequest);
+        Optional<User> userDb = this.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
+
+        userDb.get().setFirstName(user.getFirstName());
+        userDb.get().setLastName(user.getLastName());
+        userDb.get().setEmail(user.getEmail());
+        userDb.get().setGender(user.getGender());
+
+        userRepository.save(userDb.get());
+
+        return ResponseEntity.ok(token);
+    }
 }
