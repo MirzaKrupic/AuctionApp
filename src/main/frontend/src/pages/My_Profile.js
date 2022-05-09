@@ -31,6 +31,7 @@ function My_Profile({ setCurrentPage }) {
     },
   ];
   const [selectedGender, setSelectedGender] = useState(options[0].value);
+  const [imgPreview, setImgPreview] = useState(null);
   const [formInfo, setFormInfo] = useState({
     firstName: "",
     lastName: "",
@@ -93,10 +94,10 @@ function My_Profile({ setCurrentPage }) {
     formData.append("file", files[0]);
     formData.append("upload_preset", "dydlqwes");
     formData.append("folder", "users");
-
-    axios.post("https://api.cloudinary.com/v1_1/dedewsjde/image/upload", formData).then((response)=>{
-      console.log(response);
-    })
+    setImgPreview(URL.createObjectURL(files[0]));
+    // axios.post("https://api.cloudinary.com/v1_1/dedewsjde/image/upload", formData).then((response)=>{
+    //   console.log(response);
+    // })
   };
 
   return (
@@ -116,7 +117,9 @@ function My_Profile({ setCurrentPage }) {
           </div>
           <div className={classes.required_section}>
             <div className={classes.image_section}>
-              <div className={classes.round_img}></div>
+              <div className={classes.round_img}>
+                <img src={imgPreview}></img>
+              </div>
               <Button
                 className={classes.bidding_button}
                 variant="outline-*"
