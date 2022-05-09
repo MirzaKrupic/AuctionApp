@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { getUserByToken } from "../utils/userUtils";
-import FileBase64 from "react-file-base64";
+import axios from "axios";
 
 function My_Profile({ setCurrentPage }) {
   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -88,6 +88,17 @@ function My_Profile({ setCurrentPage }) {
     return false;
   };
 
+  const uploadImage = files => {
+    const formData = new FormData();
+    formData.append("file", files[0]);
+    formData.append("upload_preset", "dydlqwes");
+    formData.append("folder", "users");
+
+    axios.post("https://api.cloudinary.com/v1_1/dedewsjde/image/upload", formData).then((response)=>{
+      console.log(response);
+    })
+  };
+
   return (
     <div>
       <div className={classes.page_heading}>
@@ -110,7 +121,7 @@ function My_Profile({ setCurrentPage }) {
                 className={classes.bidding_button}
                 variant="outline-*"
                 ref={fileRef}
-                onChange={handleChange}
+                onChange={(event) => {uploadImage(event.target.files)}}
                 onClick={uploadClick}
                 multiple={false}
                 type="file"
@@ -121,6 +132,7 @@ function My_Profile({ setCurrentPage }) {
                 style={{height: "0px", overflow: "hidden"}}
                 type="file"
                 name="fileUpload"
+                onChange={(event) => {uploadImage(event.target.files)}}
                 ref={input => {
                   // assigns a reference so we can trigger it later
                   inputFile = input;
