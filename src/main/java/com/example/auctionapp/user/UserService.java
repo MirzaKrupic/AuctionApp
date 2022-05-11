@@ -80,6 +80,7 @@ public class UserService implements UserDetailsService {
         userDb.get().setLastName(user.getLastName());
         userDb.get().setEmail(user.getEmail());
         userDb.get().setGender(user.getGender());
+        userDb.get().setImage(user.getImage());
 
         userRepository.save(userDb.get());
 

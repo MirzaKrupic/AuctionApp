@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { getUserByToken } from "../utils/userUtils";
-import { updateUser } from "../utils/userUtils";
+import { updateUser, uploadUserImage } from "../utils/userUtils";
 
 function My_Profile({ setCurrentPage }) {
   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -38,8 +38,10 @@ function My_Profile({ setCurrentPage }) {
     lastName: "",
     email: "",
     gender: "",
+    image: ""
   });
   const [user, setUser] = useState(null);
+  const [formDataSub, setFormDataSub] = useState(null);
 
   const onSortChange = (e) => {
     console.log(e.target.value);
@@ -63,13 +65,20 @@ function My_Profile({ setCurrentPage }) {
         lastName: user.lastName,
         email: user.email,
         gender: user.gender
-      })
+      });
+      setImgPreview(user.image);
     }
-    console.log(formInfo);
   }, [user]);
 
   const handleSubmit = async (user) => {
+    if(formDataSub){
+      const imgUploadRes = await uploadUserImage(formDataSub);
+      user.image = imgUploadRes.data.secure_url;
+    } else {
+      user.image = imgPreview;
+    }
     user.gender = selectedGender;
+    console.log(user);
     const res = await updateUser(token, user);
     setResponseState(res.body);
   };
@@ -91,15 +100,15 @@ function My_Profile({ setCurrentPage }) {
     return false;
   };
 
-  const uploadImage = files => {
+  const uploadImage = async files => {
     const formData = new FormData();
     formData.append("file", files[0]);
     formData.append("upload_preset", "dydlqwes");
     formData.append("folder", "users");
+    setFormDataSub(formData);
     setImgPreview(URL.createObjectURL(files[0]));
-    // axios.post("https://api.cloudinary.com/v1_1/dedewsjde/image/upload", formData).then((response)=>{
-    //   console.log(response);
-    // })
+    // const res = await uploadUserImage(formData);
+    // console.log(res.data.secure_url);
   };
 
   return (
@@ -120,7 +129,7 @@ function My_Profile({ setCurrentPage }) {
           <div className={classes.required_section}>
             <div className={classes.image_section}>
               <div className={classes.round_img}>
-                <img src={imgPreview}></img>
+                <img className={classes.imgPreview} src={imgPreview}></img>
               </div>
               <Button
                 className={classes.bidding_button}

@@ -61,3 +61,9 @@ export const updateUser = async (token, user) => {
       return error.response;
     });
 };
+
+export const uploadUserImage = async (image) => {
+  return axios.post("https://api.cloudinary.com/v1_1/dedewsjde/image/upload", image).then((response)=>{
+     return response;
+    })
+};

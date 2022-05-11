@@ -11,6 +11,9 @@
   height: 905px;
   border: 1px solid #e3e3e3;
 }
+.imgPreview{
+  width: 100%;
+}
 .required_section {
   display: flex;
   flex-direction: row;
@@ -62,6 +65,7 @@
 .round_img {
   width: 354px;
   height: 354px;
+  contain: content;
   background: #fcfcfc;
   border: 1px solid #d8d8d8;
   box-sizing: border-box;

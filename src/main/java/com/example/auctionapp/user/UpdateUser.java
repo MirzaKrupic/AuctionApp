@@ -6,6 +6,8 @@ public class UpdateUser {
     private String email;
     private UserGender gender;
 
+    private String image;
+
     public String getFirstName() {
         return firstName;
     }
@@ -20,5 +22,9 @@ public class UpdateUser {
 
     public UserGender getGender() {
         return gender;
+    }
+
+    public String getImage() {
+        return image;
     }
 }
