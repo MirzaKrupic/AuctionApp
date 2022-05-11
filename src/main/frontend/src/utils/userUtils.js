@@ -45,3 +45,19 @@ export const getUserByToken = async (token) => {
       return error.response;
     });
 };
+
+export const updateUser = async (token, user) => {
+  return axios
+    .post(`${api}/api/v1/user`, user, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};

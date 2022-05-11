@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { getUserByToken } from "../utils/userUtils";
-import axios from "axios";
+import { updateUser } from "../utils/userUtils";
 
 function My_Profile({ setCurrentPage }) {
   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -32,6 +32,7 @@ function My_Profile({ setCurrentPage }) {
   ];
   const [selectedGender, setSelectedGender] = useState(options[0].value);
   const [imgPreview, setImgPreview] = useState(null);
+  const [responseState, setResponseState] = useState(null);
   const [formInfo, setFormInfo] = useState({
     firstName: "",
     lastName: "",
@@ -69,7 +70,8 @@ function My_Profile({ setCurrentPage }) {
 
   const handleSubmit = async (user) => {
     user.gender = selectedGender;
-    console.log(user);
+    const res = await updateUser(token, user);
+    setResponseState(res.body);
   };
 
   const handleChange = (e) => {
@@ -209,6 +211,7 @@ function My_Profile({ setCurrentPage }) {
                     >
                       Submit
                     </button>
+                    <p>{responseState}</p>
                   </Form>
                 )}
               </Formik>

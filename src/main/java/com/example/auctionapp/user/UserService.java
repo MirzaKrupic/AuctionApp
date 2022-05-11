@@ -83,6 +83,6 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(userDb.get());
 
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok("User updated successfully");
     }
 }
