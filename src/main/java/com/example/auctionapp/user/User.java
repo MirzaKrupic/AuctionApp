@@ -46,6 +46,13 @@ public class User implements UserDetails {
     @NonNull
     private String password;
 
+    @Column
+    private String image;
+
+    @Column(columnDefinition = "varchar(255) default 'NONE'")
+    @Enumerated(EnumType.STRING)
+    private UserGender gender;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
@@ -87,6 +94,22 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public UserGender getGender() {
+        return gender;
+    }
+
+    public void setGender(UserGender gender) {
+        this.gender = gender;
     }
 
     @Override

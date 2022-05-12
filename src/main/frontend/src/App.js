@@ -9,7 +9,8 @@ import { AuthProvider } from "./hooks";
 import Item from "./pages/Item";
 import Shop from "./pages/Shop";
 import { useEffect, useState } from "react";
-import {PAGES} from "./utils/constants"
+import { PAGES } from "./utils/constants";
+import My_Profile from "./pages/My_Profile";
 
 function App() {
   const [currentPage, setCurrentPage] = useState(PAGES.HOME);
@@ -25,6 +26,9 @@ function App() {
               </Route>
               <Route path="/shop/:categoryId?" exact>
                 <Shop setCurrentPage={setCurrentPage} />
+              </Route>
+              <Route path="/myaccount" exact>
+                <My_Profile setCurrentPage={setCurrentPage} />
               </Route>
               <Route path="/items/:itemId" exact>
                 <Item />

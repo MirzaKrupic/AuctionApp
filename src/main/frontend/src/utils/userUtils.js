@@ -29,3 +29,41 @@ export const login = async (person) => {
       return error.response;
     });
 };
+
+export const getUserByToken = async (token) => {
+  return axios
+    .get(`${api}/api/v1/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
+export const updateUser = async (token, user) => {
+  return axios
+    .post(`${api}/api/v1/user`, user, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
+export const uploadUserImage = async (image) => {
+  return axios.post("https://api.cloudinary.com/v1_1/dedewsjde/image/upload", image).then((response)=>{
+     return response;
+    })
+};
