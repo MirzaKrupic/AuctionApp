@@ -11,6 +11,7 @@ import Shop from "./pages/Shop";
 import { useEffect, useState } from "react";
 import { PAGES } from "./utils/constants";
 import My_Profile from "./pages/My_Profile";
+import User_items from "./pages/User_items";
 
 function App() {
   const [currentPage, setCurrentPage] = useState(PAGES.HOME);
@@ -38,6 +39,9 @@ function App() {
               </Route>
               <Route path="/login" exact>
                 <Login />
+              </Route>
+              <Route path="/myitems" exact>
+                <User_items />
               </Route>
             </Switch>
           </PageLayout>
