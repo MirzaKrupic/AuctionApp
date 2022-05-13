@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { Container, Row, Col } from "react-bootstrap";
 import { ReactComponent as CartSvg } from "../assets/cart.svg";
+import { DropzoneArea } from "material-ui-dropzone";
 
 function User_items({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -90,15 +91,22 @@ function User_items({ setCurrentPage }) {
           </div>
           <div className={classes.required_section}>
             <CartSvg className={classes.cart_logo} />
-            <p className={classes.cart_subheading}>You do not have any scheduled items for sale</p>
-            <Button
-                className={classes.sell_button}
-                variant="outline-*"
-              >
-                START SELLING
-              </Button>
+            <p className={classes.cart_subheading}>
+              You do not have any scheduled items for sale
+            </p>
+            <Button className={classes.sell_button} variant="outline-*">
+              START SELLING
+            </Button>
           </div>
         </div>
+        <DropzoneArea
+        dropzoneClass={classes.testzone}
+          acceptedFiles={["image/*"]}
+          dropzoneText={"Drag and drop an image here or click"}
+          onChange={(files) => console.log("Files:", files)}
+          filesLimit={6}
+          maxWidth={20}
+        />
       </LayoutContainer>
     </div>
   );
