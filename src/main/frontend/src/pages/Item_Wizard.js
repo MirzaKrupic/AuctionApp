@@ -2,6 +2,7 @@ import { PAGES } from "../utils/constants";
 import { AuthContext } from "../hooks";
 import { useContext, useEffect, useState, useRef, React } from "react";
 import classes from "./User_items.module.css";
+import classesWizzard from "./Item_wizard.module.css";
 import browserHistory from "history/createBrowserHistory";
 import LayoutContainer from "../components/LayoutContainer";
 import { Button } from "react-bootstrap";
@@ -69,13 +70,93 @@ function Item_Wizard({ setCurrentPage }) {
 
   return (
     <div>
-      <Container>
-        <div className="row">
-          <Col md={3}>1 of 3</Col>
-          <Col md={7}>1 of 3</Col>
-          <Col md={2}>1 of 3</Col>
+      <div className={classes.page_heading}>
+        <LayoutContainer>
+          <div className={classes.page_heading}>
+            <p>Bids</p>
+            <p>My Account -> Profile</p>
+          </div>
+        </LayoutContainer>
+      </div>
+      <div className={classes.wizzard_container}>
+        <div className={classes.required_container}>
+          <h5 className="mt-4">ADD ITEM</h5>
+          <div className={classesWizzard.form_container}>
+            <Formik initialValues={formInfo} enableReinitialize={true}>
+              {({ errors, touched }) => (
+                <Form>
+                  <label className={classesWizzard.input_container}>
+                    What do you sell?
+                    <Field
+                      name="firstName"
+                      type="text"
+                      className={classesWizzard.item_input}
+                    />
+                    {errors.firstName && touched.firstName ? (
+                      <div>{errors.firstName}</div>
+                    ) : null}
+                  </label>
+                  <Row>
+                    <Col md={6}>
+                      <label className={classesWizzard.input_container}>
+                        <select
+                          id="sorting"
+                          className={classesWizzard.category_select}
+                        >
+                          {options.map((option) => (
+                            <option name="gender" value={option.value}>
+                              {option.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    </Col>
+                    <Col md={6}>
+                      <label className={classesWizzard.input_container}>
+                        <select
+                          id="sorting"
+                          className={classesWizzard.category_select}
+                        >
+                          {options.map((option) => (
+                            <option name="gender" value={option.value}>
+                              {option.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    </Col>
+                  </Row>
+                  <label className={classesWizzard.textarea_input_container}>
+                    Description
+                    <Field
+                      name="lastName"
+                      type="textarea"
+                      className={classesWizzard.textarea_item_input}
+                    />
+                    <span className={classesWizzard.limit_span}>
+                      100 words (700 characters)
+                    </span>
+                    {errors.lastName && touched.lastName ? (
+                      <div>{errors.lastName}</div>
+                    ) : null}
+                  </label>
+                  <DropzoneArea
+                    dropzoneClass={classesWizzard.testzone}
+                    acceptedFiles={["image/*"]}
+                    dropzoneText={"Upload Photos"}
+                    onChange={(files) => console.log("Files:", files)}
+                    filesLimit={6}
+                  />
+                  <button className={classes.registration_button} type="submit">
+                    Submit
+                  </button>
+                  <p>{responseState}</p>
+                </Form>
+              )}
+            </Formik>
+          </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 }

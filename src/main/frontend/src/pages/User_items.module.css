@@ -1,6 +1,10 @@
 .header_row {
   height: 100%;
 }
+.wizzard_container{
+  width: 730px;
+  margin: 0 auto;
+}
 .header_row div {
   margin: auto;
 }
@@ -78,7 +82,8 @@
   font-size: 18px;
 }
 .testzone{
-  border: 1px solid #d8d8d8;
+  width: 90%;
+  margin: 2% auto;
 }
 .round_img {
   width: 354px;
