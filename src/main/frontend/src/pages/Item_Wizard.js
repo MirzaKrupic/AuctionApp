@@ -131,6 +131,7 @@ function Item_Wizard({ setCurrentPage }) {
                     <Field
                       name="lastName"
                       type="textarea"
+                      component="textarea" rows="4"
                       className={classesWizzard.textarea_item_input}
                     />
                     <span className={classesWizzard.limit_span}>
