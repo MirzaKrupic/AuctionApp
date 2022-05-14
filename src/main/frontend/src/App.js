@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { PAGES } from "./utils/constants";
 import My_Profile from "./pages/My_Profile";
 import User_items from "./pages/User_items";
+import Item_Wizard from "./pages/Item_Wizard";
 
 function App() {
   const [currentPage, setCurrentPage] = useState(PAGES.HOME);
@@ -42,6 +43,9 @@ function App() {
               </Route>
               <Route path="/myitems" exact>
                 <User_items />
+              </Route>
+              <Route path="/additem" exact>
+                <Item_Wizard />
               </Route>
             </Switch>
           </PageLayout>
