@@ -37,8 +37,8 @@ function Item_Wizard({ setCurrentPage }) {
   const [imgPreview, setImgPreview] = useState(null);
   const [responseState, setResponseState] = useState(null);
   const [formInfo, setFormInfo] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
+    description: "",
     email: "",
     gender: "",
     image: "",
@@ -68,13 +68,17 @@ function Item_Wizard({ setCurrentPage }) {
     }
   }, [user]);
 
+  const handleSubmit = async (item) => {
+    console.log(item);
+  };
+
   return (
     <div>
       <div className={classes.page_heading}>
         <LayoutContainer>
           <div className={classes.page_heading}>
-            <p>Bids</p>
-            <p>My Account -> Profile</p>
+            <p>Become seller</p>
+            <p>My Account -> Become Seller</p>
           </div>
         </LayoutContainer>
       </div>
@@ -82,13 +86,13 @@ function Item_Wizard({ setCurrentPage }) {
         <div className={classes.required_container}>
           <h5 className="mt-4">ADD ITEM</h5>
           <div className={classesWizzard.form_container}>
-            <Formik initialValues={formInfo} enableReinitialize={true}>
+            <Formik initialValues={formInfo} enableReinitialize={true} onSubmit={handleSubmit}>
               {({ errors, touched }) => (
                 <Form>
                   <label className={classesWizzard.input_container}>
                     What do you sell?
                     <Field
-                      name="firstName"
+                      name="name"
                       type="text"
                       className={classesWizzard.item_input}
                     />
@@ -129,7 +133,7 @@ function Item_Wizard({ setCurrentPage }) {
                   <label className={classesWizzard.textarea_input_container}>
                     Description
                     <Field
-                      name="lastName"
+                      name="description"
                       type="textarea"
                       component="textarea" rows="20"
                       className={classesWizzard.textarea_item_input}
