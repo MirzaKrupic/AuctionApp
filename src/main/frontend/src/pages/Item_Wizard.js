@@ -9,7 +9,7 @@ import { Button } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { Container, Row, Col } from "react-bootstrap";
-import { ReactComponent as CartSvg } from "../assets/cart.svg";
+import axios from "axios";
 import { DropzoneArea } from "material-ui-dropzone";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -72,6 +72,46 @@ function Item_Wizard({ setCurrentPage }) {
     console.log(item);
   };
 
+  const uploadImage = async (files) => {
+    console.log(files);
+
+    const uploaders = files.map((file) => {
+      // Initial FormData
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("tags", `codeinfuse, medium, gist`);
+      formData.append("upload_preset", "dydlqwes"); // Replace the preset name with your own
+      formData.append("timestamp", (Date.now() / 1000) | 0);
+
+      // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+      return axios
+        .post(
+          "https://api.cloudinary.com/v1_1/dedewsjde/image/upload",
+          formData,
+          {
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+          }
+        )
+        .then((response) => {
+          const data = response.data;
+          const fileURL = data.secure_url; // You should store this URL for future references in your app
+          console.log(data);
+        });
+    });
+
+    axios.all(uploaders).then(() => {
+      // ... perform after upload is successful operation
+    });
+    // const formData = new FormData();
+    // formData.append("file", files[0]);
+    // formData.append("upload_preset", "dydlqwes");
+    // formData.append("folder", "users");
+    // setFormDataSub(formData);
+    // setImgPreview(URL.createObjectURL(files[0]));
+    // const res = await uploadUserImage(formData);
+    // console.log(res.data.secure_url);
+  };
+
   return (
     <div>
       <div className={classes.page_heading}>
@@ -86,7 +126,11 @@ function Item_Wizard({ setCurrentPage }) {
         <div className={classes.required_container}>
           <h5 className="mt-4">ADD ITEM</h5>
           <div className={classesWizzard.form_container}>
-            <Formik initialValues={formInfo} enableReinitialize={true} onSubmit={handleSubmit}>
+            <Formik
+              initialValues={formInfo}
+              enableReinitialize={true}
+              onSubmit={handleSubmit}
+            >
               {({ errors, touched }) => (
                 <Form>
                   <label className={classesWizzard.input_container}>
@@ -135,7 +179,8 @@ function Item_Wizard({ setCurrentPage }) {
                     <Field
                       name="description"
                       type="textarea"
-                      component="textarea" rows="20"
+                      component="textarea"
+                      rows="20"
                       className={classesWizzard.textarea_item_input}
                     />
                     <span className={classesWizzard.limit_span}>
@@ -149,7 +194,10 @@ function Item_Wizard({ setCurrentPage }) {
                     dropzoneClass={classesWizzard.testzone}
                     acceptedFiles={["image/*"]}
                     dropzoneText={"Upload Photos"}
-                    onChange={(files) => console.log("Files:", files)}
+                    onChange={(files) => {
+                      uploadImage(files);
+                    }}
+                    // onChange={(files) => console.log("Files:", files)}
                     filesLimit={6}
                   />
                   <button className={classes.registration_button} type="submit">

@@ -101,6 +101,7 @@ function My_Profile({ setCurrentPage }) {
   };
 
   const uploadImage = async files => {
+    console.log(files);
     const formData = new FormData();
     formData.append("file", files[0]);
     formData.append("upload_preset", "dydlqwes");
