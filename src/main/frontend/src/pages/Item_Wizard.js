@@ -12,6 +12,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { DropzoneArea } from "material-ui-dropzone";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {fetchCategories} from "../utils/categoryService";
 
 function Item_Wizard({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -34,7 +35,8 @@ function Item_Wizard({ setCurrentPage }) {
     },
   ];
   const [selectedGender, setSelectedGender] = useState(options[0].value);
-  const [imgPreview, setImgPreview] = useState(null);
+  const [testRad, setTestRad] = useState(null);
+  const [testRad2, setTestRad2] = useState(null);
   const [responseState, setResponseState] = useState(null);
   const [formInfo, setFormInfo] = useState({
     name: "",
@@ -57,15 +59,7 @@ function Item_Wizard({ setCurrentPage }) {
   //   }, [token]);
 
   useEffect(async () => {
-    if (user) {
-      setFormInfo({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        gender: user.gender,
-      });
-      setImgPreview(user.image);
-    }
+    setTestRad(await fetchCategories());
   }, [user]);
 
   const handleSubmit = async (item) => {
@@ -147,16 +141,16 @@ function Item_Wizard({ setCurrentPage }) {
                   <Row>
                     <Col md={6}>
                       <label className={classesWizzard.input_container}>
-                        <select
+                        {testRad && <select
                           id="sorting"
                           className={classesWizzard.category_select}
                         >
-                          {options.map((option) => (
+                          {testRad.map((option) => (
                             <option name="gender" value={option.value}>
                               {option.name}
                             </option>
                           ))}
-                        </select>
+                        </select>}
                       </label>
                     </Col>
                     <Col md={6}>
