@@ -12,7 +12,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { DropzoneArea } from "material-ui-dropzone";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {fetchCategories} from "../utils/categoryService";
+import { fetchCategories } from "../utils/categoryService";
+import Dropdown from "../components/additems/Dropdown";
 
 function Item_Wizard({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -22,16 +23,15 @@ function Item_Wizard({ setCurrentPage }) {
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
   const options = [
     {
-      value: "NONE",
-      name: "Select gender",
+      value: 0,
+      name: "Select subcategory",
     },
+  ];
+  const categoryOptions = [
     {
-      value: "MALE",
-      name: "Male",
-    },
-    {
-      value: "FEMALE",
-      name: "Female",
+      value: 0,
+      name: "Select category",
+      supercategoryId: null
     },
   ];
   const [selectedGender, setSelectedGender] = useState(options[0].value);
@@ -48,18 +48,21 @@ function Item_Wizard({ setCurrentPage }) {
   const [user, setUser] = useState(null);
   const [formDataSub, setFormDataSub] = useState(null);
 
-  //   useEffect(async () => {
-  //     const history = browserHistory();
-  //     if (token === null) {
-  //       history.push("/login");
-  //       window.location.reload(false);
-  //     } else {
-  //       setUser(await getUserByToken(token));
-  //     }
-  //   }, [token]);
+  const onSortChange = (e) => {
+    for (var i = 0; i < testRad.length; i++) {
+      if (testRad[i].categoryId === parseInt(e.target.value)) {
+        setTestRad2(
+          <Dropdown options={[...options, ...testRad[i].subcategories]} />
+        );
+      }
+    }
+  };
 
   useEffect(async () => {
-    setTestRad(await fetchCategories());
+    const fetchedCategories = await fetchCategories();
+    const catToRender = [...categoryOptions, ...fetchedCategories];
+    setTestRad(catToRender);
+    setTestRad2(<Dropdown options={options} />);
   }, [user]);
 
   const handleSubmit = async (item) => {
@@ -141,32 +144,26 @@ function Item_Wizard({ setCurrentPage }) {
                   <Row>
                     <Col md={6}>
                       <label className={classesWizzard.input_container}>
-                        {testRad && <select
-                          id="sorting"
-                          className={classesWizzard.category_select}
-                        >
-                          {testRad.map((option) => (
-                            <option name="gender" value={option.value}>
-                              {option.name}
-                            </option>
-                          ))}
-                        </select>}
+                        {testRad && (
+                          <select
+                            id="sorting"
+                            className={classesWizzard.category_select}
+                            onChange={onSortChange}
+                          >
+                            {testRad
+                              .filter((option) => {
+                                return option.supercategoryId === null;
+                              })
+                              .map((option) => (
+                                <option value={option.categoryId}>
+                                  {option.name}
+                                </option>
+                              ))}
+                          </select>
+                        )}
                       </label>
                     </Col>
-                    <Col md={6}>
-                      <label className={classesWizzard.input_container}>
-                        <select
-                          id="sorting"
-                          className={classesWizzard.category_select}
-                        >
-                          {options.map((option) => (
-                            <option name="gender" value={option.value}>
-                              {option.name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                    </Col>
+                    <Col md={6}>{testRad2 !== null && testRad2}</Col>
                   </Row>
                   <label className={classesWizzard.textarea_input_container}>
                     Description
