@@ -63,10 +63,11 @@ function Item_Wizard({ setCurrentPage }) {
     {
       value: 0,
       name: "Select category",
-      supercategoryId: null
+      supercategoryId: null,
     },
   ];
   const [categories, setcategories] = useState(null);
+  const [currentStep, setCurrentStep] = useState(1);
   const [subcatDropdown, setsubcatDropdown] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [responseState, setResponseState] = useState(null);
@@ -84,7 +85,10 @@ function Item_Wizard({ setCurrentPage }) {
     for (var i = 0; i < categories.length; i++) {
       if (categories[i].categoryId === parseInt(e.target.value)) {
         setsubcatDropdown(
-          <Dropdown options={[...options, ...categories[i].subcategories]} setSelectedCategory={setSelectedCategory} />
+          <Dropdown
+            options={[...options, ...categories[i].subcategories]}
+            setSelectedCategory={setSelectedCategory}
+          />
         );
       }
     }
@@ -94,10 +98,13 @@ function Item_Wizard({ setCurrentPage }) {
     const fetchedCategories = await fetchCategories();
     const catToRender = [...categoryOptions, ...fetchedCategories];
     setcategories(catToRender);
-    setsubcatDropdown(<Dropdown options={options} setSelectedCategory={setSelectedCategory} />);
+    setsubcatDropdown(
+      <Dropdown options={options} setSelectedCategory={setSelectedCategory} />
+    );
   }, [user]);
 
   const handleSubmit = async (item) => {
+    if (currentStep === 1) setCurrentStep(currentStep + 1);
     console.log(selectedCategory);
     console.log(item);
   };
@@ -144,99 +151,110 @@ function Item_Wizard({ setCurrentPage }) {
 
   return (
     <div>
-      // step 1
-      <div className={classes.page_heading}>
-        <LayoutContainer>
-          <div className={classes.page_heading}>
-            <p>Become seller</p>
-            <p>My Account -> Become Seller</p>
-          </div>
-        </LayoutContainer>
-      </div>
-      <div className={classes.wizzard_container}>
-        <div className={classes.required_container}>
-          <h5 className="mt-4">ADD ITEM</h5>
-          <div className={classesWizzard.form_container}>
-            <Formik
-            validationSchema={formValidation}
-              initialValues={formInfo}
-              enableReinitialize={true}
-              onSubmit={handleSubmit}
-            >
-              {({ errors, touched }) => (
-                <Form>
-                  <label className={classesWizzard.input_container}>
-                    What do you sell?
-                    <Field
-                      name="name"
-                      type="text"
-                      className={classesWizzard.item_input}
-                    />
-                    {errors.name && touched.name ? (
-                      <div>{errors.name}</div>
-                    ) : null}
-                  </label>
-                  <Row>
-                    <Col md={6}>
-                      <label className={classesWizzard.input_container}>
-                        {categories && (
-                          <select
-                            id="sorting"
-                            className={classesWizzard.category_select}
-                            onChange={onSortChange}
-                          >
-                            {categories
-                              .filter((option) => {
-                                return option.supercategoryId === null;
-                              })
-                              .map((option) => (
-                                <option value={option.categoryId}>
-                                  {option.name}
-                                </option>
-                              ))}
-                          </select>
-                        )}
-                      </label>
-                    </Col>
-                    <Col md={6}>{subcatDropdown !== null && subcatDropdown}</Col>
-                  </Row>
-                  <label className={classesWizzard.textarea_input_container}>
-                    Description
-                    <Field
-                      name="description"
-                      type="textarea"
-                      component="textarea"
-                      rows="20"
-                      className={classesWizzard.textarea_item_input}
-                    />
-                    <span className={classesWizzard.limit_span}>
-                      100 words (700 characters)
-                    </span>
-                    {errors.description && touched.description ? (
-                      <div>{errors.description}</div>
-                    ) : null}
-                  </label>
-                  <DropzoneArea
-                    dropzoneClass={classesWizzard.testzone}
-                    acceptedFiles={["image/*"]}
-                    dropzoneText={"Upload Photos"}
-                    onChange={(files) => {
-                      uploadImage(files);
-                    }}
-                    // onChange={(files) => console.log("Files:", files)}
-                    filesLimit={6}
-                  />
-                  <button className={classes.registration_button} type="submit">
-                    Submit
-                  </button>
-                  <p>{responseState}</p>
-                </Form>
-              )}
-            </Formik>
-          </div>
+      {/*step 1*/}
+      <div>
+        <div className={classes.page_heading}>
+          <LayoutContainer>
+            <div className={classes.page_heading}>
+              <p>Become seller</p>
+              <p>My Account -> Become Seller</p>
+            </div>
+          </LayoutContainer>
         </div>
+        {currentStep === 1 && (
+          <div className={classes.wizzard_container}>
+            <div className={classes.required_container}>
+              <h5 className="mt-4">ADD ITEM</h5>
+              <div className={classesWizzard.form_container}>
+                <Formik
+                  // validationSchema={formValidation}
+                  initialValues={formInfo}
+                  enableReinitialize={true}
+                  onSubmit={handleSubmit}
+                >
+                  {({ errors, touched }) => (
+                    <Form>
+                      <label className={classesWizzard.input_container}>
+                        What do you sell?
+                        <Field
+                          name="name"
+                          type="text"
+                          className={classesWizzard.item_input}
+                        />
+                        {errors.name && touched.name ? (
+                          <div>{errors.name}</div>
+                        ) : null}
+                      </label>
+                      <Row>
+                        <Col md={6}>
+                          <label className={classesWizzard.input_container}>
+                            {categories && (
+                              <select
+                                id="sorting"
+                                className={classesWizzard.category_select}
+                                onChange={onSortChange}
+                              >
+                                {categories
+                                  .filter((option) => {
+                                    return option.supercategoryId === null;
+                                  })
+                                  .map((option) => (
+                                    <option value={option.categoryId}>
+                                      {option.name}
+                                    </option>
+                                  ))}
+                              </select>
+                            )}
+                          </label>
+                        </Col>
+                        <Col md={6}>
+                          {subcatDropdown !== null && subcatDropdown}
+                        </Col>
+                      </Row>
+                      <label
+                        className={classesWizzard.textarea_input_container}
+                      >
+                        Description
+                        <Field
+                          name="description"
+                          type="textarea"
+                          component="textarea"
+                          rows="20"
+                          className={classesWizzard.textarea_item_input}
+                        />
+                        <span className={classesWizzard.limit_span}>
+                          100 words (700 characters)
+                        </span>
+                        {errors.description && touched.description ? (
+                          <div>{errors.description}</div>
+                        ) : null}
+                      </label>
+                      <DropzoneArea
+                        dropzoneClass={classesWizzard.testzone}
+                        acceptedFiles={["image/*"]}
+                        dropzoneText={"Upload Photos"}
+                        onChange={(files) => {
+                          uploadImage(files);
+                        }}
+                        // onChange={(files) => console.log("Files:", files)}
+                        filesLimit={6}
+                      />
+                      <button
+                        className={classes.registration_button}
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                      <p>{responseState}</p>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      // end of step 1
+      {/*end of step 1*/}
     </div>
   );
 }
