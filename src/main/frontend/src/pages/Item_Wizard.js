@@ -5,18 +5,20 @@ import classes from "./User_items.module.css";
 import classesWizzard from "./Item_wizard.module.css";
 import browserHistory from "history/createBrowserHistory";
 import LayoutContainer from "../components/LayoutContainer";
-import { Button } from "react-bootstrap";
+import DatePicker from "react-datepicker";
 import * as yup from "yup";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, useField, useFormikContext } from "formik";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { DropzoneArea } from "material-ui-dropzone";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { fetchCategories } from "../utils/categoryService";
 import Dropdown from "../components/additems/Dropdown";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Item_Wizard({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
+  const [endDate, setEndDate] = useState(new Date());
   const formValidation = yup.object().shape({
     name: yup
       .string()
@@ -239,6 +241,54 @@ function Item_Wizard({ setCurrentPage }) {
                         // onChange={(files) => console.log("Files:", files)}
                         filesLimit={6}
                       />
+                      <button
+                        className={classes.registration_button}
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                      <p>{responseState}</p>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+            </div>
+          </div>
+        )}
+        {currentStep === 2 && (
+          <div className={classes.wizzard_container}>
+            <div className={classes.required_container}>
+              <h5 className="mt-4">SET PRICES</h5>
+              <div className={classesWizzard.form_container}>
+                <Formik
+                  // validationSchema={formValidation}
+                  initialValues={formInfo}
+                  enableReinitialize={true}
+                  onSubmit={handleSubmit}
+                >
+                  {({ errors, touched }) => (
+                    <Form>
+                      <label className={classesWizzard.input_container}>
+                        Your start Price
+                        <Field
+                          name="price"
+                          type="number"
+                          step="0.01"
+                          className={classesWizzard.item_input}
+                        />
+                        {errors.name && touched.name ? (
+                          <div>{errors.name}</div>
+                        ) : null}
+                      </label>
+                      <label
+                        className={classesWizzard.textarea_input_container}
+                      >
+                        Description
+                        <DatePicker selected={endDate} onChange={(date:Date) => console.log(date)} />
+                        {errors.description && touched.description ? (
+                          <div>{errors.description}</div>
+                        ) : null}
+                      </label>
                       <button
                         className={classes.registration_button}
                         type="submit"
