@@ -34,14 +34,14 @@ function Item_Wizard({ setCurrentPage }) {
       supercategoryId: null
     },
   ];
-  const [selectedGender, setSelectedGender] = useState(options[0].value);
-  const [testRad, setTestRad] = useState(null);
-  const [testRad2, setTestRad2] = useState(null);
+  const [categories, setcategories] = useState(null);
+  const [subcatDropdown, setsubcatDropdown] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [responseState, setResponseState] = useState(null);
   const [formInfo, setFormInfo] = useState({
     name: "",
     description: "",
-    email: "",
+    categoryId: "",
     gender: "",
     image: "",
   });
@@ -49,10 +49,10 @@ function Item_Wizard({ setCurrentPage }) {
   const [formDataSub, setFormDataSub] = useState(null);
 
   const onSortChange = (e) => {
-    for (var i = 0; i < testRad.length; i++) {
-      if (testRad[i].categoryId === parseInt(e.target.value)) {
-        setTestRad2(
-          <Dropdown options={[...options, ...testRad[i].subcategories]} />
+    for (var i = 0; i < categories.length; i++) {
+      if (categories[i].categoryId === parseInt(e.target.value)) {
+        setsubcatDropdown(
+          <Dropdown options={[...options, ...categories[i].subcategories]} setSelectedCategory={setSelectedCategory} />
         );
       }
     }
@@ -61,11 +61,12 @@ function Item_Wizard({ setCurrentPage }) {
   useEffect(async () => {
     const fetchedCategories = await fetchCategories();
     const catToRender = [...categoryOptions, ...fetchedCategories];
-    setTestRad(catToRender);
-    setTestRad2(<Dropdown options={options} />);
+    setcategories(catToRender);
+    setsubcatDropdown(<Dropdown options={options} setSelectedCategory={setSelectedCategory} />);
   }, [user]);
 
   const handleSubmit = async (item) => {
+    console.log(selectedCategory);
     console.log(item);
   };
 
@@ -144,13 +145,13 @@ function Item_Wizard({ setCurrentPage }) {
                   <Row>
                     <Col md={6}>
                       <label className={classesWizzard.input_container}>
-                        {testRad && (
+                        {categories && (
                           <select
                             id="sorting"
                             className={classesWizzard.category_select}
                             onChange={onSortChange}
                           >
-                            {testRad
+                            {categories
                               .filter((option) => {
                                 return option.supercategoryId === null;
                               })
@@ -163,7 +164,7 @@ function Item_Wizard({ setCurrentPage }) {
                         )}
                       </label>
                     </Col>
-                    <Col md={6}>{testRad2 !== null && testRad2}</Col>
+                    <Col md={6}>{subcatDropdown !== null && subcatDropdown}</Col>
                   </Row>
                   <label className={classesWizzard.textarea_input_container}>
                     Description
