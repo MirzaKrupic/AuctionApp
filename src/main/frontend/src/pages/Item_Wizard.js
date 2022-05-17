@@ -144,6 +144,7 @@ function Item_Wizard({ setCurrentPage }) {
 
   return (
     <div>
+      // step 1
       <div className={classes.page_heading}>
         <LayoutContainer>
           <div className={classes.page_heading}>
@@ -235,6 +236,7 @@ function Item_Wizard({ setCurrentPage }) {
           </div>
         </div>
       </div>
+      // end of step 1
     </div>
   );
 }
