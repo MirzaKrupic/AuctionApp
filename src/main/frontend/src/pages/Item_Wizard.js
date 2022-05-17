@@ -17,6 +17,38 @@ import Dropdown from "../components/additems/Dropdown";
 
 function Item_Wizard({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
+  const formValidation = yup.object().shape({
+    name: yup
+      .string()
+      .required("*Name is required")
+      .matches(
+        /^[^\p{P}\p{S}\s\d]*$/u,
+        "*Please remove any special characters"
+      ),
+    description: yup
+      .string()
+      .required("*Description is required")
+      .matches(
+        /^([^\p{P}\p{S}\s\d]+[ -]?[^\p{P}\p{S}\s\d]+)*$/u,
+        "*Please remove any special characters"
+      ),
+    email: yup
+      .string()
+      .email("*Email must be valid")
+      .required("*Email is required")
+      .matches(
+        /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/,
+        "*Email is not valid"
+      ),
+    password: yup
+      .string()
+      .required("*Password is required")
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        "*Password must be at least 8 characters long, and password must contain at least one digit, one lowercase and one uppercase letter!"
+      ),
+  });
+
   const fileRef = useRef();
   const textInput = useRef(null);
   let inputFile = "";
@@ -125,6 +157,7 @@ function Item_Wizard({ setCurrentPage }) {
           <h5 className="mt-4">ADD ITEM</h5>
           <div className={classesWizzard.form_container}>
             <Formik
+            validationSchema={formValidation}
               initialValues={formInfo}
               enableReinitialize={true}
               onSubmit={handleSubmit}
@@ -138,8 +171,8 @@ function Item_Wizard({ setCurrentPage }) {
                       type="text"
                       className={classesWizzard.item_input}
                     />
-                    {errors.firstName && touched.firstName ? (
-                      <div>{errors.firstName}</div>
+                    {errors.name && touched.name ? (
+                      <div>{errors.name}</div>
                     ) : null}
                   </label>
                   <Row>
@@ -178,8 +211,8 @@ function Item_Wizard({ setCurrentPage }) {
                     <span className={classesWizzard.limit_span}>
                       100 words (700 characters)
                     </span>
-                    {errors.lastName && touched.lastName ? (
-                      <div>{errors.lastName}</div>
+                    {errors.description && touched.description ? (
+                      <div>{errors.description}</div>
                     ) : null}
                   </label>
                   <DropzoneArea
