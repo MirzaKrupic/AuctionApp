@@ -34,6 +34,7 @@ function User_items({ setCurrentPage }) {
   const [selectedGender, setSelectedGender] = useState(options[0].value);
   const [imgPreview, setImgPreview] = useState(null);
   const [responseState, setResponseState] = useState(null);
+  const [selectedTab, setSelectedTab] = useState(1);
   const [formInfo, setFormInfo] = useState({
     firstName: "",
     lastName: "",
@@ -77,6 +78,26 @@ function User_items({ setCurrentPage }) {
         </LayoutContainer>
       </div>
       <LayoutContainer>
+        <div className={classes.btn_container}>
+          {selectedTab === 1 ? (
+            <button
+              className={`${classes.section_button} ${classes.selected_section_button}`}
+            >
+              Active
+            </button>
+          ) : (
+            <button onClick={() => setSelectedTab(1)} className={classes.section_button}>Active</button>
+          )}
+          {selectedTab === 2 ? (
+            <button
+              className={`${classes.section_button} ${classes.selected_section_button}`}
+            >
+              Sold
+            </button>
+          ) : (
+            <button onClick={() => setSelectedTab(2)} className={classes.section_button}>Sold</button>
+          )}
+        </div>
         <div className={classes.required_container}>
           <div className={classes.section_heading}>
             <Row className={classes.header_row}>
@@ -100,7 +121,7 @@ function User_items({ setCurrentPage }) {
           </div>
         </div>
         <DropzoneArea
-        dropzoneClass={classes.testzone}
+          dropzoneClass={classes.testzone}
           acceptedFiles={["image/*"]}
           dropzoneText={"Drag and drop an image here or click"}
           onChange={(files) => console.log("Files:", files)}
