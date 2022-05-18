@@ -18,7 +18,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function Item_Wizard({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
-  const [endDate, setEndDate] = useState(new Date());
   const formValidation = yup.object().shape({
     name: yup
       .string()
@@ -79,6 +78,8 @@ function Item_Wizard({ setCurrentPage }) {
     categoryId: "",
     gender: "",
     image: "",
+    endDate: new Date(),
+    price: 0
   });
   const [user, setUser] = useState(null);
   const [formDataSub, setFormDataSub] = useState(null);
@@ -284,7 +285,7 @@ function Item_Wizard({ setCurrentPage }) {
                         className={classesWizzard.textarea_input_container}
                       >
                         Description
-                        <DatePicker selected={endDate} onChange={(date:Date) => console.log(date)} />
+                        <DatePicker className={classesWizzard.date_picker} selected={formInfo.endDate} onChange={(date:Date) => console.log(date)} />
                         {errors.description && touched.description ? (
                           <div>{errors.description}</div>
                         ) : null}
