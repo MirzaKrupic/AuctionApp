@@ -4,6 +4,7 @@ import com.example.auctionapp.entity.Item;
 import com.example.auctionapp.enumeration.Sort;
 import com.example.auctionapp.enumeration.Direction;
 import com.example.auctionapp.services.ItemService;
+import com.example.auctionapp.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1")
@@ -42,5 +45,10 @@ public class ItemController {
     public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, @PathVariable("itemId") long itemId, @RequestBody double amount) {
         ResponseEntity<?> token = itemService.itemBid(httpServletRequest,itemId, amount);
         return ResponseEntity.ok(token);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/user/items")
+    public @ResponseBody List<Item> fetchItems(HttpServletRequest httpServletRequest){
+        return itemService.getItemsByToken(httpServletRequest);
     }
 }

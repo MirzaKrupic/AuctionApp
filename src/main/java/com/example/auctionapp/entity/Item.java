@@ -1,6 +1,7 @@
 package com.example.auctionapp.entity;
 
 import com.example.auctionapp.bid.Bid;
+import com.example.auctionapp.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.Where;
@@ -60,6 +61,15 @@ public class Item {
             referencedColumnName = "categoryId"
     )
     private Category category;
+
+    @ManyToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "userId"
+    )
+    private User user;
 
     @Column(name="details", length=1024)
     private String details;

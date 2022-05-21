@@ -65,6 +65,17 @@ public class JWTTokenHelper {
                 .compact();
     }
 
+    public String generateToken(String email, Long id) throws InvalidKeySpecException, NoSuchAlgorithmException {
+
+        return Jwts.builder()
+                .setIssuer( appName )
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(generateExpirationDate())
+                .signWith( SIGNATURE_ALGORITHM, secretKey )
+                .compact();
+    }
+
     private Date generateExpirationDate() {
         return new Date(new Date().getTime() + expiresIn * 1000);
     }

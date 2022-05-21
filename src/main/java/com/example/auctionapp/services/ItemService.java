@@ -107,4 +107,15 @@ public class ItemService {
         bidRepository.save(bid);
         return ResponseEntity.ok("Bid successfull");
     }
+
+    public List<Item> getItemsByToken(HttpServletRequest httpServletRequest) {
+        String token = jwtTokenHelper.getToken(httpServletRequest);
+        Optional<User> user = userService.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
+
+        List<Item> items = itemRepository.getByUserUserId(user.get().getUserId());
+        for(Item i : items){
+            i.setUser(null);
+        }
+        return items;
+    }
 }
