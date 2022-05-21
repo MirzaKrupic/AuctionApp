@@ -1,5 +1,6 @@
 import axios from "axios";
 import { HOST } from "./constants";
+import { handleResponse } from "./requestHandler";
 
 let api = "";
 if (process.env.REACT_APP_URL) {
@@ -66,4 +67,20 @@ export const uploadUserImage = async (image) => {
   return axios.post("https://api.cloudinary.com/v1_1/dedewsjde/image/upload", image).then((response)=>{
      return response;
     })
+};
+
+export const fetchItemByUserToken = async (token) => {
+  return axios
+    .get(`${api}/api/v1/user/items`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
 };

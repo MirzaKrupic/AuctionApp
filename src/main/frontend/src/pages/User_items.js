@@ -5,67 +5,28 @@ import classes from "./User_items.module.css";
 import browserHistory from "history/createBrowserHistory";
 import LayoutContainer from "../components/LayoutContainer";
 import { Button } from "react-bootstrap";
-import * as yup from "yup";
-import { Formik, Form, Field } from "formik";
 import { Container, Row, Col } from "react-bootstrap";
 import { ReactComponent as CartSvg } from "../assets/cart.svg";
 import { DropzoneArea } from "material-ui-dropzone";
+import {fetchItemByUserToken} from "../utils/userUtils";
 
 function User_items({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
-  const fileRef = useRef();
-  const textInput = useRef(null);
-  let inputFile = "";
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
-  const options = [
-    {
-      value: "NONE",
-      name: "Select gender",
-    },
-    {
-      value: "MALE",
-      name: "Male",
-    },
-    {
-      value: "FEMALE",
-      name: "Female",
-    },
-  ];
-  const [selectedGender, setSelectedGender] = useState(options[0].value);
-  const [imgPreview, setImgPreview] = useState(null);
   const [responseState, setResponseState] = useState(null);
   const [selectedTab, setSelectedTab] = useState(1);
-  const [formInfo, setFormInfo] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    gender: "",
-    image: "",
-  });
-  const [user, setUser] = useState(null);
+  const [items, setItems] = useState(null);
   const [formDataSub, setFormDataSub] = useState(null);
 
-  //   useEffect(async () => {
-  //     const history = browserHistory();
-  //     if (token === null) {
-  //       history.push("/login");
-  //       window.location.reload(false);
-  //     } else {
-  //       setUser(await getUserByToken(token));
-  //     }
-  //   }, [token]);
-
-  useEffect(async () => {
-    if (user) {
-      setFormInfo({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        gender: user.gender,
-      });
-      setImgPreview(user.image);
-    }
-  }, [user]);
+    useEffect(async () => {
+      const history = browserHistory();
+      if (token === null) {
+        history.push("/login");
+        window.location.reload(false);
+      }
+      setItems(await fetchItemByUserToken(token));
+      console.log(items);
+    }, [token]);
 
   return (
     <div>
@@ -120,14 +81,6 @@ function User_items({ setCurrentPage }) {
             </Button>
           </div>
         </div>
-        <DropzoneArea
-          dropzoneClass={classes.testzone}
-          acceptedFiles={["image/*"]}
-          dropzoneText={"Drag and drop an image here or click"}
-          onChange={(files) => console.log("Files:", files)}
-          filesLimit={6}
-          maxWidth={20}
-        />
       </LayoutContainer>
     </div>
   );
