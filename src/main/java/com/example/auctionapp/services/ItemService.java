@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Pageable;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -74,7 +75,9 @@ public class ItemService {
         } else {
             statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, pageable);
         }
-
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        statePage = itemRepository.testniQuery(date,pageable);
         for (Item item : statePage) {
             item.setBids(null);
         }

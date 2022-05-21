@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Where(clause = "auction_end_date > now()")
+//@Where(clause = "auction_end_date > now()")
 public class Item {
 
     @Id
