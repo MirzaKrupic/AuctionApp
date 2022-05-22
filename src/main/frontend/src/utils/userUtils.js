@@ -81,6 +81,6 @@ export const fetchItemByUserToken = async (token) => {
       return res.data;
     })
     .catch((error) => {
-      handleResponse(error.response);
+      
     });
 };

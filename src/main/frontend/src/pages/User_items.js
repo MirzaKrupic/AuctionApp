@@ -7,26 +7,45 @@ import LayoutContainer from "../components/LayoutContainer";
 import { Button } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
 import { ReactComponent as CartSvg } from "../assets/cart.svg";
-import { DropzoneArea } from "material-ui-dropzone";
-import {fetchItemByUserToken} from "../utils/userUtils";
+import { computeTimeLeft } from "../utils/itemUtils";
+import { fetchItemByUserToken } from "../utils/userUtils";
 
 function User_items({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
   const [responseState, setResponseState] = useState(null);
   const [selectedTab, setSelectedTab] = useState(1);
-  const [items, setItems] = useState(null);
+  const [items, setItems] = useState([]);
   const [formDataSub, setFormDataSub] = useState(null);
 
-    useEffect(async () => {
-      const history = browserHistory();
-      if (token === null) {
-        history.push("/login");
-        window.location.reload(false);
+  useEffect(async () => {
+    // const history = browserHistory();
+    // if (token === null) {
+    //   history.push("/login");
+    //   window.location.reload(false);
+    // }
+    setItems(await fetchItemByUserToken(token));
+    console.log(items)
+  }, [token]);
+
+  const getHighestBid = (item) => {
+    if (item.bids.length > 0) {
+      const amounts = item.bids.map((bid) => bid.amount);
+      return Math.max(amounts);
+    } else return item.startingPrice;
+  }
+
+  function getImage( image ) {
+    const imagesArr = image
+      ? image.split(";").filter((el) => el.length !== 0)
+      : [];
+
+      console.log(imagesArr)
+      if(imagesArr){
+        return imagesArr[0];
       }
-      setItems(await fetchItemByUserToken(token));
-      console.log(items);
-    }, [token]);
+      return null;
+  }
 
   return (
     <div>
@@ -41,13 +60,20 @@ function User_items({ setCurrentPage }) {
       <LayoutContainer>
         <div className={classes.btn_container}>
           {selectedTab === 1 ? (
+            <div>
+              <button
+                className={`${classes.section_button} ${classes.selected_section_button}`}
+              >
+                Active
+              </button>
+            </div>
+          ) : (
             <button
-              className={`${classes.section_button} ${classes.selected_section_button}`}
+              onClick={() => setSelectedTab(1)}
+              className={classes.section_button}
             >
               Active
             </button>
-          ) : (
-            <button onClick={() => setSelectedTab(1)} className={classes.section_button}>Active</button>
           )}
           {selectedTab === 2 ? (
             <button
@@ -56,7 +82,12 @@ function User_items({ setCurrentPage }) {
               Sold
             </button>
           ) : (
-            <button onClick={() => setSelectedTab(2)} className={classes.section_button}>Sold</button>
+            <button
+              onClick={() => setSelectedTab(2)}
+              className={classes.section_button}
+            >
+              Sold
+            </button>
           )}
         </div>
         <div className={classes.required_container}>
@@ -71,15 +102,56 @@ function User_items({ setCurrentPage }) {
               <Col></Col>
             </Row>
           </div>
-          <div className={classes.required_section}>
-            <CartSvg className={classes.cart_logo} />
-            <p className={classes.cart_subheading}>
-              You do not have any scheduled items for sale
-            </p>
-            <Button className={classes.sell_button} variant="outline-*">
-              START SELLING
-            </Button>
-          </div>
+          {items && items.length> 0 && selectedTab === 1 ? (
+            
+            items.filter(item => {return computeTimeLeft(new Date(item.auctionEndDate))!==0}).map((item) => (
+              <Row>
+              <Col><img src={getImage(item.photo)}/></Col>
+              <Col>{item.name}</Col>
+              <Col>{computeTimeLeft(new Date(item.auctionEndDate))}</Col>
+              <Col>{item.startingPrice}</Col>
+              <Col>{item.bids.length}</Col>
+              <Col>{getHighestBid(item)}</Col>
+              <Col></Col>
+            </Row>
+            ))
+            
+          ) : (
+            <div className={classes.required_section}>
+              <CartSvg className={classes.cart_logo} />
+              <p className={classes.cart_subheading}>
+                You do not have any scheduled items for sale
+              </p>
+              <Button className={classes.sell_button} variant="outline-*">
+                START SELLING
+              </Button>
+            </div>
+          )}
+          {items && items.length> 0 && selectedTab === 2 ? (
+            
+            items.filter(item => {return computeTimeLeft(new Date(item.auctionEndDate))===0}).map((item) => (
+              <Row>
+              <Col><img src={getImage(item.photo)}/></Col>
+              <Col>{item.name}</Col>
+              <Col>{computeTimeLeft(new Date(item.auctionEndDate))}</Col>
+              <Col>{item.startingPrice}</Col>
+              <Col>{item.bids.length}</Col>
+              <Col>{getHighestBid(item)}</Col>
+              <Col></Col>
+            </Row>
+            ))
+            
+          ) : (
+            <div className={classes.required_section}>
+              <CartSvg className={classes.cart_logo} />
+              <p className={classes.cart_subheading}>
+                You do not have any scheduled items for sale
+              </p>
+              <Button className={classes.sell_button} variant="outline-*">
+                START SELLING
+              </Button>
+            </div>
+          )}
         </div>
       </LayoutContainer>
     </div>
