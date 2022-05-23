@@ -50,7 +50,7 @@ function Item_Wizard({ setCurrentPage }) {
       ),
   });
 
-  const fileRef = useRef();
+  
   const textInput = useRef(null);
   let inputFile = "";
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
@@ -67,6 +67,8 @@ function Item_Wizard({ setCurrentPage }) {
       supercategoryId: null,
     },
   ];
+  const [imgsToUpload, setImgsToUpload] = useState([]);
+  const [imgUrls, setImgUrls] = useState([]);
   const [categories, setcategories] = useState(null);
   const [currentStep, setCurrentStep] = useState(1);
   const [subcatDropdown, setsubcatDropdown] = useState(null);
@@ -107,13 +109,13 @@ function Item_Wizard({ setCurrentPage }) {
   }, [user]);
 
   const handleSubmit = async (item) => {
+    uploadImage(imgsToUpload);
     if (currentStep === 1) setCurrentStep(currentStep + 1);
     console.log(selectedCategory);
     console.log(item);
   };
 
   const uploadImage = async (files) => {
-    console.log(files);
 
     const uploaders = files.map((file) => {
       // Initial FormData
@@ -136,11 +138,23 @@ function Item_Wizard({ setCurrentPage }) {
           const data = response.data;
           const fileURL = data.secure_url; // You should store this URL for future references in your app
           console.log(data);
+          console.log(fileURL)
+          setImgUrls([...imgUrls, fileURL]);
         });
     });
 
     axios.all(uploaders).then(() => {
-      // ... perform after upload is successful operation
+      let images = "";
+      for (var i = 0; i < imgUrls.length; i++) { 
+        
+        if(i !== imgUrls.length-1){
+          images += imgUrls[i] + ";";
+        } else{
+          images += imgUrls[i];
+        }
+       }
+       setFormInfo(formInfo.image = images);
+       console.log(formInfo)
     });
     // const formData = new FormData();
     // formData.append("file", files[0]);
@@ -237,7 +251,7 @@ function Item_Wizard({ setCurrentPage }) {
                         acceptedFiles={["image/*"]}
                         dropzoneText={"Upload Photos"}
                         onChange={(files) => {
-                          uploadImage(files);
+                          setImgsToUpload(files);
                         }}
                         // onChange={(files) => console.log("Files:", files)}
                         filesLimit={6}
