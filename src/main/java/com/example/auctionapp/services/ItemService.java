@@ -6,6 +6,7 @@ import com.example.auctionapp.entity.Category;
 import com.example.auctionapp.entity.Item;
 import com.example.auctionapp.enumeration.Sort;
 import com.example.auctionapp.enumeration.Direction;
+import com.example.auctionapp.item.AddItemRequest;
 import com.example.auctionapp.repository.CategoryRepository;
 import com.example.auctionapp.repository.ItemRepository;
 import com.example.auctionapp.security.config.JWTTokenHelper;
@@ -24,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -120,5 +123,13 @@ public class ItemService {
             i.setUser(null);
         }
         return items;
+    }
+
+    public ResponseEntity<?> itemAdd(HttpServletRequest httpServletRequest, AddItemRequest addItemRequest) {
+        String token = jwtTokenHelper.getToken(httpServletRequest);
+        Optional<User> user = userService.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
+        Date date = new Date();
+        itemRepository.addNewItem(addItemRequest.getName(), addItemRequest.getImage(), addItemRequest.getPrice(),addItemRequest.getCategoryId(), user.get().getUserId(), addItemRequest.getDescription(), addItemRequest.getEndDate(), date );
+        return ResponseEntity.ok("Bid successfull");
     }
 }

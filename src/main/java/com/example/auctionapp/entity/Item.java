@@ -20,15 +20,7 @@ import java.util.List;
 public class Item {
 
     @Id
-    @SequenceGenerator(
-            name = "item_sequence",
-            sequenceName = "item_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "item_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column
     private Long itemId;
 
@@ -37,8 +29,8 @@ public class Item {
     private String name;
 
     @NonNull
-    @Column
-    private int startingPrice;
+    @Column(columnDefinition="Decimal(10,2)")
+    private Long startingPrice;
 
     @NonNull
     @Column(columnDefinition="TEXT")
@@ -82,6 +74,17 @@ public class Item {
     )
     private List<Bid> bids;
 
+    public Item(@NonNull String name, @NonNull Long startingPrice, @NonNull String photo, @NonNull Date startDate, @NonNull Date auctionEndDate, Category category, User user, String details) {
+        this.name = name;
+        this.startingPrice = startingPrice;
+        this.photo = photo;
+        this.startDate = startDate;
+        this.auctionEndDate = auctionEndDate;
+        this.category = category;
+        this.user = user;
+        this.details = details;
+    }
+
     public Long getItemId() {
         return itemId;
     }
@@ -90,7 +93,7 @@ public class Item {
         return name;
     }
 
-    public int getStartingPrice() {
+    public Long getStartingPrice() {
         return startingPrice;
     }
 

@@ -3,6 +3,7 @@ package com.example.auctionapp.controller;
 import com.example.auctionapp.entity.Item;
 import com.example.auctionapp.enumeration.Sort;
 import com.example.auctionapp.enumeration.Direction;
+import com.example.auctionapp.item.AddItemRequest;
 import com.example.auctionapp.services.ItemService;
 import com.example.auctionapp.user.User;
 import lombok.AllArgsConstructor;
@@ -44,6 +45,12 @@ public class ItemController {
     @PostMapping("/item/{itemId}/bid")
     public ResponseEntity<?> itemBid(HttpServletRequest httpServletRequest, @PathVariable("itemId") long itemId, @RequestBody double amount) {
         ResponseEntity<?> token = itemService.itemBid(httpServletRequest,itemId, amount);
+        return ResponseEntity.ok(token);
+    }
+
+    @PostMapping("/item/additem")
+    public ResponseEntity<?> itemAdd(HttpServletRequest httpServletRequest, @RequestBody AddItemRequest addItemRequest) {
+        ResponseEntity<?> token = itemService.itemAdd(httpServletRequest,addItemRequest);
         return ResponseEntity.ok(token);
     }
 

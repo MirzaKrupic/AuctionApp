@@ -32,7 +32,9 @@ function Item_Wizard({ setCurrentPage }) {
       .matches(
         /^([^\p{P}\p{S}\s\d]+[ -]?[^\p{P}\p{S}\s\d]+)*$/u,
         "*Please remove any special characters"
-      ),
+      )
+      .min(20, "Must have at least 20 characters")
+      .max(700, "Must have less than 700 characters"),
     email: yup
       .string()
       .email("*Email must be valid")
@@ -41,16 +43,8 @@ function Item_Wizard({ setCurrentPage }) {
         /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/,
         "*Email is not valid"
       ),
-    password: yup
-      .string()
-      .required("*Password is required")
-      .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        "*Password must be at least 8 characters long, and password must contain at least one digit, one lowercase and one uppercase letter!"
-      ),
   });
 
-  
   const textInput = useRef(null);
   let inputFile = "";
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
@@ -74,15 +68,15 @@ function Item_Wizard({ setCurrentPage }) {
   const [subcatDropdown, setsubcatDropdown] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [responseState, setResponseState] = useState(null);
-  const [formInfo, setFormInfo] = useState({
+  var formInfo = {
     name: "",
     description: "",
     categoryId: "",
     gender: "",
     image: "",
     endDate: new Date(),
-    price: 0
-  });
+    price: 0,
+  };
   const [user, setUser] = useState(null);
   const [formDataSub, setFormDataSub] = useState(null);
 
@@ -110,13 +104,17 @@ function Item_Wizard({ setCurrentPage }) {
 
   const handleSubmit = async (item) => {
     uploadImage(imgsToUpload);
-    if (currentStep === 1) setCurrentStep(currentStep + 1);
-    console.log(selectedCategory);
-    console.log(item);
+
+    if (currentStep === 1) {
+      formInfo.name = item.name;
+      formInfo.description = item.description;
+      formInfo.categoryId = selectedCategory;
+      setCurrentStep(currentStep + 1);
+    }
+    console.log(formInfo);
   };
 
   const uploadImage = async (files) => {
-
     const uploaders = files.map((file) => {
       // Initial FormData
       const formData = new FormData();
@@ -138,23 +136,21 @@ function Item_Wizard({ setCurrentPage }) {
           const data = response.data;
           const fileURL = data.secure_url; // You should store this URL for future references in your app
           console.log(data);
-          console.log(fileURL)
+          console.log(fileURL);
           setImgUrls([...imgUrls, fileURL]);
         });
     });
 
     axios.all(uploaders).then(() => {
       let images = "";
-      for (var i = 0; i < imgUrls.length; i++) { 
-        
-        if(i !== imgUrls.length-1){
+      for (var i = 0; i < imgUrls.length; i++) {
+        if (i !== imgUrls.length - 1) {
           images += imgUrls[i] + ";";
-        } else{
+        } else {
           images += imgUrls[i];
         }
-       }
-       setFormInfo(formInfo.image = images);
-       console.log(formInfo)
+      }
+      formInfo.image = images;
     });
     // const formData = new FormData();
     // formData.append("file", files[0]);
@@ -184,7 +180,7 @@ function Item_Wizard({ setCurrentPage }) {
               <h5 className="mt-4">ADD ITEM</h5>
               <div className={classesWizzard.form_container}>
                 <Formik
-                  // validationSchema={formValidation}
+                  validationSchema={formValidation}
                   initialValues={formInfo}
                   enableReinitialize={true}
                   onSubmit={handleSubmit}
@@ -299,7 +295,11 @@ function Item_Wizard({ setCurrentPage }) {
                         className={classesWizzard.textarea_input_container}
                       >
                         Description
-                        <DatePicker className={classesWizzard.date_picker} selected={formInfo.endDate} onChange={(date:Date) => console.log(date)} />
+                        <DatePicker
+                          className={classesWizzard.date_picker}
+                          selected={formInfo.endDate}
+                          onChange={(date: Date) => console.log(date)}
+                        />
                         {errors.description && touched.description ? (
                           <div>{errors.description}</div>
                         ) : null}
