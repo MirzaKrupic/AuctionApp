@@ -68,6 +68,7 @@ function Item_Wizard({ setCurrentPage }) {
   const [subcatDropdown, setsubcatDropdown] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [responseState, setResponseState] = useState(null);
+  const [selectedDatePicker, setSelectedDatePicker] = useState(new Date());
   var formInfo = {
     name: "",
     description: "",
@@ -110,6 +111,10 @@ function Item_Wizard({ setCurrentPage }) {
       formInfo.description = item.description;
       formInfo.categoryId = selectedCategory;
       setCurrentStep(currentStep + 1);
+    }
+    if (currentStep === 2) {
+      formInfo.endDate = selectedDatePicker;
+      formInfo.price = item.price;
     }
     console.log(formInfo);
   };
@@ -180,7 +185,7 @@ function Item_Wizard({ setCurrentPage }) {
               <h5 className="mt-4">ADD ITEM</h5>
               <div className={classesWizzard.form_container}>
                 <Formik
-                  validationSchema={formValidation}
+                  //validationSchema={formValidation}
                   initialValues={formInfo}
                   enableReinitialize={true}
                   onSubmit={handleSubmit}
@@ -297,8 +302,11 @@ function Item_Wizard({ setCurrentPage }) {
                         Description
                         <DatePicker
                           className={classesWizzard.date_picker}
-                          selected={formInfo.endDate}
-                          onChange={(date: Date) => console.log(date)}
+                          selected={selectedDatePicker}
+                          showTimeSelect
+                          dateFormat="Pp"
+                          timeIntervals={15}
+                          onChange={(date: Date) => {setSelectedDatePicker(date);}}
                         />
                         {errors.description && touched.description ? (
                           <div>{errors.description}</div>
