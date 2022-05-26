@@ -112,6 +112,9 @@ function Item_Wizard({ setCurrentPage }) {
     if(currentStep === 1){
       setCurrentStep(currentStep + 1);
     }
+    if(currentStep === 2){
+      addItem(token, formInfo);
+    }
   }, [formInfo]);
 
   const handleSubmit = async (item) => {
