@@ -66,3 +66,20 @@ export const itemBid = async (token, item) => {
       handleResponse(error.response);
     });
 };
+
+export const addItem = async (token, item) => {
+  return axios
+    .post(`${api}/api/v1/item/additem`, item, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+};

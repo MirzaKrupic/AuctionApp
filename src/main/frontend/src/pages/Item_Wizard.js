@@ -13,6 +13,7 @@ import axios from "axios";
 import { DropzoneArea } from "material-ui-dropzone";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { fetchCategories } from "../utils/categoryService";
+import { addItem } from "../utils/itemService";
 import Dropdown from "../components/additems/Dropdown";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -69,17 +70,17 @@ function Item_Wizard({ setCurrentPage }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [responseState, setResponseState] = useState(null);
   const [selectedDatePicker, setSelectedDatePicker] = useState(new Date());
-  var formInfo = {
+  const [formInfo, setFormInfo] = useState({
     name: "",
     description: "",
     categoryId: "",
-    gender: "",
     image: "",
     endDate: new Date(),
     price: 0,
-  };
+  });
   const [user, setUser] = useState(null);
   const [formDataSub, setFormDataSub] = useState(null);
+  const isFirstRun = useRef(true);
 
   const onSortChange = (e) => {
     for (var i = 0; i < categories.length; i++) {
@@ -103,20 +104,39 @@ function Item_Wizard({ setCurrentPage }) {
     );
   }, [user]);
 
-  const handleSubmit = async (item) => {
-    uploadImage(imgsToUpload);
-
-    if (currentStep === 1) {
-      formInfo.name = item.name;
-      formInfo.description = item.description;
-      formInfo.categoryId = selectedCategory;
+  useEffect(async () => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+    if(currentStep === 1){
       setCurrentStep(currentStep + 1);
     }
-    if (currentStep === 2) {
-      formInfo.endDate = selectedDatePicker;
-      formInfo.price = item.price;
+  }, [formInfo]);
+
+  const handleSubmit = async (item) => {
+    uploadImage(imgsToUpload);
+    if (currentStep === 1) {
+      setFormInfo({
+        name : item.name,
+        description : item.description,
+        categoryId : selectedCategory,
+        image: formInfo.image,
+        endDate: formInfo.endDate,
+        price: formInfo.price
+      });
+      
     }
-    console.log(formInfo);
+    if (currentStep === 2) {
+      await setFormInfo({
+        name : formInfo.name,
+        description : formInfo.description,
+        categoryId : selectedCategory,
+        image: formInfo.image,
+        endDate: selectedDatePicker,
+        price: item.price
+      });
+    }
   };
 
   const uploadImage = async (files) => {
