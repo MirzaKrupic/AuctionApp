@@ -25,14 +25,14 @@ public class ItemController {
     private ItemService itemService;
 
     @RequestMapping(method = RequestMethod.GET, path = "/items")
-    public @ResponseBody Page<Item> fetchItems(@RequestParam("page") int page,
-                                               @RequestParam("size") int size,
+    public @ResponseBody Page<Item> fetchItems(@RequestParam("page") Integer page,
+                                               @RequestParam("size") Integer size,
                                                @RequestParam(name = "order", required = false) Direction order,
                                                @RequestParam(name = "orderColumn", required = false) Sort orderColumn,
                                                @RequestParam(name = "superCategoryId", required = false) Long superCategoryId,
                                                @RequestParam(name = "categories", required = false) Long[] categories,
-                                               @RequestParam(name = "minPrice", required = false) Integer minPrice,
-                                               @RequestParam(name = "maxPrice", required = false) Integer maxPrice){
+                                               @RequestParam(name = "minPrice", required = false) Long minPrice,
+                                               @RequestParam(name = "maxPrice", required = false) Long maxPrice){
 
         return itemService.getAllItems(page, size, order, orderColumn, superCategoryId, categories, minPrice, maxPrice);
     }

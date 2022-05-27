@@ -39,10 +39,10 @@ public class ItemService {
     JWTTokenHelper jwtTokenHelper;
     UserService userService;
 
-    final Integer MIN_PRICE = 0;
-    final Integer MAX_PRICE = 1000;
+    final Long MIN_PRICE = Long.valueOf(0);
+    final Long MAX_PRICE = Long.valueOf(1000);
 
-    public Page<Item> getAllItems(int page, int size, Direction order, Sort orderColumn, Long superCategoryId, Long[] categories, Integer minPrice, Integer maxPrice) {
+    public Page<Item> getAllItems(Integer page, Integer size, Direction order, Sort orderColumn, Long superCategoryId, Long[] categories, Long minPrice, Long maxPrice) {
         Page<Item> statePage;
 
         Pageable pageable = PageRequest.of(page, size);
@@ -61,7 +61,7 @@ public class ItemService {
         if(maxPrice == null){
             maxPrice = MAX_PRICE;
         }
-
+        System.out.println("ide gas");
         if(superCategoryId == null && categories == null){
             List<Category> allCategories = categoryRepository.findAll();
             List<Long> allCategoriesIds = new ArrayList<Long>();
