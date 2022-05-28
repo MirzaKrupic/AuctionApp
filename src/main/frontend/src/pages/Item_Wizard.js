@@ -79,7 +79,8 @@ function Item_Wizard({ setCurrentPage }) {
     price: 0,
   });
   const [user, setUser] = useState(null);
-  const [formDataSub, setFormDataSub] = useState(null);
+  const [imgError, setImgError] = useState(null);
+  const [categoryError, setCategoryError] = useState(null);
   const isFirstRun = useRef(true);
 
   const onSortChange = (e) => {
@@ -118,8 +119,17 @@ function Item_Wizard({ setCurrentPage }) {
   }, [formInfo]);
 
   const handleSubmit = async (item) => {
-    uploadImage(imgsToUpload);
+    
     if (currentStep === 1) {
+      if(imgsToUpload.length < 3 || imgsToUpload.length > 6){
+        setImgError("You have to add between 3 and 6 images");
+        return;
+      }
+      if(selectedCategory === null){
+        setCategoryError("You have to chose category and subcategory");
+        return;
+      }
+      
       setFormInfo({
         name : item.name,
         description : item.description,
@@ -131,6 +141,7 @@ function Item_Wizard({ setCurrentPage }) {
       
     }
     if (currentStep === 2) {
+      await uploadImage(imgsToUpload);
       await setFormInfo({
         name : formInfo.name,
         description : formInfo.description,
@@ -252,6 +263,7 @@ function Item_Wizard({ setCurrentPage }) {
                           {subcatDropdown !== null && subcatDropdown}
                         </Col>
                       </Row>
+                      {categoryError}
                       <label
                         className={classesWizzard.textarea_input_container}
                       >
@@ -280,6 +292,7 @@ function Item_Wizard({ setCurrentPage }) {
                         // onChange={(files) => console.log("Files:", files)}
                         filesLimit={6}
                       />
+                      {imgError}
                       <button
                         className={classes.registration_button}
                         type="submit"
