@@ -202,6 +202,10 @@ function Item_Wizard({ setCurrentPage }) {
     // console.log(res.data.secure_url);
   };
 
+  const goBack = async () => {
+    setCurrentStep(currentStep - 1);
+  };
+
   return (
     <div>
       {/*step 1*/}
@@ -352,12 +356,23 @@ function Item_Wizard({ setCurrentPage }) {
                           <div>{errors.description}</div>
                         ) : null}
                       </label>
-                      <button
-                        className={classes.registration_button}
+                      <div className={classesWizzard.buttons_container}>
+                      <Button
+                        className={classesWizzard.bidding_button}
+                        variant="outline-*"
+                        onClick={goBack}
+                      >
+                        Return
+                      </Button>
+                      <Button
+                        className={classesWizzard.bidding_button}
+                        variant="outline-*"
                         type="submit"
                       >
                         Submit
-                      </button>
+                      </Button>
+                      </div>
+                      
                       <p>{responseState}</p>
                     </Form>
                   )}
