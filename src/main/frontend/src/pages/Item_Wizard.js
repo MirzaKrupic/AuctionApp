@@ -8,7 +8,8 @@ import LayoutContainer from "../components/LayoutContainer";
 import DatePicker from "react-datepicker";
 import * as yup from "yup";
 import { Formik, Form, Field, useField, useFormikContext } from "formik";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import axios from "axios";
 import { DropzoneArea } from "material-ui-dropzone";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -292,18 +293,21 @@ function Item_Wizard({ setCurrentPage }) {
                         // onChange={(files) => console.log("Files:", files)}
                         filesLimit={6}
                       />
-                      {imgError}
-                      <button
-                        className={classes.registration_button}
+                      <div>{imgError}</div>
+                      <Button
+                        className={classesWizzard.bidding_button}
+                        variant="outline-*"
                         type="submit"
                       >
-                        Submit
-                      </button>
+                        Next Step
+                      </Button>
+
                       <p>{responseState}</p>
                     </Form>
                   )}
                 </Formik>
               </div>
+
             </div>
           </div>
         )}
