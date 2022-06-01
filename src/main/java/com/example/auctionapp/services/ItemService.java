@@ -7,6 +7,7 @@ import com.example.auctionapp.entity.Item;
 import com.example.auctionapp.enumeration.Sort;
 import com.example.auctionapp.enumeration.Direction;
 import com.example.auctionapp.item.AddItemRequest;
+import com.example.auctionapp.item.UsersBidsResponse;
 import com.example.auctionapp.repository.CategoryRepository;
 import com.example.auctionapp.repository.ItemRepository;
 import com.example.auctionapp.security.config.JWTTokenHelper;
@@ -133,20 +134,22 @@ public class ItemService {
         return ResponseEntity.ok("Bid successfull");
     }
 
-    public List<Item> getBidsByToken(HttpServletRequest httpServletRequest) {
+    public List<UsersBidsResponse> getBidsByToken(HttpServletRequest httpServletRequest) {
         String token = jwtTokenHelper.getToken(httpServletRequest);
         Optional<User> user = userService.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
         List<Item> allItems = itemRepository.findAll();
         List<Item> returnItems = new ArrayList<>();
+        List<UsersBidsResponse> toReturn = new ArrayList<>();
         allItems = itemRepository.findUserItemBids();
         for(Item i : allItems){
-            Long check = Collections.max(i.getBids()).getUser().getUserId();
-            if(check == user.get().getUserId()){
-                returnItems.add(i);
+            Bid check = Collections.max(i.getBids());
+            int owner = 0;
+            if(check.getUser().getUserId() == user.get().getUserId()){
+                owner = 1;
             }
+            toReturn.add(new UsersBidsResponse(i.getItemId(), i.getName(), i.getAuctionEndDate(), check.getAmount(), i.getBids().size(), owner));
         }
-        System.out.println(Collections.max(allItems.get(0).getBids()).getBidId());
 
-        return returnItems;
+        return toReturn;
     }
 }

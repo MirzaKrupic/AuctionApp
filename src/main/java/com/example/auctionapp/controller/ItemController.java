@@ -4,6 +4,7 @@ import com.example.auctionapp.entity.Item;
 import com.example.auctionapp.enumeration.Sort;
 import com.example.auctionapp.enumeration.Direction;
 import com.example.auctionapp.item.AddItemRequest;
+import com.example.auctionapp.item.UsersBidsResponse;
 import com.example.auctionapp.services.ItemService;
 import com.example.auctionapp.user.User;
 import lombok.AllArgsConstructor;
@@ -60,7 +61,7 @@ public class ItemController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/item/userbids")
-    public @ResponseBody List<Item> fetchUserBids(HttpServletRequest httpServletRequest){
+    public @ResponseBody List<UsersBidsResponse> fetchUserBids(HttpServletRequest httpServletRequest){
         return itemService.getBidsByToken(httpServletRequest);
     }
 }
