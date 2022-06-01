@@ -143,6 +143,7 @@ public class ItemService {
         allItems = itemRepository.findUserItemBids();
         for(Item i : allItems){
             Bid check = Collections.max(i.getBids());
+            i.getBids().removeIf(element -> element.getUser().getUserId() != user.get().getUserId());
             int owner = 0;
             if(check.getUser().getUserId() == user.get().getUserId()){
                 owner = 1;
