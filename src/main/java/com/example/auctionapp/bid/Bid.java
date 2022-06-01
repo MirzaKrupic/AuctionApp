@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "bid")
-public class Bid {
+public class Bid implements Comparable<Bid> {
 
     @Id
     @SequenceGenerator(
@@ -49,5 +49,15 @@ public class Bid {
         this.amount = amount;
         this.user = user;
         this.itemId = itemId;
+    }
+
+    @Override
+    public int compareTo(Bid o) {
+        if(this.getAmount() > o.getAmount()) {
+            return 1;
+        } else if (this.getAmount() < o.getAmount()) {
+            return -1;
+        }
+        return 0;
     }
 }

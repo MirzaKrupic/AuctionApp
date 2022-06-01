@@ -58,4 +58,9 @@ public class ItemController {
     public @ResponseBody List<Item> fetchItems(HttpServletRequest httpServletRequest){
         return itemService.getItemsByToken(httpServletRequest);
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/item/userbids")
+    public @ResponseBody List<Item> fetchUserBids(HttpServletRequest httpServletRequest){
+        return itemService.getBidsByToken(httpServletRequest);
+    }
 }

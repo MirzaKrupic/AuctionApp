@@ -21,6 +21,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     Item getByItemId(long itemId);
 
+    List<Item> findAll();
+
     @Query("SELECT i from Item i WHERE (i.category.supercategoryId = :supercategoryId or i.category.categoryId in :subcategories) and (i.startingPrice between :minPrice and :maxPrice)")
     Page<Item> findItemsFiltered(@Param("supercategoryId")Long supercategoryId, @Param("subcategories")List<Long> subcategories, @Param("minPrice") Long minPrice, @Param("maxPrice") Long maxPrice, Pageable pageable);
 
@@ -32,4 +34,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Modifying(clearAutomatically = true)
     @Query(nativeQuery = true, value = "INSERT INTO item(name, photo, starting_price, category_id, user_id, details, auction_end_date, start_date) VALUES(:name, :photo, :starting_price, :category_id, :user_id, :details, :auction_end_date, :start_date)")
     void addNewItem(@Param("name") String name, @Param("photo") String photo, @Param("starting_price") Long starting_price, @Param("category_id") Long category_id, @Param("user_id") Long user_id, @Param("details") String details,  @Param("auction_end_date") Date auction_end_date, @Param("start_date") Date start_date);
+
+    @Query(nativeQuery = true, value="SELECT distinct(i.item_id) from item i JOIN bid b ON i.item_id = b.item_id WHERE b.user_id = 1 GROUP BY i.item_id, b.bid_id")
+    List<Item> findUserItemBids();
+
 }

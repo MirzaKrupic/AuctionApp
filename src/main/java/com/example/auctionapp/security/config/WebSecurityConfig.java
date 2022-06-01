@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint).and()
                 .authorizeRequests((request) -> request
-                        .antMatchers("/api/v1/registration", "/api/v1/login", "/api/v1/items", "/api/v1/categories").permitAll()
+                        .antMatchers("/api/v1/registration", "/api/v1/login", "/api/v1/items", "/api/v1/categories", "/api/v1/item/userbids").permitAll()
                         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
                 .addFilterBefore(new JWTAuthenticationFilter(userService, jwtTokenHelper), UsernamePasswordAuthenticationFilter.class);
 

@@ -79,8 +79,8 @@ public class ItemService {
             statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, pageable);
         }
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        statePage = itemRepository.testniQuery(date,pageable);
+        //Date date = new Date();
+        //statePage = itemRepository.testniQuery(date,pageable);
         for (Item item : statePage) {
             item.setBids(null);
         }
@@ -131,5 +131,22 @@ public class ItemService {
         Date date = new Date();
         itemRepository.addNewItem(addItemRequest.getName(), addItemRequest.getImage(), addItemRequest.getPrice(),addItemRequest.getCategoryId(), user.get().getUserId(), addItemRequest.getDescription(), addItemRequest.getEndDate(), date );
         return ResponseEntity.ok("Bid successfull");
+    }
+
+    public List<Item> getBidsByToken(HttpServletRequest httpServletRequest) {
+        String token = jwtTokenHelper.getToken(httpServletRequest);
+        Optional<User> user = userService.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
+        List<Item> allItems = itemRepository.findAll();
+        List<Item> returnItems = new ArrayList<>();
+        allItems = itemRepository.findUserItemBids();
+        for(Item i : allItems){
+            Long check = Collections.max(i.getBids()).getUser().getUserId();
+            if(check == user.get().getUserId()){
+                returnItems.add(i);
+            }
+        }
+        System.out.println(Collections.max(allItems.get(0).getBids()).getBidId());
+
+        return returnItems;
     }
 }
