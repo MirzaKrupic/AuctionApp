@@ -13,10 +13,11 @@ import { fetchItemByUserToken } from "../utils/userUtils";
 function User_items({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
-  const [responseState, setResponseState] = useState(null);
+  
   const [selectedTab, setSelectedTab] = useState(1);
   const [items, setItems] = useState([]);
-  const [formDataSub, setFormDataSub] = useState(null);
+  const [noActiveItems, setNoActiveItems] = useState(null);
+  const [noFinishedItems, setNoFinishedItems] = useState(null);
 
   useEffect(async () => {
     // const history = browserHistory();
@@ -25,7 +26,8 @@ function User_items({ setCurrentPage }) {
     //   window.location.reload(false);
     // }
     setItems(await fetchItemByUserToken(token));
-    console.log(items)
+    setNoActiveItems(items.filter(item => {return computeTimeLeft(new Date(item.auctionEndDate))!==0}));
+    setNoFinishedItems(items.filter(item => {return computeTimeLeft(new Date(item.auctionEndDate))===0}));
   }, [token]);
 
   const getHighestBid = (item) => {
@@ -103,7 +105,9 @@ function User_items({ setCurrentPage }) {
             </Row>
           </div>
           {items && items.length> 0 && selectedTab === 1 ? (
-            
+            <div>
+            {noActiveItems && noActiveItems.length > 0 ? (
+              
             items.filter(item => {return computeTimeLeft(new Date(item.auctionEndDate))!==0}).map((item) => (
               <Row>
               <Col><img src={getImage(item.photo)}/></Col>
@@ -115,9 +119,8 @@ function User_items({ setCurrentPage }) {
               <Col></Col>
             </Row>
             ))
-            
-          ) : (
-            <div className={classes.required_section}>
+            ) : (
+              <div className={classes.required_section}>
               <CartSvg className={classes.cart_logo} />
               <p className={classes.cart_subheading}>
                 You do not have any scheduled items for sale
@@ -126,9 +129,15 @@ function User_items({ setCurrentPage }) {
                 START SELLING
               </Button>
             </div>
+            )}
+            </div>
+          ) : (
+            null
           )}
           {items && items.length> 0 && selectedTab === 2 ? (
-            
+                        <div>
+            {noActiveItems && noActiveItems.length > 0 ? (
+              
             items.filter(item => {return computeTimeLeft(new Date(item.auctionEndDate))===0}).map((item) => (
               <Row>
               <Col><img src={getImage(item.photo)}/></Col>
@@ -140,9 +149,8 @@ function User_items({ setCurrentPage }) {
               <Col></Col>
             </Row>
             ))
-            
-          ) : (
-            <div className={classes.required_section}>
+            ) : (
+              <div className={classes.required_section}>
               <CartSvg className={classes.cart_logo} />
               <p className={classes.cart_subheading}>
                 You do not have any scheduled items for sale
@@ -151,6 +159,11 @@ function User_items({ setCurrentPage }) {
                 START SELLING
               </Button>
             </div>
+            )}
+            </div>
+
+          ) : (
+            null
           )}
         </div>
       </LayoutContainer>
