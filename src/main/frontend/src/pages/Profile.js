@@ -11,19 +11,14 @@ import { computeTimeLeft } from "../utils/itemUtils";
 import { fetchItemByUserToken } from "../utils/userUtils";
 import ItemList from "../components/myItems/ItemList";
 import My_Profile from "./My_Profile";
+import User_items from "./User_items";
 
-function User_items({ setCurrentPage }) {
+function Profile({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
 
   const [selectedTab, setSelectedTab] = useState(1);
   const [tebContent, setTabContent] = useState(null);
-
-  useEffect(async () => {
-    setTabContent(<My_Profile />);
-
-
-  }, []);
 
 
   return (
@@ -43,7 +38,7 @@ function User_items({ setCurrentPage }) {
               <button
                 className={`${classes.section_button} ${classes.selected_section_button}`}
               >
-                Active
+                Profile
               </button>
             </div>
           ) : (
@@ -51,28 +46,29 @@ function User_items({ setCurrentPage }) {
               onClick={() => setSelectedTab(1)}
               className={classes.section_button}
             >
-              Active
+              Profile
             </button>
           )}
           {selectedTab === 2 ? (
             <button
               className={`${classes.section_button} ${classes.selected_section_button}`}
             >
-              Sold
+              Seller
             </button>
           ) : (
             <button
               onClick={() => setSelectedTab(2)}
               className={classes.section_button}
             >
-              Sold
+              Seller
             </button>
           )}
         </div>
-        {tebContent}
+        {selectedTab === 1 && <My_Profile />}
+        {selectedTab === 2 && <User_items />}
       </LayoutContainer>
     </div>
   );
 }
 
-export default User_items;
+export default Profile;

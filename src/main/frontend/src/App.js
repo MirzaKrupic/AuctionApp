@@ -30,10 +30,10 @@ function App() {
               <Route path="/shop/:categoryId?" exact>
                 <Shop setCurrentPage={setCurrentPage} />
               </Route>
-              <Route path="/myaccount" exact>
+              <Route path="/myprofile" exact>
                 <My_Profile setCurrentPage={setCurrentPage} />
               </Route>
-              <Route path="/myprofile" exact>
+              <Route path="/myaccount" exact>
                 <Profile setCurrentPage={setCurrentPage} />
               </Route>
               <Route path="/items/:itemId" exact>
