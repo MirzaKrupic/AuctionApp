@@ -10,8 +10,8 @@ import { Formik, Form, Field } from "formik";
 import { getUserByToken } from "../utils/userUtils";
 import { updateUser, uploadUserImage } from "../utils/userUtils";
 
-function My_Profile({ setCurrentPage }) {
-  setCurrentPage(PAGES.MY_ACCOUNT);
+function My_Profile({  }) {
+  //setCurrentPage(PAGES.MY_ACCOUNT);
   const fileRef = useRef();
   const textInput = useRef(null);
   let inputFile = '';
