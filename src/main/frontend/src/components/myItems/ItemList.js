@@ -29,7 +29,7 @@ function ItemList({items}){
             {items && items.length> 0 ? (
               
             items.map((item) => (
-              <Row>
+              <Row className={classes.item_row}>
               <Col><img src={getImage(item.photo)}/></Col>
               <Col>{item.name}</Col>
               <Col>{computeTimeLeft(new Date(item.auctionEndDate))}</Col>
@@ -50,7 +50,7 @@ function ItemList({items}){
               </Button>
             </div>
             )}
-          ) 
+           
     </div>
 }
 

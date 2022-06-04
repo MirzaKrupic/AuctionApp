@@ -1,6 +1,22 @@
 .header_row {
   height: 100%;
 }
+.item_row{
+  height: 7.125rem;
+  align-items: center;
+}
+.item_row img{
+  height: 80px;
+  width: 80px;
+}
+
+.item_row div{
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: 0.63px;
+}
+
 .wizzard_container{
   width: 730px;
   margin: 0 auto;
@@ -70,7 +86,6 @@
 }
 .section_heading {
   height: 59px;
-  text-align: left;
   border: 1px solid #e3e3e3;
   background-color: #f0f0f0;
   width: 100%;
