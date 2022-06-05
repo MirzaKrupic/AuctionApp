@@ -133,6 +133,8 @@
 .btn_container{
   width: 100%;
   text-align: left;
+  display: flex;
+  flex-direction: row;
 }
 .section_button{
   padding: 4px 11px;

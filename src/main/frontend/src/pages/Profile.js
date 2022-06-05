@@ -12,24 +12,22 @@ import { fetchItemByUserToken } from "../utils/userUtils";
 import ItemList from "../components/myItems/ItemList";
 import My_Profile from "./My_Profile";
 import User_items from "./User_items";
+import Breadcrumb from "./Breadcrumb";
 
 function Profile({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
 
   const [selectedTab, setSelectedTab] = useState(1);
+  const [mainPage, setMainPage] = useState(1);
+  const [subPage, setSubPage] = useState(1);
   const [tebContent, setTabContent] = useState(null);
 
 
   return (
     <div>
       <div className={classes.page_heading}>
-        <LayoutContainer>
-          <div className={classes.page_heading}>
-            <p>Bids</p>
-            <p>My Account -> Profile</p>
-          </div>
-        </LayoutContainer>
+        <Breadcrumb mainPage="Bids" subPage ="My Account -> Profile" />
       </div>
       <LayoutContainer>
         <div className={classes.btn_container}>
