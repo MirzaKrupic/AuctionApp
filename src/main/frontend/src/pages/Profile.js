@@ -19,15 +19,23 @@ function Profile({ setCurrentPage }) {
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
 
   const [selectedTab, setSelectedTab] = useState(1);
-  const [mainPage, setMainPage] = useState(1);
-  const [subPage, setSubPage] = useState(1);
+  const [mainPage, setMainPage] = useState("Profile");
+  const [subPage, setSubPage] = useState("My Account -> Profile");
+  const [breadCrumb, setBreadCrum] = useState(<Breadcrumb mainPage="Profile" subPage ="My Account -> Profile"/>);
   const [tebContent, setTabContent] = useState(null);
 
+  const setBreadCrumb = (page) => {
+    if (page === "Profile") {
+      setBreadCrum(<Breadcrumb mainPage="Profile" subPage ="My Account -> Profile" />);
+    } else if (page==="Items") {
+      setBreadCrum(<Breadcrumb mainPage="Items" subPage ="My Account -> My items" />);
+    }
+  }
 
   return (
     <div>
       <div className={classes.page_heading}>
-        <Breadcrumb mainPage="Bids" subPage ="My Account -> Profile" />
+        {breadCrumb}
       </div>
       <LayoutContainer>
         <div className={classes.btn_container}>
@@ -41,7 +49,7 @@ function Profile({ setCurrentPage }) {
             </div>
           ) : (
             <button
-              onClick={() => setSelectedTab(1)}
+              onClick={() => {setSelectedTab(1); setBreadCrumb("Profile");}}
               className={classes.section_button}
             >
               Profile
@@ -55,7 +63,7 @@ function Profile({ setCurrentPage }) {
             </button>
           ) : (
             <button
-              onClick={() => setSelectedTab(2)}
+              onClick={() => {setSelectedTab(2); setBreadCrumb("Items");}}
               className={classes.section_button}
             >
               Seller
