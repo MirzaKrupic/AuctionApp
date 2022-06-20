@@ -5,9 +5,12 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.util.HtmlUtils;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class GreetingController {
@@ -22,6 +25,6 @@ public class GreetingController {
         simpMessagingTemplate.convertAndSend(WS_MESSAGE_TRANSFER_DESTINATION,
                 new Greeting("Hello, " +
                         HtmlUtils.htmlEscape(message.getName())));
-
     }
+
 }

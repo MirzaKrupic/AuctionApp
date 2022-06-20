@@ -11,19 +11,23 @@ import com.example.auctionapp.item.UsersBidsResponse;
 import com.example.auctionapp.repository.CategoryRepository;
 import com.example.auctionapp.repository.ItemRepository;
 import com.example.auctionapp.security.config.JWTTokenHelper;
+import com.example.auctionapp.socketinjo.Greeting;
 import com.example.auctionapp.user.User;
 import com.example.auctionapp.user.UserService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.util.HtmlUtils;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -39,6 +43,9 @@ public class ItemService {
     BidRepository bidRepository;
     JWTTokenHelper jwtTokenHelper;
     UserService userService;
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     final Long MIN_PRICE = Long.valueOf(0);
     final Long MAX_PRICE = Long.valueOf(1000);
@@ -112,6 +119,11 @@ public class ItemService {
         }
         Bid bid = new Bid(amount, user.get(), itemId);
         bidRepository.save(bid);
+        List<Bid> newBids = item.getBids();
+        newBids.add(bid);
+        item.setBids(newBids);
+        simpMessagingTemplate.convertAndSend("/topic/greetings/1",
+                item);
         return ResponseEntity.ok("Bid successfull");
     }
 
