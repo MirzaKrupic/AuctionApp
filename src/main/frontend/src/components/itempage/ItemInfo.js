@@ -7,6 +7,7 @@ import { itemBid } from "../../utils/itemService";
 import { useEffect, useState } from "react";
 import ItemDetails from "./ItemDetails";
 import { computeTimeLeft } from "../../utils/itemUtils";
+import {connect} from "../../utils/socket";
 
 function ItemInfo({
   bids,
@@ -24,6 +25,7 @@ function ItemInfo({
 
   useEffect(async () => {
     if (bids) {
+      connect();
       setCurrentNumberOfBids(bids.length);
       setCurrentAmount(getHighestBid());
       setTimeLeft(computeTimeLeft(new Date(auctionEndDate)));

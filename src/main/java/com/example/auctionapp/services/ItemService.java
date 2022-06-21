@@ -122,7 +122,7 @@ public class ItemService {
         List<Bid> newBids = item.getBids();
         newBids.add(bid);
         item.setBids(newBids);
-        simpMessagingTemplate.convertAndSend("/topic/greetings/1",
+        simpMessagingTemplate.convertAndSend("/topic/greetings",
                 item);
         return ResponseEntity.ok("Bid successfull");
     }

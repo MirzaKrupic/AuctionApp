@@ -17,7 +17,7 @@ public class GreetingController {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-    private static final String WS_MESSAGE_TRANSFER_DESTINATION = "/topic/greetings/1";
+    private static final String WS_MESSAGE_TRANSFER_DESTINATION = "/topic/greetings";
 
     @MessageMapping("/hello")
     public void greet(HelloMessage message) throws InterruptedException {
