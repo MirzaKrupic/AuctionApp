@@ -22,15 +22,25 @@ function ItemInfo({
   const [currentAmount, setCurrentAmount] = useState(0);
   const [currentNumberOfBids, setCurrentNumberOfBids] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [currentItemState, setCurrentItemState] = useState(null);
 
   useEffect(async () => {
     if (bids) {
-      connect();
+      connect(setCurrentItemState);
       setCurrentNumberOfBids(bids.length);
-      setCurrentAmount(getHighestBid());
+      setCurrentAmount(getHighestBid(bids));
       setTimeLeft(computeTimeLeft(new Date(auctionEndDate)));
     }
   }, [bids]);
+
+  useEffect(async () => {
+    if (currentItemState !== null) {
+      console.log(currentItemState)
+      setCurrentNumberOfBids(currentItemState.bids.length);
+      setCurrentAmount(getHighestBid(currentItemState.bids));
+      setTimeLeft(computeTimeLeft(new Date(currentItemState.auctionEndDate)));
+    }
+  }, [currentItemState]);
 
   const handleSubmit = async (item) => {
     const { amount } = item;
@@ -43,18 +53,16 @@ function ItemInfo({
           amount: parseFloat(amount),
         });
         setBidResponse(itemRes.body);
-        setCurrentAmount(amount);
-        setCurrentNumberOfBids(currentNumberOfBids + 1);
       } catch (e) {
         console.error(e);
       }
     }
   };
 
-  const getHighestBid = () => {
+  const getHighestBid = (bids) => {
     if (bids.length > 0) {
       const amounts = bids.map((bid) => bid.amount);
-      return Math.max(amounts);
+      return Math.max.apply(Math,amounts);
     } else return startingPrice;
   }
 

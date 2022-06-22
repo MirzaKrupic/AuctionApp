@@ -3,14 +3,14 @@ import Stomp from 'stompjs';
 
 var stompClient = null;
 
-export const connect = () => {
+export const connect = (setCurrentItemState) => {
     
     var socket = new SockJS('http://localhost:8080/stomp-endpoint');
     stompClient = Stomp.over(socket);
 
     stompClient.connect({}, () => {
         stompClient.subscribe('/topic/greetings', (data) => {
-         console.log(JSON.parse(data.body));
+          setCurrentItemState(JSON.parse(data.body));
         });
        });
 
