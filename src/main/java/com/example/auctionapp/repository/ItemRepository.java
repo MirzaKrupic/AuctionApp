@@ -24,7 +24,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAll();
 
 
-    @Query(nativeQuery = true, value = "SELECT * from item i JOIN category c ON i.category_id = c.category_id WHERE (c.supercategory_id = :supercategoryId or c.category_id in :subcategories) and (i.starting_price between :minPrice and :maxPrice) and (:search_param = '' OR to_tsvector(i.name) @@ plainto_tsquery(:search_param))")
+    @Query(nativeQuery = true, value = "SELECT * from item i JOIN category c ON i.category_id = c.category_id WHERE (c.supercategory_id = :supercategoryId or c.category_id in :subcategories) and (i.starting_price between :minPrice and :maxPrice) and (:search_param = '' OR to_tsvector(i.name) @@ plainto_tsquery(:search_param)) and i.auction_end_date > now()")
     Page<Item> findItemsFiltered(@Param("supercategoryId")Long supercategoryId, @Param("subcategories")List<Long> subcategories, @Param("minPrice") Long minPrice, @Param("maxPrice") Long maxPrice, @Param("search_param") String search_param, Pageable pageable);
 
     List<Item> getByUserUserId(Long userId);
@@ -38,5 +38,21 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query(nativeQuery = true, value="SELECT distinct(i.item_id) from item i JOIN bid b ON i.item_id = b.item_id WHERE b.user_id = 1 GROUP BY i.item_id, b.bid_id")
     List<Item> findUserItemBids();
+
+    @Query(nativeQuery = true, value="select * from item i \n" +
+            "join category c2 on i.category_id = c2.category_id \n" +
+            "where i.item_id not in (select distinct(item_id) from bid where user_id =:userId )\n" +
+            "and c2.supercategory_id  in (\n" +
+            "select distinct(c.supercategory_id) from category c \n" +
+            "join item i2 on c.category_id = i2.category_id \n" +
+            "join bid b on b.item_id  = i2.item_id ) and i.auction_end_date > now()\n" +
+            "ORDER BY RANDOM()\n" +
+            "LIMIT 8;\n")
+    List<Item> getPersonalizedItems(@Param("userId") Long userId);
+
+    @Query(nativeQuery = true, value="select * from item i where i.auction_end_date > now()\n" +
+            "ORDER BY RANDOM()\n" +
+            "LIMIT 8;\n")
+    List<Item> getUnpresonalizedItems(@Param("userId") Long userId);
 
 }
