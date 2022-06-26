@@ -23,8 +23,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findAll();
 
-    @Query("SELECT i from Item i WHERE (i.category.supercategoryId = :supercategoryId or i.category.categoryId in :subcategories) and (i.startingPrice between :minPrice and :maxPrice)")
-    Page<Item> findItemsFiltered(@Param("supercategoryId")Long supercategoryId, @Param("subcategories")List<Long> subcategories, @Param("minPrice") Long minPrice, @Param("maxPrice") Long maxPrice, Pageable pageable);
+
+    @Query(nativeQuery = true, value = "SELECT * from item i JOIN category c ON i.category_id = c.category_id WHERE (c.supercategory_id = :supercategoryId or c.category_id in :subcategories) and (i.starting_price between :minPrice and :maxPrice) and (:search_param = '' OR to_tsvector(i.name) @@ plainto_tsquery(:search_param))")
+    Page<Item> findItemsFiltered(@Param("supercategoryId")Long supercategoryId, @Param("subcategories")List<Long> subcategories, @Param("minPrice") Long minPrice, @Param("maxPrice") Long maxPrice, @Param("search_param") String search_param, Pageable pageable);
 
     List<Item> getByUserUserId(Long userId);
 

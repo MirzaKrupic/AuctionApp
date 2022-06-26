@@ -5,6 +5,7 @@ import com.example.auctionapp.enumeration.Sort;
 import com.example.auctionapp.enumeration.Direction;
 import com.example.auctionapp.item.AddItemRequest;
 import com.example.auctionapp.item.UsersBidsResponse;
+import com.example.auctionapp.repository.ItemRepository;
 import com.example.auctionapp.services.ItemService;
 import com.example.auctionapp.user.User;
 import lombok.AllArgsConstructor;
@@ -33,9 +34,10 @@ public class ItemController {
                                                @RequestParam(name = "superCategoryId", required = false) Long superCategoryId,
                                                @RequestParam(name = "categories", required = false) Long[] categories,
                                                @RequestParam(name = "minPrice", required = false) Long minPrice,
-                                               @RequestParam(name = "maxPrice", required = false) Long maxPrice){
+                                               @RequestParam(name = "maxPrice", required = false) Long maxPrice,
+                                               @RequestParam(name = "searchParam", required = false) String searchParam){
 
-        return itemService.getAllItems(page, size, order, orderColumn, superCategoryId, categories, minPrice, maxPrice);
+        return itemService.getAllItems(page, size, order, orderColumn, superCategoryId, categories, minPrice, maxPrice, searchParam);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/item/{itemId}")

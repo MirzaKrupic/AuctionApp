@@ -50,7 +50,7 @@ public class ItemService {
     final Long MIN_PRICE = Long.valueOf(0);
     final Long MAX_PRICE = Long.valueOf(1000);
 
-    public Page<Item> getAllItems(Integer page, Integer size, Direction order, Sort orderColumn, Long superCategoryId, Long[] categories, Long minPrice, Long maxPrice) {
+    public Page<Item> getAllItems(Integer page, Integer size, Direction order, Sort orderColumn, Long superCategoryId, Long[] categories, Long minPrice, Long maxPrice, String searchParam) {
         Page<Item> statePage;
 
         Pageable pageable = PageRequest.of(page, size);
@@ -61,6 +61,10 @@ public class ItemService {
             } else {
                 pageable = PageRequest.of(page, size, org.springframework.data.domain.Sort.by(orderColumn.toString()).descending());
             }
+        }
+
+        if(searchParam == null){
+            searchParam = "";
         }
 
         if(minPrice == null){
@@ -76,15 +80,15 @@ public class ItemService {
             for(Category i : allCategories){
                 allCategoriesIds.add(i.getCategoryId());
             }
-            statePage = itemRepository.findItemsFiltered(Long.valueOf(0), allCategoriesIds, minPrice, maxPrice, pageable);
+            statePage = itemRepository.findItemsFiltered(Long.valueOf(0), allCategoriesIds, minPrice, maxPrice, searchParam, pageable);
         } else if(superCategoryId == null){
             superCategoryId = Long.valueOf(0);
-            statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, pageable);
+            statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, searchParam, pageable);
         } else if(categories == null) {
             categories = new Long[0];
-            statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, pageable);
+            statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, searchParam, pageable);
         } else {
-            statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, pageable);
+            statePage = itemRepository.findItemsFiltered(superCategoryId, List.of(categories), minPrice, maxPrice, searchParam, pageable);
         }
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         //Date date = new Date();
