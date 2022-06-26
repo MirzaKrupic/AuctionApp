@@ -19,6 +19,7 @@ function Shop({ setCurrentPage }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSuperCategory, setSelectedSuperCategory] = useState(null);
+  const [searchedParam, setSearchedParam] = useState(null);
   const [selectedView, setSelectedView] = useState(VIEWS.LIST);
   const [price, setPrice] = useState({
     min: null,
@@ -77,10 +78,19 @@ function Shop({ setCurrentPage }) {
     setPrice({ min: newPrice[0], max: newPrice[1] });
   };
 
+  const isNumber = (n) => {
+    return !isNaN(parseFloat(n)) && !isNaN(n - 0)
+  }
+
   useEffect(async () => {
-    if (categoryId) {
+
+    console.log();
+    if (categoryId && isNumber(categoryId)) {
       setSelectedSuperCategory(parseInt(categoryId));
-    } else {
+    } else if(categoryId && !isNumber(categoryId)){
+      setSearchedParam(categoryId);
+    }
+     else {
       setSelectedSuperCategory(0);
     }
     const fetchedCategories = await fetchCategories();
@@ -228,6 +238,7 @@ function Shop({ setCurrentPage }) {
               price={price}
               selectedSort={selectedSort}
               selectedView={selectedView}
+              searchedParam={searchedParam}
             />
           </div>
         </div>

@@ -9,7 +9,7 @@ if (process.env.REACT_APP_URL) {
   api = HOST;
 }
 
-export const fetchItems = async (page, size, order, orderColumn, superCategoryId, categories, minPrice, maxPrice) => {
+export const fetchItems = async (page, size, order, orderColumn, superCategoryId, categories, minPrice, maxPrice, searchParam) => {
   let url = `${api}/api/v1/items?page=${page}&size=${size}`;
   if(!!order){
     url = url + `&order=${order}`
@@ -29,6 +29,10 @@ export const fetchItems = async (page, size, order, orderColumn, superCategoryId
   if(maxPrice){
     url = url + `&maxPrice=${maxPrice}`
   }
+  if(searchParam){
+    url = url + `&searchParam=${searchParam}`
+  }
+  
   const items = await fetch(
     url
   );
