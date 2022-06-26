@@ -105,7 +105,10 @@ function Shop({ setCurrentPage }) {
       setSelectedCategories(
         selectedCategories.filter((val) => val !== parseInt(id))
       );
-    } else {
+    } else if (id === -5) {
+      setSearchedParam(null);
+    }
+     else {
       setPrice({ min: null, max: null });
     }
   };
@@ -229,6 +232,10 @@ function Shop({ setCurrentPage }) {
                 onDelete={() => chipDelete(-1)}
               />
             )}
+            {searchedParam && <CustomChip
+                  label={searchedParam}
+                  onDelete={() => chipDelete(-5)}
+                />}
           </Stack>
           <div className={classes.item_list}>
             <ItemList
