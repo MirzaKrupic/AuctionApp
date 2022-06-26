@@ -53,6 +53,13 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query(nativeQuery = true, value="select * from item i where i.auction_end_date > now()\n" +
             "ORDER BY RANDOM()\n" +
             "LIMIT 8;\n")
-    List<Item> getUnpresonalizedItems(@Param("userId") Long userId);
+    List<Item> getUnpersonalizedItems(@Param("userId") Long userId);
+
+    @Query(nativeQuery = true, value="select * from item i \n" +
+            "join category c2 on i.category_id = c2.category_id \n" +
+            "where i.item_id not in (select distinct(item_id) from bid where user_id =1 ) and i.auction_end_date > now()\n" +
+            "ORDER BY RANDOM()\n" +
+            "LIMIT 8;")
+    List<Item> getSemiPersonalizedItems(@Param("userId") Long userId);
 
 }
