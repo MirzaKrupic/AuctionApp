@@ -16,7 +16,7 @@ function Home({setCurrentPage}) {
     <LayoutContainer >
       <div className={classes.mainsection}>
         <Categories />
-        {/* <MainItemCard
+        <MainItemCard
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
           hendrerit odio a erat lobortis auctor. Curabitur sodales pharetra
           placerat. Aenean auctor luctus tempus. Cras laoreet et magna in
@@ -24,12 +24,12 @@ function Home({setCurrentPage}) {
           hac habitasse platea dictumst"
           price = "69,99"
           title = "Title"
-        /> */}
+        />
       </div>
 
-      {/* <UpperSection />
+      <UpperSection />
 
-      <MiddleSection /> */}
+      <MiddleSection />
 
       <LowerSection />
       </LayoutContainer>

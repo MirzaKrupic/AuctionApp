@@ -9,7 +9,36 @@
   height: 80px;
   width: 80px;
 }
+.item_img{
+  width: 80px;
+  height: 80px;
+}
+.name{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+/* or 150% */
 
+  letter-spacing: 0.63px;
+  text-transform: capitalize;
+
+  /* Text/Dark */
+
+  color: #252525;
+}
+.highest_bid{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+/* or 150% */
+
+  letter-spacing: 0.63px;
+  text-transform: capitalize;
+
+  /* Text/Dark */
+
+  color: #0066CC;
+}
 .item_row div{
   text-transform: capitalize;
   font-weight: 700;

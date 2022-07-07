@@ -30,12 +30,12 @@ function ItemList({items}){
               
             items.map((item) => (
               <Row className={classes.item_row}>
-              <Col><img src={getImage(item.photo)}/></Col>
-              <Col>{item.name}</Col>
-              <Col>{computeTimeLeft(new Date(item.auctionEndDate))}</Col>
-              <Col>{item.startingPrice}</Col>
-              <Col>{item.bids.length}</Col>
-              <Col>{getHighestBid(item)}</Col>
+              <Col><img className={classes.item_img} src={getImage(item.photo)}/></Col>
+              <Col className={classes.name}>{item.name}</Col>
+              <Col className={classes.name}>{computeTimeLeft(new Date(item.auctionEndDate))}</Col>
+              <Col className={classes.name}>{item.startingPrice}</Col>
+              <Col className={classes.name}>{item.bids.length}</Col>
+              <Col className={classes.highest_bid}>{getHighestBid(item)}</Col>
               <Col></Col>
             </Row>
             ))

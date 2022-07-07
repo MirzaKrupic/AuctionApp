@@ -115,7 +115,7 @@ function ItemInfo({
               </Form>
             )}
           </Formik>
-          {bidResponse}
+          <div>{bidResponse}</div>
         </div>
         <ItemDetails details={details} />
       </div>
