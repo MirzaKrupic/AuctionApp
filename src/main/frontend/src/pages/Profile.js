@@ -13,6 +13,8 @@ import ItemList from "../components/myItems/ItemList";
 import My_Profile from "./My_Profile";
 import User_items from "./User_items";
 import Breadcrumb from "./Breadcrumb";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTableCells, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Profile({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -44,6 +46,7 @@ function Profile({ setCurrentPage }) {
               <button
                 className={`${classes.section_button} ${classes.selected_section_button}`}
               >
+                <FontAwesomeIcon className={classes.btn_icon} icon={faUser} />
                 Profile
               </button>
             </div>
@@ -52,6 +55,7 @@ function Profile({ setCurrentPage }) {
               onClick={() => {setSelectedTab(1); setBreadCrumb("Profile");}}
               className={classes.section_button}
             >
+              <FontAwesomeIcon className={classes.btn_icon} icon={faUser} />
               Profile
             </button>
           )}
@@ -59,6 +63,7 @@ function Profile({ setCurrentPage }) {
             <button
               className={`${classes.section_button} ${classes.selected_section_button}`}
             >
+              <FontAwesomeIcon className={classes.btn_icon} icon={faBars} />
               Seller
             </button>
           ) : (
@@ -66,6 +71,7 @@ function Profile({ setCurrentPage }) {
               onClick={() => {setSelectedTab(2); setBreadCrumb("Items");}}
               className={classes.section_button}
             >
+              <FontAwesomeIcon className={classes.btn_icon} icon={faBars} />
               Seller
             </button>
           )}

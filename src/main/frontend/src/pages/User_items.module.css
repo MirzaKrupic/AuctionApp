@@ -5,6 +5,9 @@
   height: 7.125rem;
   align-items: center;
 }
+.btn_icon{
+  margin-right: 16px;
+}
 .item_row img{
   height: 80px;
   width: 80px;
@@ -166,7 +169,8 @@
   flex-direction: row;
 }
 .section_button{
-  padding: 4px 11px;
+  padding: 4px 16px;
+  height: 45px;
   border: 1px solid #e3e3e3;
   background-color: transparent;
 }
