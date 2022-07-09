@@ -34,8 +34,8 @@ function ItemList({items}){
               <Col className={classes.name}>{item.name}</Col>
               <Col className={classes.name}>{computeTimeLeft(new Date(item.auctionEndDate))}</Col>
               <Col className={classes.name}>{item.startingPrice}</Col>
-              <Col className={classes.name}>{item.bids.length}</Col>
-              <Col className={classes.highest_bid}>{getHighestBid(item)}</Col>
+              <Col className={classes.name}>{item.bids && item.bids.length}{item.noBids}</Col>
+              <Col className={classes.highest_bid}>{item.bids && getHighestBid(item)}{item.currentPrice}</Col>
               <Col></Col>
             </Row>
             ))

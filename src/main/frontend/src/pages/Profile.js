@@ -9,7 +9,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { ReactComponent as CartSvg } from "../assets/cart.svg";
 import { computeTimeLeft } from "../utils/itemUtils";
 import { fetchItemByUserToken } from "../utils/userUtils";
-import ItemList from "../components/myItems/ItemList";
+import User_bids from "./User_bids";
 import My_Profile from "./My_Profile";
 import User_items from "./User_items";
 import Breadcrumb from "./Breadcrumb";
@@ -123,7 +123,7 @@ function Profile({ setCurrentPage }) {
         </div>
         {selectedTab === 1 && <My_Profile />}
         {selectedTab === 2 && <User_items />}
-        {selectedTab === 3 && <User_items />}
+        {selectedTab === 3 && <User_bids />}
       </LayoutContainer>
     </div>
   );

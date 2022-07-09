@@ -34,6 +34,7 @@ function User_bids({ setCurrentPage }) {
 
   useEffect(async () => {
     if (items !== null && items !== undefined) {
+      console.log(items);
       setNoActiveItems(<ItemList items={items}/>);
     }
   }, [items]);
