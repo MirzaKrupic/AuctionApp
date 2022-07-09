@@ -14,7 +14,7 @@ import My_Profile from "./My_Profile";
 import User_items from "./User_items";
 import Breadcrumb from "./Breadcrumb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faBars, faUser, faDollar } from "@fortawesome/free-solid-svg-icons";
 
 function Profile({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -36,6 +36,10 @@ function Profile({ setCurrentPage }) {
     } else if (page === "Items") {
       setBreadCrum(
         <Breadcrumb mainPage="Items" subPage="My Account -> My items" />
+      );
+    } else if (page === "Bids") {
+      setBreadCrum(
+        <Breadcrumb mainPage="Items" subPage="My Account -> My bids" />
       );
     }
   };
@@ -86,6 +90,27 @@ function Profile({ setCurrentPage }) {
                 Seller
               </button>
             )}
+                        {selectedTab === 3 ? (
+              <div>
+                <button
+                  className={`${classes.section_button} ${classes.selected_section_button}`}
+                >
+                  <FontAwesomeIcon className={classes.btn_icon} icon={faDollar} />
+                  Bids
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  setSelectedTab(3);
+                  setBreadCrumb("Bids");
+                }}
+                className={classes.section_button}
+              >
+                <FontAwesomeIcon className={classes.btn_icon} icon={faDollar} />
+                Bids
+              </button>
+            )}
           </div>
           {selectedTab === 2 && (
             <button
@@ -98,6 +123,7 @@ function Profile({ setCurrentPage }) {
         </div>
         {selectedTab === 1 && <My_Profile />}
         {selectedTab === 2 && <User_items />}
+        {selectedTab === 3 && <User_items />}
       </LayoutContainer>
     </div>
   );

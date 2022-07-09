@@ -84,3 +84,19 @@ export const fetchItemByUserToken = async (token) => {
       
     });
 };
+
+export const fetchUserBids = async (token) => {
+  return axios
+    .get(`${api}/api/v1/item/userbids`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      
+    });
+};
