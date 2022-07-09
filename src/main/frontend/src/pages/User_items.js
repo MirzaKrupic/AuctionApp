@@ -78,16 +78,8 @@ console.log(items);
 
   return (
     <div>
-      <div className={classes.page_heading}>
-        <LayoutContainer>
-          <div className={classes.page_heading}>
-            <p>Bids</p>
-            <p>My Account -> Profile</p>
-          </div>
-        </LayoutContainer>
-      </div>
       <LayoutContainer>
-        <div className={classes.btn_container}>
+        <div className={classes.btn_container2}>
           {selectedTab === 1 ? (
             <div>
               <button

@@ -9,6 +9,8 @@ import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { getUserByToken } from "../utils/userUtils";
 import { updateUser, uploadUserImage } from "../utils/userUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTableCells, faBars, faCart } from "@fortawesome/free-solid-svg-icons";
 
 function My_Profile({  }) {
   //setCurrentPage(PAGES.MY_ACCOUNT);
@@ -114,14 +116,6 @@ function My_Profile({  }) {
 
   return (
     <div>
-      <div className={classes.page_heading}>
-        <LayoutContainer>
-          <div className={classes.page_heading}>
-            <p>Profile</p>
-            <p>My Account -> Profile</p>
-          </div>
-        </LayoutContainer>
-      </div>
       <LayoutContainer>
         <div className={classes.required_container}>
           <div className={classes.section_heading}>

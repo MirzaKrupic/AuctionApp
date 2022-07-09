@@ -167,6 +167,13 @@
   text-align: left;
   display: flex;
   flex-direction: row;
+  margin-bottom: 2%;
+}
+.btn_container2{
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
 }
 .section_button{
   padding: 4px 16px;
