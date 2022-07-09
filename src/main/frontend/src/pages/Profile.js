@@ -14,7 +14,7 @@ import My_Profile from "./My_Profile";
 import User_items from "./User_items";
 import Breadcrumb from "./Breadcrumb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTableCells, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Profile({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
@@ -23,56 +23,76 @@ function Profile({ setCurrentPage }) {
   const [selectedTab, setSelectedTab] = useState(1);
   const [mainPage, setMainPage] = useState("Profile");
   const [subPage, setSubPage] = useState("My Account -> Profile");
-  const [breadCrumb, setBreadCrum] = useState(<Breadcrumb mainPage="Profile" subPage ="My Account -> Profile"/>);
+  const [breadCrumb, setBreadCrum] = useState(
+    <Breadcrumb mainPage="Profile" subPage="My Account -> Profile" />
+  );
   const [tebContent, setTabContent] = useState(null);
 
   const setBreadCrumb = (page) => {
     if (page === "Profile") {
-      setBreadCrum(<Breadcrumb mainPage="Profile" subPage ="My Account -> Profile" />);
-    } else if (page==="Items") {
-      setBreadCrum(<Breadcrumb mainPage="Items" subPage ="My Account -> My items" />);
+      setBreadCrum(
+        <Breadcrumb mainPage="Profile" subPage="My Account -> Profile" />
+      );
+    } else if (page === "Items") {
+      setBreadCrum(
+        <Breadcrumb mainPage="Items" subPage="My Account -> My items" />
+      );
     }
-  }
+  };
 
   return (
     <div>
-      <div className={classes.page_heading}>
-        {breadCrumb}
-      </div>
+      <div className={classes.page_heading}>{breadCrumb}</div>
       <LayoutContainer>
         <div className={classes.btn_container}>
-          {selectedTab === 1 ? (
-            <div>
+          <div className={classes.main_menu}>
+            {selectedTab === 1 ? (
+              <div>
+                <button
+                  className={`${classes.section_button} ${classes.selected_section_button}`}
+                >
+                  <FontAwesomeIcon className={classes.btn_icon} icon={faUser} />
+                  Profile
+                </button>
+              </div>
+            ) : (
               <button
-                className={`${classes.section_button} ${classes.selected_section_button}`}
+                onClick={() => {
+                  setSelectedTab(1);
+                  setBreadCrumb("Profile");
+                }}
+                className={classes.section_button}
               >
                 <FontAwesomeIcon className={classes.btn_icon} icon={faUser} />
                 Profile
               </button>
-            </div>
-          ) : (
+            )}
+            {selectedTab === 2 ? (
+              <button
+                className={`${classes.section_button} ${classes.selected_section_button}`}
+              >
+                <FontAwesomeIcon className={classes.btn_icon} icon={faBars} />
+                Seller
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setSelectedTab(2);
+                  setBreadCrumb("Items");
+                }}
+                className={classes.section_button}
+              >
+                <FontAwesomeIcon className={classes.btn_icon} icon={faBars} />
+                Seller
+              </button>
+            )}
+          </div>
+          {selectedTab === 2 && (
             <button
-              onClick={() => {setSelectedTab(1); setBreadCrumb("Profile");}}
-              className={classes.section_button}
+              className={`${classes.section_button} ${classes.selected_section_button} ${classes.add_item_button}`}
             >
-              <FontAwesomeIcon className={classes.btn_icon} icon={faUser} />
-              Profile
-            </button>
-          )}
-          {selectedTab === 2 ? (
-            <button
-              className={`${classes.section_button} ${classes.selected_section_button}`}
-            >
-              <FontAwesomeIcon className={classes.btn_icon} icon={faBars} />
-              Seller
-            </button>
-          ) : (
-            <button
-              onClick={() => {setSelectedTab(2); setBreadCrumb("Items");}}
-              className={classes.section_button}
-            >
-              <FontAwesomeIcon className={classes.btn_icon} icon={faBars} />
-              Seller
+              <FontAwesomeIcon className={classes.btn_icon} icon={faPlus} />
+              ADD ITEM
             </button>
           )}
         </div>
