@@ -66,4 +66,14 @@ public class ItemController {
     public @ResponseBody List<UsersBidsResponse> fetchUserBids(HttpServletRequest httpServletRequest){
         return itemService.getBidsByToken(httpServletRequest);
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/item/recommended")
+    public @ResponseBody List<Item> fetchRecommendedItems(HttpServletRequest httpServletRequest){
+        return itemService.getRecommended(httpServletRequest);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/item/unrecommended")
+    public @ResponseBody List<Item> getchUnrecommendedItems(){
+        return itemService.getUnrecommended();
+    }
 }

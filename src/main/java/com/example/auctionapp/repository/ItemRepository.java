@@ -53,7 +53,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query(nativeQuery = true, value="select * from item i where i.auction_end_date > now()\n" +
             "ORDER BY RANDOM()\n" +
             "LIMIT 8;\n")
-    List<Item> getUnpersonalizedItems(@Param("userId") Long userId);
+    List<Item> getUnpersonalizedItems();
 
     @Query(nativeQuery = true, value="select * from item i \n" +
             "join category c2 on i.category_id = c2.category_id \n" +

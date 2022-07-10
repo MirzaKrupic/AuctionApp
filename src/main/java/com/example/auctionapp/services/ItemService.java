@@ -169,4 +169,20 @@ public class ItemService {
 
         return toReturn;
     }
+
+    public List<Item> getUnrecommended() {
+        return itemRepository.getUnpersonalizedItems();
+    }
+
+    public List<Item> getRecommended(HttpServletRequest httpServletRequest) {
+        String token = jwtTokenHelper.getToken(httpServletRequest);
+        Optional<User> user = userService.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
+
+        List<Item> personalized = itemRepository.getPersonalizedItems(user.get().getUserId());
+        if (personalized.size() != 8){
+            personalized = itemRepository.getUnpersonalizedItems();
+        }
+
+        return personalized;
+    }
 }
