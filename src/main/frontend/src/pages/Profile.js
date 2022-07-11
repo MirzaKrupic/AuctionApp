@@ -2,13 +2,8 @@ import { PAGES } from "../utils/constants";
 import { AuthContext } from "../hooks";
 import { useContext, useEffect, useState, useRef, React } from "react";
 import classes from "./User_items.module.css";
-import browserHistory from "history/createBrowserHistory";
+import { useHistory } from 'react-router-dom';
 import LayoutContainer from "../components/LayoutContainer";
-import { Button, TabContent } from "react-bootstrap";
-import { Container, Row, Col } from "react-bootstrap";
-import { ReactComponent as CartSvg } from "../assets/cart.svg";
-import { computeTimeLeft } from "../utils/itemUtils";
-import { fetchItemByUserToken } from "../utils/userUtils";
 import User_bids from "./User_bids";
 import My_Profile from "./My_Profile";
 import User_items from "./User_items";
@@ -19,7 +14,7 @@ import { faPlus, faBars, faUser, faDollar } from "@fortawesome/free-solid-svg-ic
 function Profile({ setCurrentPage }) {
   //   setCurrentPage(PAGES.MY_ACCOUNT);
   const { token, setToken, isUserLoggedIn } = useContext(AuthContext);
-
+  const history = useHistory();
   const [selectedTab, setSelectedTab] = useState(1);
   const [mainPage, setMainPage] = useState("Profile");
   const [subPage, setSubPage] = useState("My Account -> Profile");
@@ -115,7 +110,8 @@ function Profile({ setCurrentPage }) {
           {selectedTab === 2 && (
             <button
               className={`${classes.section_button} ${classes.selected_section_button} ${classes.add_item_button}`}
-            >
+              onClick = {() => {history.push('/additem')}}
+           >
               <FontAwesomeIcon className={classes.btn_icon} icon={faPlus} />
               ADD ITEM
             </button>

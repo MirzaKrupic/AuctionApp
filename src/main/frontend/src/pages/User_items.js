@@ -2,12 +2,11 @@ import { PAGES } from "../utils/constants";
 import { AuthContext } from "../hooks";
 import { useContext, useEffect, useState, useRef, React } from "react";
 import classes from "./User_items.module.css";
-import browserHistory from "history/createBrowserHistory";
 import LayoutContainer from "../components/LayoutContainer";
 import { Button } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTableCells, faBars, faCart } from "@fortawesome/free-solid-svg-icons";
+
 import { computeTimeLeft } from "../utils/itemUtils";
 import { fetchItemByUserToken } from "../utils/userUtils";
 import ItemList from "../components/myItems/ItemList";
