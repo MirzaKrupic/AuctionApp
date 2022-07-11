@@ -87,3 +87,36 @@ export const addItem = async (token, item) => {
       handleResponse(error.response);
     });
 };
+
+export const fetchRecommended = async (token) => {
+  return axios
+    .get(`${api}/api/v1/item/recommended`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+};
+
+export const fetchUnrecommended = async () => {
+  return axios
+    .get(`${api}/api/v1/item/unrecommended`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+};

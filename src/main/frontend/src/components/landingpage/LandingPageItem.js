@@ -22,7 +22,7 @@ function LandingPageItem(props) {
         <h3 className={`card_title`}>{props.name}</h3>
       )}
       <p className={`card_description`}>
-        Start from <span className={`card_price`}>${props.startingPrice}</span>
+        Start from <span className={`card_price`}>${props.price}</span>
       </p>
     </div>
   );

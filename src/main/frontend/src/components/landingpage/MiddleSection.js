@@ -1,38 +1,40 @@
 import LandingPageItem from "./LandingPageItem";
 import classes from "./MiddleSection.module.css";
 
-function MiddleSection() {
+function MiddleSection({ items }) {
   return (
     <div className={classes.section_container}>
       <div className={classes.section_title_div}>
         <h3 className={classes.upper_section_title}>Feature Collection</h3>
       </div>
-      <div className={classes.feature_items_container}>
-        <LandingPageItem
-          item_type="MEDIUM"
-          name="test"
-          price="22"
-          url="images/secondayfeaturepic.png"
-        />
-        <LandingPageItem
-          item_type="MEDIUM"
-          name="test"
-          price="22"
-          url="images/secondayfeaturepic.png"
-        />
-        <LandingPageItem
-          item_type="MEDIUM"
-          name="test"
-          price="22"
-          url="images/secondayfeaturepic.png"
-        />
-        <LandingPageItem
-          item_type="MEDIUM"
-          name="test"
-          price="22"
-          url="images/secondayfeaturepic.png"
-        />
-      </div>
+      {items && (
+        <div className={classes.feature_items_container}>
+          <LandingPageItem
+            item_type="MEDIUM"
+            name={items[0].name}
+            price={items[0].startingPrice}
+            url="images/secondayfeaturepic.png"
+          />
+          <LandingPageItem
+            item_type="MEDIUM"
+            name={items[1].name}
+            price={items[1].startingPrice}
+            url="images/secondayfeaturepic.png"
+          />
+          <LandingPageItem
+            item_type="MEDIUM"
+            name={items[2].name}
+            price={items[2].startingPrice}
+            url="images/secondayfeaturepic.png"
+          />
+          <LandingPageItem
+            item_type="MEDIUM"
+            name={items[3].name}
+            price={items[3].startingPrice}
+            url="images/secondayfeaturepic.png"
+          />
+        </div>
+      )}
     </div>
   );
 }
