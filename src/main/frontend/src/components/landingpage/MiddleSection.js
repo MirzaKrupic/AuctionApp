@@ -13,24 +13,28 @@ function MiddleSection({ items }) {
             item_type="MEDIUM"
             name={items[0].name}
             price={items[0].startingPrice}
+            itemId = {items[0].itemId}
             url="images/secondayfeaturepic.png"
           />
           <LandingPageItem
             item_type="MEDIUM"
             name={items[1].name}
             price={items[1].startingPrice}
+            itemId = {items[1].itemId}
             url="images/secondayfeaturepic.png"
           />
           <LandingPageItem
             item_type="MEDIUM"
             name={items[2].name}
             price={items[2].startingPrice}
+            itemId = {items[2].itemId}
             url="images/secondayfeaturepic.png"
           />
           <LandingPageItem
             item_type="MEDIUM"
             name={items[3].name}
             price={items[3].startingPrice}
+            itemId = {items[3].itemId}
             url="images/secondayfeaturepic.png"
           />
         </div>

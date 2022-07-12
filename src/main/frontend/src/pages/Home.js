@@ -42,6 +42,7 @@ function Home({setCurrentPage}) {
           description={recommendedItems[0].details}
           price = {recommendedItems[0].startingPrice}
           title = {recommendedItems[0].name}
+          itemId = {recommendedItems[0].itemId}
         />}
         
       </div>
