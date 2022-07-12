@@ -1,7 +1,9 @@
 package com.example.auctionapp.user;
 
+import com.example.auctionapp.entity.TokenGraveyard;
 import com.example.auctionapp.registration.EmailValidator;
 import com.example.auctionapp.registration.RegistrationRequest;
+import com.example.auctionapp.repository.GraveyardRepository;
 import com.example.auctionapp.security.config.JWTTokenHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private EmailValidator emailValidator;
+
+    private GraveyardRepository graveyardRepository;
     JWTTokenHelper jwtTokenHelper;
 
     private static final String USER_EXISTS_RESPONSE = "User with this email already exists";
@@ -85,5 +89,15 @@ public class UserService implements UserDetailsService {
         userRepository.save(userDb.get());
 
         return ResponseEntity.ok("User updated successfully");
+    }
+
+    public Integer logout(HttpServletRequest httpServletRequest){
+        String token = jwtTokenHelper.getToken(httpServletRequest);
+        Optional<User> userDb = this.loadUserByEmail(jwtTokenHelper.getUsernameFromToken(token));
+
+        TokenGraveyard tokenGraveyard = new TokenGraveyard(token, userDb.get());
+        graveyardRepository.save(tokenGraveyard);
+
+        return 1;
     }
 }

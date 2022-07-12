@@ -21,6 +21,11 @@ public class UserController {
         return userService.getUserByToken(httpServletRequest);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/logout")
+    public @ResponseBody Integer logout(HttpServletRequest httpServletRequest){
+        return userService.logout(httpServletRequest);
+    }
+
     @PostMapping("/user")
     public ResponseEntity<?> updateUser(HttpServletRequest httpServletRequest, @RequestBody UpdateUser user) {
         ResponseEntity<?> token = userService.updateUser(httpServletRequest,user);
