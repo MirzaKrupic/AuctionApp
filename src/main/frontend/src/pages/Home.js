@@ -43,6 +43,9 @@ function Home({setCurrentPage}) {
           price = {recommendedItems[0].startingPrice}
           title = {recommendedItems[0].name}
           itemId = {recommendedItems[0].itemId}
+          image = {recommendedItems[0].photo
+    ? recommendedItems[0].photo.split(";").filter((el) => el.length !== 0)
+    : []}
         />}
         
       </div>

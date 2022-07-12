@@ -15,6 +15,7 @@ function UpperSection({items}) {
           name={items[0].name}
           price={items[0].startingPrice}
           itemId={items[0].itemId}
+          photo = {items[0].photo}
           url="images/featurepic.png"
         />
         <LandingPageItem
@@ -22,6 +23,7 @@ function UpperSection({items}) {
           name={items[1].name}
           price={items[1].startingPrice}
           itemId={items[1].itemId}
+          photo = {items[1].photo}
           url="images/featurepic.png"
         />
         <LandingPageItem
@@ -29,6 +31,7 @@ function UpperSection({items}) {
           name={items[2].name}
           price={items[2].startingPrice}
           itemId={items[2].itemId}
+          photo = {items[2].photo}
           url="images/featurepic.png"
         />
         </div>)}

@@ -35,7 +35,7 @@ function MainItemCard(props) {
         
       </div>
       <div className={classes.main_pic}>
-        <img src={ItemImage} />
+        <img src={props.image[0]} />
       </div>
     </section>
   );
