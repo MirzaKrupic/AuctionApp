@@ -14,18 +14,21 @@ function UpperSection({items}) {
           item_type="LARGE"
           name={items[0].name}
           price={items[0].startingPrice}
+          itemId={items[0].itemId}
           url="images/featurepic.png"
         />
         <LandingPageItem
           item_type="LARGE"
           name={items[1].name}
           price={items[1].startingPrice}
+          itemId={items[1].itemId}
           url="images/featurepic.png"
         />
         <LandingPageItem
           item_type="LARGE"
           name={items[2].name}
           price={items[2].startingPrice}
+          itemId={items[2].itemId}
           url="images/featurepic.png"
         />
         </div>)}
