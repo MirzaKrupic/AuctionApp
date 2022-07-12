@@ -5,7 +5,7 @@ var stompClient = null;
 
 export const connect = (setCurrentItemState) => {
     
-    var socket = new SockJS('http://localhost:8080/stomp-endpoint');
+    var socket = new SockJS('https://auctionappbackendmirza.herokuapp.com/stomp-endpoint');
     stompClient = Stomp.over(socket);
 
     stompClient.connect({}, () => {
