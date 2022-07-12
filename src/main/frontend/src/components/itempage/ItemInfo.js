@@ -109,6 +109,7 @@ function ItemInfo({
                   className={classes.bidding_button}
                   type="submit"
                   variant="outline-*"
+                  disabled = {!isUserLoggedIn()}
                 >
                   PLACE BID
                 </Button>
