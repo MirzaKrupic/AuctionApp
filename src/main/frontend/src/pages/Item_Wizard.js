@@ -17,9 +17,13 @@ import { fetchCategories } from "../utils/categoryService";
 import { addItem } from "../utils/itemService";
 import Dropdown from "../components/additems/Dropdown";
 import "react-datepicker/dist/react-datepicker.css";
+import { useHistory } from 'react-router-dom';
 
 function Item_Wizard({ setCurrentPage }) {
-  //   setCurrentPage(PAGES.MY_ACCOUNT);
+  setCurrentPage(PAGES.MY_ACCOUNT);
+  let imagesu = null;
+  const history = useHistory();
+
   const formValidation = yup.object().shape({
     name: yup
       .string()
@@ -116,8 +120,10 @@ function Item_Wizard({ setCurrentPage }) {
     }
     if(currentStep === 2){
       addItem(token, formInfo);
+      history.push('/');
     }
   }, [formInfo]);
+
 
   const handleSubmit = async (item) => {
     
@@ -142,15 +148,16 @@ function Item_Wizard({ setCurrentPage }) {
       
     }
     if (currentStep === 2) {
-      await uploadImage(imgsToUpload);
-      await setFormInfo({
-        name : formInfo.name,
-        description : formInfo.description,
-        categoryId : selectedCategory,
-        image: formInfo.image,
-        endDate: selectedDatePicker,
-        price: item.price
-      });
+      uploadImage(imgsToUpload).then(
+        setFormInfo({
+          name : formInfo.name,
+          description : formInfo.description,
+          categoryId : selectedCategory,
+          image: "https://i.ebayimg.com/images/g/sxcAAOSwDrZizTwC/s-l500.jpg;https://i.ebayimg.com/images/g/H0gAAOSw0MNizTwC/s-l1600.jpg;https://i.ebayimg.com/images/g/buUAAOSwpr9izTwB/s-l1600.jpg",
+          endDate: selectedDatePicker,
+          price: item.price
+        })
+      );
     }
   };
 
@@ -190,7 +197,7 @@ function Item_Wizard({ setCurrentPage }) {
           images += imgUrls[i];
         }
       }
-      formInfo.image = images;
+      imagesu = images;
     });
     // const formData = new FormData();
     // formData.append("file", files[0]);
