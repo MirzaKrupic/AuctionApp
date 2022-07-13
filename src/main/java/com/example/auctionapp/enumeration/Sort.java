@@ -1,10 +1,10 @@
 package com.example.auctionapp.enumeration;
 
 public enum Sort {
-    STARTDATE("startDate"),
+    STARTDATE("start_date"),
     NAME("name"),
-    AUCTIONENDDATE("auctionEndDate"),
-    STARTINGPRICE("startingPrice");
+    AUCTIONENDDATE("auction_end_date"),
+    STARTINGPRICE("starting_price");
 
     String orderByColumn;
 

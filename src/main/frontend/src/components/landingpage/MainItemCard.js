@@ -25,7 +25,7 @@ function MainItemCard(props) {
         
         <h3 className={classes.card_price}>Start from {props.price}$</h3>
         <p className={classes.card_description}>
-          {props.description.length < 38 ? chunk(props.description,40).join('\n') : chunk(props.description.substring(0, 360),40).join('\n')}
+          {props.description.length < 38 ? chunk(props.description,40).join('\n') : chunk(props.description.substring(0, 360)+"...",40).join('\n')}
         </p>
         <Link className={`item_link`} to={`/items/${props.itemId}`}>
         <Button className={classes.main_item_btn} variant="outline-secondary">
